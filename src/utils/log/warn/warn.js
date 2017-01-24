@@ -3,7 +3,7 @@
  * warn.js
  * Written by: Connor Taylor
  */
-import colors from 'colors/safe';
+import chalk from 'chalk';
 
 /**
  * Logs a warning to the console
@@ -13,5 +13,5 @@ import colors from 'colors/safe';
  * `Warning: `
  */
 export default function (msg: string, prefix: string = 'Warning: ') {
-  console.warn(`${colors.yellow(prefix)}${msg}`);
+  console.warn(`${chalk.yellow(prefix)}${msg}`);
 }

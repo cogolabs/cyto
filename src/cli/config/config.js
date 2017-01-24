@@ -3,6 +3,8 @@
  * config.js
  * Written by: Connor Taylor
  */
+import inquirer from 'inquirer';
+
 import log from '../../utils/log';
 
 /**
@@ -13,8 +15,8 @@ import log from '../../utils/log';
 
 export default function config(program: Object) {
   program
-    .command('config  ')
-    .action((options) => {
+    .command('config')
+    .action(() => {
       console.log('config');
     });
 }

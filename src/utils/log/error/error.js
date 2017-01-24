@@ -3,7 +3,7 @@
  * error.js
  * Written by: Connor Taylor
  */
-import colors from 'colors/safe';
+import chalk from 'chalk';
 
 /**
  * Logs an error to the console
@@ -12,5 +12,5 @@ import colors from 'colors/safe';
  * @param {string} prefix - A prefix to add to the message. Default is `Error: `
  */
 export default function error(msg: string, prefix: string = 'Error: ') {
-  console.error(`${colors.red(prefix)}${msg}`);
+  console.error(`${chalk.red(prefix)}${msg}`);
 }
