@@ -8,7 +8,7 @@
  * Description of loadUTF8FileSafe
  *
  */
- }
+
 export default function loadUTF8FileSafe(){
 
 };

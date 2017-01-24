@@ -10,11 +10,9 @@ import error from './error';
 import fatal from './fatal';
 
 export default {
-  // units
   debug,
   info,
   warn,
   error,
   fatal,
-  // modules
-}
+};

@@ -3,6 +3,7 @@
  * config.js
  * Written by: Connor Taylor
  */
+import log from '../../utils/log';
 
 /**
  * `config`. Does x when envoked. The arguments listed below are meant to be
