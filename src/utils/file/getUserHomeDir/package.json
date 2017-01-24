@@ -1,0 +1,4 @@
+{
+  "name": "getUserHomeDir",
+  "main": "getUserHomeDir.js"
+}

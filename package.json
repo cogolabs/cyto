@@ -1,7 +1,7 @@
 {
-  "name": "asd",
+  "name": "cyto",
   "version": "0.0.1",
-  "description": "",
+  "description": "A better boilerplate generator",
   "scripts": {
     "build": "webpack; chmod +x bin/*",
     "test": "jest",
@@ -10,7 +10,10 @@
   "keywords": [],
   "author": "Connor Taylor",
   "license": "ISC",
-  "dependencies": {},
+  "dependencies": {
+    "colors": "^1.1.2",
+    "mkdirp": "^0.5.1"
+  },
   "devDependencies": {
     "babel-core": "^6.22.1",
     "babel-loader": "^6.2.10",
