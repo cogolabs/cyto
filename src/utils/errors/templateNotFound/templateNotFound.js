@@ -8,7 +8,7 @@
  * Description of templateNotFound
  *
  */
- }
-export default function templateNotFound(){
 
-};
+export default function templateNotFound() {
+
+}

@@ -13,6 +13,6 @@
 
 export default function getUserHomeDir(): string {
   return process.env[
-    (process.platform == 'win32')? 'USERPROFILE' : 'HOME'
+    (process.platform === 'win32') ? 'USERPROFILE' : 'HOME'
   ] || '';
 }

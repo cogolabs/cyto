@@ -13,4 +13,4 @@ export default {
   loadUTF8FileSafe,
   getUserHomeDir,
   // modules
-}
+};

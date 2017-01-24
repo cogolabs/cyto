@@ -9,6 +9,6 @@
  *
  */
 
-export default function loadUTF8File(){
+export default function loadUTF8File() {
 
 }

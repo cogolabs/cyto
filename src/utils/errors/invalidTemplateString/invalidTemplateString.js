@@ -8,7 +8,7 @@
  * Description of invalidTemplateString
  *
  */
- }
-export default function invalidTemplateString(){
 
-};
+export default function invalidTemplateString() {
+
+}

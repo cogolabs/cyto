@@ -4,7 +4,7 @@
   "description": "A better boilerplate generator",
   "scripts": {
     "build": "cross-env NODE_ENV=development webpack",
-    "build-prod": "cross-env NODE_ENV=production webpack && npm run cleanup",
+    "build-prod": "cross-env NODE_ENV=production webpack -p && npm run cleanup",
     "cleanup": "mv bin/cyto.js bin/cyto && chmod +x bin/*",
     "flow": "flow; test $? -eq 0 -o $? -eq 2",
     "test": "jest",

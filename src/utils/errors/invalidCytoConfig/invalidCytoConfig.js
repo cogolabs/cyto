@@ -8,7 +8,7 @@
  * Description of invalidCytoConfig
  *
  */
- }
-export default function invalidCytoConfig(){
 
-};
+export default function invalidCytoConfig() {
+
+}
