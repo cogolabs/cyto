@@ -11,7 +11,7 @@ import error from '../error';
  * @param {string} msg - The message to log
  * @param {string} prefix - A prefix to add to the message. Default is `Error: `
  */
-export default function fatal(msg, prefix = 'Error: ') {
+export default function fatal(msg: string, prefix: string = 'Error: ') {
   error(msg, prefix);
   process.exit(1);
 }

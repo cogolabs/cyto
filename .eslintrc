@@ -5,6 +5,8 @@
     "flowtype"
   ],
   rules: {
-    "arrow-parens": [2, "always"]
+    "arrow-parens": [2, "always"],
+    "no-console": [0],
+    "import/no-extraneous-dependencies": [0]
   }
 }

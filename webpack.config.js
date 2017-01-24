@@ -16,7 +16,7 @@ module.exports = {
       { test: /\.jsx?$/, loader: 'eslint', exclude: /node_modules/ }
     ],
     loaders: [
-      { test: /\.js$/, exclude: 'node_modules', loader: 'babel-loader' }
+      { test: /\.js$/, loader: 'babel-loader', exclude: 'node_modules' }
     ]
   },
   plugins: [
