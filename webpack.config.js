@@ -8,7 +8,7 @@ module.exports = {
   },
   output: {
     path: path.resolve(__dirname, './bin'),
-    filename: '[name]',
+    filename: '[name].js',
   },
   target: 'node',
   module: {
@@ -23,6 +23,9 @@ module.exports = {
     new webpack.BannerPlugin('#!/usr/bin/env node', {
       raw: true,
       entryOnly: true
-    })
+    }),
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
+    }),
   ]
 };
