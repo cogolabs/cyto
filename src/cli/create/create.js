@@ -10,10 +10,10 @@
  *
  */
 
-export default function create(program: Object){
+export default function create(program: Object) {
   program
     .command('create  ')
     .action((options) => {
       console.log('create');
     });
-};
+}

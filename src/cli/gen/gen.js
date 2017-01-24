@@ -10,10 +10,10 @@
  *
  */
 
-export default function gen(program: Object){
+export default function gen(program: Object) {
   program
     .command('gen  ')
     .action((options) => {
       console.log('gen');
     });
-};
+}

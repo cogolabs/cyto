@@ -1,0 +1,10 @@
+{
+  "parser": "babel-eslint",
+  "extends": ["airbnb"],
+  "plugins": [
+    "flowtype"
+  ],
+  rules: {
+    "arrow-parens": [2, "always"]
+  }
+}

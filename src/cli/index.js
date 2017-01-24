@@ -7,12 +7,12 @@
  */
 import cli from 'commander';
 
-import config from './config'
-import create from './create'
-import gen from './gen'
+import config from './config';
+import create from './create';
+import gen from './gen';
 
 cli
-  .version('')
+  .version('');
 
 const commands = [
   config,

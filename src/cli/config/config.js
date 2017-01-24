@@ -10,10 +10,10 @@
  *
  */
 
-export default function config(program: Object){
+export default function config(program: Object) {
   program
     .command('config  ')
     .action((options) => {
       console.log('config');
     });
-};
+}
