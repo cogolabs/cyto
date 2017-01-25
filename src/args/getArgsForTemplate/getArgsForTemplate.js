@@ -9,6 +9,6 @@
  *
  */
  }
-export default function getArgsForTemplate(){
+export default function getArgsForTemplate() {
 
 };

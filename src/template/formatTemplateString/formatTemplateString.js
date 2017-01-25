@@ -8,7 +8,6 @@
  * Description of formatTemplateString
  *
  */
- }
-export default function formatTemplateString(){
+export default function formatTemplateString() {
 
-};
+}

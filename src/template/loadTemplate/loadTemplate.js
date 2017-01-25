@@ -8,7 +8,7 @@
  * Description of loadTemplate
  *
  */
- }
-export default function loadTemplate(){
 
-};
+export default function loadTemplate() {
+
+}

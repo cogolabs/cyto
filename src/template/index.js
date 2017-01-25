@@ -15,4 +15,4 @@ export default {
   generateTemplate,
   formatTemplateString,
   // modules
-}
+};

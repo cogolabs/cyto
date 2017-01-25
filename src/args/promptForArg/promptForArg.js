@@ -9,6 +9,6 @@
  *
  */
  }
-export default function promptForArg(){
+export default function promptForArg() {
 
 };

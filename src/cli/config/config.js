@@ -48,7 +48,7 @@ export default function config(program: Object) {
             mkdirp(path.join(result.libraryPath, result.org), () => {
               fs.writeFileSync(
                 path.join(cytoDir, 'config.json'),
-                JSON.stringify(result, null, '  ')
+                JSON.stringify(result, null, '  '),
               );
             });
           });

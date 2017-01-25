@@ -8,7 +8,7 @@
  * Description of validateTemplate
  *
  */
- }
-export default function validateTemplate(){
 
-};
+export default function validateTemplate() {
+
+}

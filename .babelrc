@@ -1,5 +1,16 @@
 {
-  "presets": ["es2015"],
+  "presets": [
+    ["env", {
+      "targets": {
+        "node": 4
+      }
+    }]
+  ],
+  "env": {
+    "production": {
+      "presets": ["babili"]
+    }
+  },
   "plugins": [
     "transform-flow-strip-types"
   ]
