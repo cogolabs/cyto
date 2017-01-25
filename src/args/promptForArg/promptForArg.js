@@ -8,7 +8,7 @@
  * Description of promptForArg
  *
  */
- }
+
 export default function promptForArg() {
 
-};
+}

@@ -9,7 +9,7 @@
  *
  */
 
-export default function fileSystemError(err, msg: string = '') {
+export default function fileSystemError(err: Object, msg: string = '') {
   console.log(`${err.toString() || 'Error'}: ${msg}`);
   process.exit(1);
 }

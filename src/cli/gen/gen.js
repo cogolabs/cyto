@@ -17,10 +17,9 @@ export default function gen(program: Object) {
     .command('gen <templateId> <id> [args...]')
     .description('Generate a template and all of its dependencies using the provided args')
     .option('-o, --output [val]', 'Where to output the template')
-    .action((templateId, id, args, options) => {
-      console.log(options.output);
+    .action((templateString, id, args, options) => {
       template.generateTemplate({
-        templateId,
+        templateString,
         args: Object.assign(args, { id }),
         outputRoot: path.join(process.cwd(), options.output || ''),
       });

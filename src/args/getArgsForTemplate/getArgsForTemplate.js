@@ -8,7 +8,7 @@
  * Description of getArgsForTemplate
  *
  */
- }
+
 export default function getArgsForTemplate() {
 
-};
+}

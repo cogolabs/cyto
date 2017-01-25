@@ -3,8 +3,8 @@
  * index.js
  * Written by: Connor Taylor
  */
+import templateExists from './templateExists';
 
 export default {
-  // units
-  // modules
-}
+  templateExists,
+};

@@ -9,6 +9,6 @@
  *
  */
 
-export default function loadTemplate() {
+export default function loadTemplate(templateId) {
 
 }

@@ -8,7 +8,7 @@
  * Description of renderString
  *
  */
- }
-export default function renderString(){
 
-};
+export default function renderString() {
+
+}

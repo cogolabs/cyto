@@ -8,7 +8,7 @@
  * Description of loadDependencies
  *
  */
- }
-export default function loadDependencies(){
 
-};
+export default function loadDependencies() {
+
+}
