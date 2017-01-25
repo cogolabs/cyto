@@ -19,5 +19,6 @@ export default function getArgsForTemplate(cytoConfig, args) {
     return Object.assign(accum, { [arg.id]: value });
   }, {
     id: args.id,
+    author: args.author,
   });
 }

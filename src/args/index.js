@@ -5,10 +5,12 @@
  */
 import getArgsForTemplate from './getArgsForTemplate';
 import promptForArg from './promptForArg';
+import parseArgsFromCli from './parseArgsFromCli';
 
 export default {
   // units
   getArgsForTemplate,
   promptForArg,
+  parseArgsFromCli,
   // modules
 }

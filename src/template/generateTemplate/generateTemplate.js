@@ -3,6 +3,7 @@
  * generateTemplate.js
  * Written by: Connor Taylor
  */
+import fs from 'fs';
 import path from 'path';
 import mkdirp from 'mkdirp';
 
@@ -10,6 +11,7 @@ import formatTemplateString from '../formatTemplateString';
 import loadTemplate from '../loadTemplate';
 import getArgsForTemplate from '../../args/getArgsForTemplate';
 import loadDependencies from '../../dependencies/loadDependencies';
+import renderString from '../../utils/render/renderString';
 
 type GenerateOptions = {
   templateString: string,
@@ -40,7 +42,7 @@ export default function generateTemplate(options: GenerateOptions) {
   const template: Object = loadTemplate(templateId);
   const cytoConfig: Object = template['cyto.config.js'];
   const templateArgs = getArgsForTemplate(cytoConfig, args);
-  const dependencies = loadDependencies(cytoConfig, args);
+  const dependencies = loadDependencies(cytoConfig, templateArgs);
 
   const outputRoot = cytoConfig.createDirectory
     ? path.join(options.outputRoot, templateArgs.id)
@@ -51,9 +53,16 @@ export default function generateTemplate(options: GenerateOptions) {
   dependencies.forEach((dep) => {
     if (typeof dep === 'object') {
       console.log(dep);
+      generateTemplate({
+        templateString: dep.templateId,
+        args: Object.assign(args, { id: dep.id }),
+        outputRoot,
+      });
     } else {
-      const outputPath = path.join(outputRoot, dep);
-      console.log(outputPath);
+      const outputPath = renderString(path.join(outputRoot, dep), templateArgs);
+      const contents = renderString(template[dep], templateArgs);
+
+      fs.writeFileSync(outputPath, contents);
     }
   });
 }

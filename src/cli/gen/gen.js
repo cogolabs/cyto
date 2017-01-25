@@ -11,6 +11,7 @@
  */
 import path from 'path';
 import generateTemplate from '../../template/generateTemplate';
+import parseArgsFromCli from '../../args/parseArgsFromCli';
 
 export default function gen(program: Object) {
   program
@@ -20,7 +21,7 @@ export default function gen(program: Object) {
     .action((templateString, id, args, options) => {
       generateTemplate({
         templateString,
-        args: Object.assign(args, { id }),
+        args: parseArgsFromCli(args, id),
         outputRoot: path.join(process.cwd(), options.output || ''),
       });
     });

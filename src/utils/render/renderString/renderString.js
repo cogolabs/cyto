@@ -3,12 +3,14 @@
  * renderString.js
  * Written by: Connor Taylor
  */
+import mustache from 'mustache';
 
 /**
  * Description of renderString
  *
  */
+export default function renderString(str, args) {
+  mustache.escape = (text) => text;
 
-export default function renderString() {
-
+  return mustache.render(str, args);
 }
