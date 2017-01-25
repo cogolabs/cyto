@@ -10,7 +10,7 @@
  *
  */
 import path from 'path';
-import template from '../../template';
+import generateTemplate from '../../template/generateTemplate';
 
 export default function gen(program: Object) {
   program
@@ -18,7 +18,7 @@ export default function gen(program: Object) {
     .description('Generate a template and all of its dependencies using the provided args')
     .option('-o, --output [val]', 'Where to output the template')
     .action((templateString, id, args, options) => {
-      template.generateTemplate({
+      generateTemplate({
         templateString,
         args: Object.assign(args, { id }),
         outputRoot: path.join(process.cwd(), options.output || ''),

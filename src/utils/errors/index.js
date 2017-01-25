@@ -7,12 +7,16 @@ import invalidTemplateString from './invalidTemplateString';
 import templateNotFound from './templateNotFound';
 import fileSystemError from './fileSystemError';
 import invalidCytoConfig from './invalidCytoConfig';
+import noGlobalConfig from './noGlobalConfig';
+import noCytoConfig from './noCytoConfig';
+import missingRequiredArg from './missingRequiredArg';
 
 export default {
-  // units
   invalidTemplateString,
   templateNotFound,
   fileSystemError,
   invalidCytoConfig,
-  // modules
+  noGlobalConfig,
+  noCytoConfig,
+  missingRequiredArg,
 };

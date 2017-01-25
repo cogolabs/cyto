@@ -8,7 +8,6 @@
  * Description of validCytoConfig
  *
  */
-
 export default function validCytoConfig() {
 
 }

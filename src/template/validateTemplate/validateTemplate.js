@@ -5,6 +5,7 @@
  */
 import errors from '../../utils/errors';
 import validate from '../../utils/validate';
+import loadCytoConfig from '../../configs/loadCytoConfig';
 
 /**
  * Ensures that the given templateString corresponds to a valid template. This
@@ -23,4 +24,7 @@ export default function validateTemplate(templateId) {
   if (!validate.templateExists(templateId)) {
     errors.templateNotFound(templateId);
   }
+
+  const cytoFile: Object = loadCytoConfig(templateId);
+  console.log(cytoFile);
 }

@@ -39,6 +39,7 @@
     "eslint-plugin-jsx-a11y": "^3.0.2",
     "eslint-plugin-react": "^6.9.0",
     "jest": "^18.1.0",
+    "string-replace-loader": "^1.0.5",
     "webpack": "^2.2.0"
   }
 }
