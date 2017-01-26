@@ -10,6 +10,7 @@ import invalidCytoConfig from './invalidCytoConfig';
 import noGlobalConfig from './noGlobalConfig';
 import noCytoConfig from './noCytoConfig';
 import missingRequiredArg from './missingRequiredArg';
+import invalidArgSyntax from './invalidArgSyntax';
 
 export default {
   invalidTemplateString,
@@ -19,4 +20,5 @@ export default {
   noGlobalConfig,
   noCytoConfig,
   missingRequiredArg,
+  invalidArgSyntax,
 };

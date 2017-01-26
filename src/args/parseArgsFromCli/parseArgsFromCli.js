@@ -3,8 +3,9 @@
  * parseArgsFromCli.js
  * Written by: Connor Taylor
  */
+import parseListArg from '../parseListArg';
 import loadGlobalConfig from '../../configs/loadGlobalConfig';
-
+import errors from '../../utils/errors';
 /**
  * Parses the arguments passed on the command line
  *
@@ -16,18 +17,13 @@ export default function parseArgsFromCli(args, id) {
   return args
     .map((arg) => {
       const tokens = arg.split('=');
-      // if (tokens.length !== 2) {
-      //   log.error(`Invalid argument ${a}`);
-      //   log.info('Valid args are in the form: key=value');
-      //   process.exit();
-      // }
+      if (tokens.length !== 2) {
+        errors.invalidArgSyntax(arg);
+      }
 
-      if (tokens[1].includes(',')) {
-        const listArgs = tokens[1].split(',').filter((x) => x);
-        return [
-          tokens[0],
-          listArgs.map((a) => ({ id: a })),
-        ];
+      const [key, value] = tokens;
+      if (value.includes(',')) {
+        return [key, parseListArg(value)];
       }
 
       return tokens;

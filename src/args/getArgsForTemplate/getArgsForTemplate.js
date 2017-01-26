@@ -3,7 +3,8 @@
  * getArgsForTemplate.js
  * Written by: Connor Taylor
  */
-// import promptForArg from '../promptForArg';
+import promptForArg from '../promptForArg';
+import parseListArg from '../parseListArg';
 // import errors from '../../utils/errors';
 
 /**
@@ -11,14 +12,33 @@
  *
  */
 export default function getArgsForTemplate(cytoConfig, args) {
-  return cytoConfig.args.reduce((accum, arg) => { //eslint-disable-line
-    const value = args[arg.id]
-      ? args[arg.id]
-      : arg.default;
+  const templateArgs = cytoConfig.args.reduce((accum, arg) => {
+    return args[arg.id]
+      ? Object.assign(accum, { [arg.id]: args[arg.id] })
+      : arg.default && arg.dontPrompt
+        ? Object.assign(accum, { [arg.id]: arg.default })
+        : accum;
+  }, { id: args.id, author: args.author });
 
-    return Object.assign(accum, { [arg.id]: value });
-  }, {
-    id: args.id,
-    author: args.author,
+  const promptArgs = cytoConfig.args
+    .filter((arg) => !Object.keys(templateArgs).includes(arg.id));
+
+  return new Promise((resolve) => {
+    const synchronousPrompt = ([arg, ...rest]) => {
+      if (!arg) {
+        resolve(templateArgs);
+        return;
+      }
+
+      promptForArg(arg, cytoConfig.templateId, args.id).then((result) => {
+        templateArgs[arg.id] = result[arg.id].includes(',')
+          ? parseListArg(result[arg.id])
+          : result[arg.id];
+
+        synchronousPrompt(rest);
+      });
+    };
+
+    synchronousPrompt(promptArgs);
   });
 }
