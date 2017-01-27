@@ -30,7 +30,7 @@ export default function getArgsForTemplate(cytoConfig, args) {
         return;
       }
 
-      promptForArg(arg, cytoConfig.templateId, args.id).then((result) => {
+      promptForArg(arg).then((result) => {
         templateArgs[arg.id] = result[arg.id].includes(',')
           ? parseListArg(result[arg.id])
           : result[arg.id];

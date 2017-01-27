@@ -3,37 +3,31 @@
  * mergeCytoConfigs.js
  * Written by: Connor Taylor
  */
-import mustache from 'mustache';
-
 import loadCytoConfig from '../loadCytoConfig';
+
+import parseArgsFromDependencies from '../../args/parseArgsFromDependencies';
 import mergeDependencies from '../../dependencies/mergeDependencies';
-import file from '../../utils/file';
+import types from '../../utils/types';
 
 /**
  * Description of mergeCytoConfigs
- * @param {  } config -
- * @param {  } baseConfig -
+ * @param {Object} config - The new config to merge in
+ * @param {Object} baseConfig - The config to inherit from
  *
+ * @returns {object} The merged config
  */
 export default function mergeCytoConfigs(config, baseConfig) {
+  // If the base has a base, we need to recurse further down before proceeding
   const newBase = baseConfig.base
     ? mergeCytoConfigs(baseConfig, loadCytoConfig(baseConfig.base))
     : baseConfig;
 
-  const dependencies = mergeDependencies(
-    config.dependencies,
-    newBase.dependencies,
-  );
+  // Create the new set of dependencies and args
+  const dependencies = mergeDependencies(config, newBase);
+  const args = parseArgsFromDependencies(dependencies);
 
-  // console.log(dependencies);
-
-  const args = dependencies
-    .filter((dep) => typeof dep === 'string')
-    .reduce((accum, dep) => {
-      console.log(dep);
-      const contents = file.loadUTF8FileSafe(dep);
-      console.log(contents);
-      // const tokens = mustache.parse(contents);
-      // console.log(tokens);
-    }, {});
+  return Object.assign(config, {
+    dependencies,
+    args,
+  });
 }

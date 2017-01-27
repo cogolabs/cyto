@@ -18,6 +18,8 @@ import loadCytoConfig from '../../configs/loadCytoConfig';
 import mergeCytoConfigs from '../../configs/mergeCytoConfigs';
 
 import renderString from '../../utils/render/renderString';
+import log from '../../utils/log';
+import types from '../../utils/types';
 
 type GenerateOptions = {
   templateString: string,
@@ -28,43 +30,49 @@ type GenerateOptions = {
 /**
  * Driver for the template generation algorithm. The algorithm can be broken
  * down into these steps:
- *  1. Format the template string
+ *  1. Format the template string for consistency and error checking
  *  2. Load the template contents (cyto.config.js + static files)
- *  3. Get the args for the template
- *  4. Get the set of dependencies after applying any function dependencies
- *  5. For each dependency:
- *    - Write to the filesystem if it's a string
- *    - Recursive call generateTemplate if it's an object.
+ *  3. If a template has a base, we must recursively merge all subsequent base
+ *     cyto configs into the raw config to get the correct set of args and
+ *     dependencies.
+ *  4. Create the output directory synchronously
+ *  5. Get the args for the template, prompting if necessary
+ *  6. Get the set of dependencies after applying any function dependencies
+ *  7. For each dependency:
+ *    a. Recursive call generateTemplate if it's an object (template).
+ *    b. Render and write to the filesystem if it's a string 
  *
  * @param {object} options - Options to tweak the template generation
  */
 export default function generateTemplate(options: GenerateOptions) {
-  console.log(`Generating ${chalk.green(options.templateString)} with id ${chalk.green(options.args.id)}`);
+  log.info(
+`Generating ${chalk.green(options.templateString)}
+  - id ${chalk.green(options.args.id)}`);
+
   const { templateString, args } = options;
-  const templateId: string = formatTemplateString(templateString);
-  const template: Object = loadTemplate(templateId);
-  const cytoConfig: Object = template['cyto.config.js'];
-  const outputRoot: string = cytoConfig.createDirectory
+  const templateId: string = formatTemplateString(templateString); // 1
+  const template: Object = loadTemplate(templateId); // 2
+  const rawConfig = template['cyto.config.js'];
+
+  const cytoConfig: Object = rawConfig.base // 3
+    ? mergeCytoConfigs(rawConfig, loadCytoConfig(rawConfig.base))
+    : rawConfig;
+
+  const outputRoot: string = cytoConfig.createDirectory // 4
     ? path.join(options.outputRoot, args.id)
     : options.outputRoot;
   mkdirp.sync(outputRoot);
 
-  // if (cytoConfig.base) {
-  //   mergeCytoConfigs(
-  //     cytoConfig,
-  //     loadCytoConfig(cytoConfig.base)
-  //   );
-  // }
-
   return new Promise((resolve) => {
-    getArgsForTemplate(cytoConfig, args)
+    getArgsForTemplate(cytoConfig, args) // 5
       .then((templateArgs) => {
+        loadDependencies(cytoConfig, templateArgs) // 6
         const handleDeps = ([dep, ...rest]) => {
           if (!dep) {
             resolve();
             return;
           }
-          if (typeof dep === 'object') {
+          if (types.isObject(dep)) { // 7a
             generateTemplate({
               templateString: dep.templateId,
               args: Object.assign(args, { id: dep.id }),
@@ -72,16 +80,19 @@ export default function generateTemplate(options: GenerateOptions) {
             }).then(() => {
               handleDeps(rest);
             });
-          } else {
-            const outputPath = renderString(path.join(outputRoot, dep), templateArgs);
+          } else { // 7b
+            const outputPath = renderString(
+              path.join(outputRoot, dep),
+              templateArgs
+            );
             const contents = renderString(template[dep], templateArgs);
 
-            fs.writeFileSync(outputPath, contents);
+            fs.writeFile(outputPath, contents);
             handleDeps(rest);
           }
         };
 
-        handleDeps(loadDependencies(cytoConfig, templateArgs));
+        handleDeps(); // 7 
       });
   });
 }

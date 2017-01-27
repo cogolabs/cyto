@@ -8,9 +8,7 @@ import isArray from './isArray';
 import isObject from './isObject';
 
 export default {
-  // units
   isString,
   isArray,
   isObject,
-  // modules
-}
+};
