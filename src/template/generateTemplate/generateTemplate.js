@@ -49,39 +49,39 @@ export default function generateTemplate(options: GenerateOptions) {
     : options.outputRoot;
   mkdirp.sync(outputRoot);
 
-  if (cytoConfig.base) {
-    mergeCytoConfigs(
-      cytoConfig,
-      loadCytoConfig(cytoConfig.base)
-    );
-  }
+  // if (cytoConfig.base) {
+  //   mergeCytoConfigs(
+  //     cytoConfig,
+  //     loadCytoConfig(cytoConfig.base)
+  //   );
+  // }
 
-  // return new Promise((resolve) => {
-  //   getArgsForTemplate(cytoConfig, args)
-  //     .then((templateArgs) => {
-  //       const handleDeps = ([dep, ...rest]) => {
-  //         if (!dep) {
-  //           resolve();
-  //           return;
-  //         }
-  //         if (typeof dep === 'object') {
-  //           generateTemplate({
-  //             templateString: dep.templateId,
-  //             args: Object.assign(args, { id: dep.id }),
-  //             outputRoot,
-  //           }).then(() => {
-  //             handleDeps(rest);
-  //           });
-  //         } else {
-  //           const outputPath = renderString(path.join(outputRoot, dep), templateArgs);
-  //           const contents = renderString(template[dep], templateArgs);
+  return new Promise((resolve) => {
+    getArgsForTemplate(cytoConfig, args)
+      .then((templateArgs) => {
+        const handleDeps = ([dep, ...rest]) => {
+          if (!dep) {
+            resolve();
+            return;
+          }
+          if (typeof dep === 'object') {
+            generateTemplate({
+              templateString: dep.templateId,
+              args: Object.assign(args, { id: dep.id }),
+              outputRoot,
+            }).then(() => {
+              handleDeps(rest);
+            });
+          } else {
+            const outputPath = renderString(path.join(outputRoot, dep), templateArgs);
+            const contents = renderString(template[dep], templateArgs);
 
-  //           fs.writeFileSync(outputPath, contents);
-  //           handleDeps(rest);
-  //         }
-  //       };
+            fs.writeFileSync(outputPath, contents);
+            handleDeps(rest);
+          }
+        };
 
-  //       handleDeps(loadDependencies(cytoConfig, templateArgs));
-  //     });
-  // });
+        handleDeps(loadDependencies(cytoConfig, templateArgs));
+      });
+  });
 }
