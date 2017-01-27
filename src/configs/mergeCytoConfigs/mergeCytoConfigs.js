@@ -7,7 +7,6 @@ import loadCytoConfig from '../loadCytoConfig';
 
 import parseArgsFromDependencies from '../../args/parseArgsFromDependencies';
 import mergeDependencies from '../../dependencies/mergeDependencies';
-import types from '../../utils/types';
 
 /**
  * Description of mergeCytoConfigs

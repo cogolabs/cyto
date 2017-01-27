@@ -13,6 +13,7 @@ import loadTemplate from '../loadTemplate';
 import getArgsForTemplate from '../../args/getArgsForTemplate';
 
 import loadDependencies from '../../dependencies/loadDependencies';
+import mergeDependencies from '../../dependencies/mergeDependencies';
 
 import loadCytoConfig from '../../configs/loadCytoConfig';
 import mergeCytoConfigs from '../../configs/mergeCytoConfigs';
@@ -40,7 +41,7 @@ type GenerateOptions = {
  *  6. Get the set of dependencies after applying any function dependencies
  *  7. For each dependency:
  *    a. Recursive call generateTemplate if it's an object (template).
- *    b. Render and write to the filesystem if it's a string 
+ *    b. Render and write to the filesystem if it's a string
  *
  * @param {object} options - Options to tweak the template generation
  */
@@ -56,7 +57,11 @@ export default function generateTemplate(options: GenerateOptions) {
 
   const cytoConfig: Object = rawConfig.base // 3
     ? mergeCytoConfigs(rawConfig, loadCytoConfig(rawConfig.base))
-    : rawConfig;
+    : Object.assign(
+      rawConfig,
+      // This converts string deps to arrays, probably a cleaner way to do this
+      { dependencies: mergeDependencies(rawConfig, rawConfig) },
+    );
 
   const outputRoot: string = cytoConfig.createDirectory // 4
     ? path.join(options.outputRoot, args.id)
@@ -66,7 +71,7 @@ export default function generateTemplate(options: GenerateOptions) {
   return new Promise((resolve) => {
     getArgsForTemplate(cytoConfig, args) // 5
       .then((templateArgs) => {
-        loadDependencies(cytoConfig, templateArgs) // 6
+        const dependencies = loadDependencies(cytoConfig, templateArgs); // 6
         const handleDeps = ([dep, ...rest]) => {
           if (!dep) {
             resolve();
@@ -81,18 +86,21 @@ export default function generateTemplate(options: GenerateOptions) {
               handleDeps(rest);
             });
           } else { // 7b
+            const [name, depTemplateId] = dep;
             const outputPath = renderString(
-              path.join(outputRoot, dep),
-              templateArgs
+              path.join(outputRoot, name),
+              templateArgs,
             );
-            const contents = renderString(template[dep], templateArgs);
+            const contents = templateId !== depTemplateId
+              ? renderString(loadTemplate(depTemplateId)[name], templateArgs)
+              : renderString(template[name], templateArgs);
 
-            fs.writeFile(outputPath, contents);
+            fs.writeFileSync(outputPath, contents);
             handleDeps(rest);
           }
         };
 
-        handleDeps(); // 7 
+        handleDeps(dependencies); // 7
       });
   });
 }
