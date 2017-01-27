@@ -10,6 +10,7 @@ import chalk from 'chalk';
 
 import formatTemplateString from '../formatTemplateString';
 import loadTemplate from '../loadTemplate';
+
 import getArgsForTemplate from '../../args/getArgsForTemplate';
 
 import loadDependencies from '../../dependencies/loadDependencies';
@@ -36,14 +37,15 @@ type GenerateOptions = {
  *  3. If a template has a base, we must recursively merge all subsequent base
  *     cyto configs into the raw config to get the correct set of args and
  *     dependencies.
- *  4. Create the output directory synchronously
- *  5. Get the args for the template, prompting if necessary
+ *  4. Get the args for the template, prompting if necessary
+ *  5. Create the output directory synchronously
  *  6. Get the set of dependencies after applying any function dependencies
  *  7. For each dependency:
  *    a. Recursive call generateTemplate if it's an object (template).
  *    b. Render and write to the filesystem if it's a string
  *
  * @param {object} options - Options to tweak the template generation
+ * @returns {Promise} A promise that resolves once the template is generated
  */
 export default function generateTemplate(options: GenerateOptions) {
   log.info(
@@ -66,11 +68,12 @@ export default function generateTemplate(options: GenerateOptions) {
   const outputRoot: string = cytoConfig.createDirectory // 4
     ? path.join(options.outputRoot, args.id)
     : options.outputRoot;
-  mkdirp.sync(outputRoot);
 
   return new Promise((resolve) => {
-    getArgsForTemplate(cytoConfig, args) // 5
+    getArgsForTemplate(cytoConfig, args) // 4
       .then((templateArgs) => {
+        mkdirp.sync(outputRoot); // 5
+
         const dependencies = loadDependencies(cytoConfig, templateArgs); // 6
         const handleDeps = ([dep, ...rest]) => {
           if (!dep) {

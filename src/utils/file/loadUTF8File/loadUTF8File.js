@@ -5,9 +5,20 @@
  */
 import fs from 'fs';
 
+// The local cache that is used to store previously read files
+const cache = {};
+
 /**
- * Reads a UTF8 file and returns its contents. Purely for convenience
+ * Reads a UTF8 file and returns its contents. Memoizes the result and returns
+ * 
  */
 export default function loadUTF8File(p) {
-  return fs.readFileSync(p, { encoding: 'utf8' });
+  if (cache[p]) {
+    return cache[p];
+  }
+
+  const contents = fs.readFileSync(p, { encoding: 'utf8' });
+  cache[p] = contents;
+
+  return contents;
 }
