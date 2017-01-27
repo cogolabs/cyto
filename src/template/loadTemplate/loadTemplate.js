@@ -7,6 +7,7 @@ import path from 'path';
 
 import file from '../../utils/file';
 import errors from '../../utils/errors';
+import types from '../../utils/types';
 import validate from '../../utils/validate';
 import loadCytoConfig from '../../configs/loadCytoConfig';
 import loadGlobalConfig from '../../configs/loadGlobalConfig';
@@ -28,9 +29,12 @@ export default function loadTemplate(templateId: string): Object {
   const cytoConfig: Object = loadCytoConfig(templateId);
 
   return cytoConfig.dependencies.reduce((accum: Object, dep: any) => {
-    if (typeof dep === 'string') {
+    if (types.isArray(dep)) {
+      const [name, depTemplateId] = dep;
       return Object.assign(accum, {
-        [dep]: file.loadUTF8FileSafe(path.join(libraryPath, templateId, dep)),
+        [name]: file.loadUTF8FileSafe(
+          path.join(libraryPath, depTemplateId, name),
+        ),
       });
     }
 

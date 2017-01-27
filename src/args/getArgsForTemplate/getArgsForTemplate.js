@@ -5,11 +5,10 @@
  */
 import promptForArg from '../promptForArg';
 import parseListArg from '../parseListArg';
-// import errors from '../../utils/errors';
 
 /**
- * Description of getArgsForTemplate
- *
+ * Gets the set of arguments that a template needs to render itself. Prompts for
+ * any arguments that were not provided initially.
  */
 export default function getArgsForTemplate(cytoConfig, args) {
   const templateArgs = cytoConfig.args.reduce((accum, arg) => {
@@ -31,7 +30,7 @@ export default function getArgsForTemplate(cytoConfig, args) {
       }
 
       promptForArg(arg).then((result) => {
-        templateArgs[arg.id] = result[arg.id].includes(',')
+        templateArgs[arg.id] = arg.type === 'list'
           ? parseListArg(result[arg.id])
           : result[arg.id];
 

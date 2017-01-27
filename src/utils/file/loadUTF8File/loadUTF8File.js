@@ -9,8 +9,8 @@ import fs from 'fs';
 const cache = {};
 
 /**
- * Reads a UTF8 file and returns its contents. Memoizes the result and returns
- * 
+ * Reads a UTF8 file and returns its contents. Memoizes the result for future
+ * reads
  */
 export default function loadUTF8File(p) {
   if (cache[p]) {

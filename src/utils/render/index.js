@@ -6,7 +6,5 @@
 import renderString from './renderString';
 
 export default {
-  // units
   renderString,
-  // modules
-}
+};

@@ -4,9 +4,11 @@
  * Written by: Connor Taylor
  */
 import loadDependencies from './loadDependencies';
+import mergeDependencies from './mergeDependencies';
+import renderDependency from './renderDependency';
 
 export default {
-  // units
   loadDependencies,
-  // modules
-}
+  mergeDependencies,
+  renderDependency,
+};

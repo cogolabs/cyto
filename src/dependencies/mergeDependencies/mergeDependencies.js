@@ -12,12 +12,10 @@ import types from '../../utils/types';
  */
 export default function mergeDependencies(config, baseConfig) {
   return config.dependencies.reduce((accum, dep) => {
-    if (types.isString(dep)) {
-      // Convert strings to arrays, storing the template that it came from so
-      // that we know which template to load the file's contents from
+    if (types.isArray(dep)) {
       return [
-        ...accum.filter((d) => !types.isArray(d) || dep !== d[0]),
-        [dep, config.templateId],
+        ...accum.filter((d) => !types.isArray(d) || dep[0] !== d[0]),
+        dep,
       ];
     } else if (types.isObject(dep)) {
       return [
@@ -27,11 +25,5 @@ export default function mergeDependencies(config, baseConfig) {
     }
     // Dep must be a function and those will be uniqued later, so just add it
     return [...accum, dep];
-  }, baseConfig.dependencies.map((dep) => {
-    if (types.isString(dep)) {
-      return [dep, baseConfig.templateId];
-    }
-
-    return dep;
-  }));
+  }, baseConfig.dependencies);
 }

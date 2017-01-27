@@ -4,9 +4,11 @@
  * Written by: Connor Taylor
  */
 import mustache from 'mustache';
+import _ from 'lodash';
 
 import types from '../../utils/types';
-import loadTemplate from '../../template/loadTemplate';
+
+import loadDependency from '../../dependencies/loadDependency';
 
 /**
  * Takes a set of dependencies, reads the files associated with them, and
@@ -18,16 +20,21 @@ import loadTemplate from '../../template/loadTemplate';
 export default function parseArgsFromDependencies(dependencies) {
   return dependencies
     .filter((dep) => types.isArray(dep))
-    .reduce((accum, [fileName, templateId]) => {
-      const template = loadTemplate(templateId);
-      const tokens = mustache.parse(template[fileName])
+    .reduce((accum, dep) => {
+      const contents = loadDependency(dep);
+      const tokens = mustache.parse(contents)
         .filter((x) => x[0] !== 'text')
         .map((x) => ({ id: x[1] }))
+        // .map((x) => {
+        //   console.log(x);
+        //   return x;
+        // })
         .filter((x) => x.id !== 'author' && x.id !== 'id'); // Provided by cyto
 
+
       return [
-        ...accum.filter((x) => tokens.includes(x)),
-        ...tokens,
+        ...accum.filter((x) => !tokens.includes(x)),
+        ..._.uniqBy(tokens, 'id'),
       ];
     }, []);
 }

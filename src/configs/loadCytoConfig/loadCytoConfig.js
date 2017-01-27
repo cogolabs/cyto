@@ -5,8 +5,11 @@
  */
 import path from 'path';
 
+import mergeCytoConfigs from '../mergeCytoConfigs';
 import loadGlobalConfig from '../loadGlobalConfig';
+
 import errors from '../../utils/errors';
+import types from '../../utils/types';
 
 /**
  * Loads the cyto.config.js file for the given template
@@ -24,7 +27,21 @@ export default function loadCytoConfig(templateId: string): Object {
     // We have to use eval here to make sure that webpack doesn't try and
     // process this require statement :/
     // Open to other ideas on how to fix this
-    return eval('require')(configPath); // eslint-disable-line
+    const rawConfig = eval('require')(configPath); // eslint-disable-line
+
+    // Convert any string dependencies to arrays
+    const dependencies = [
+      ...rawConfig.dependencies.filter((d) => !types.isString(d)),
+      ...rawConfig.dependencies
+        .filter((d) => types.isString(d))
+        .map((d) => [d, rawConfig.templateId]),
+    ];
+
+    const partialConfig = Object.assign(rawConfig, { dependencies });
+
+    return rawConfig.base
+      ? mergeCytoConfigs(partialConfig, loadCytoConfig(rawConfig.base))
+      : partialConfig;
   } catch (e) {
     console.log(e);
     errors.noCytoConfig(templateId);
