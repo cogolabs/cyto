@@ -12,7 +12,7 @@ import parseListArg from '../parseListArg';
  */
 export default function getArgsForTemplate(cytoConfig, args) {
   const templateArgs = cytoConfig.args.reduce((accum, arg) => {
-    return args[arg.id]
+    return args[arg.id] // eslint-disable-line
       ? Object.assign(accum, { [arg.id]: args[arg.id] })
       : arg.default && arg.dontPrompt
         ? Object.assign(accum, { [arg.id]: arg.default })

@@ -25,12 +25,7 @@ export default function parseArgsFromDependencies(dependencies) {
       const tokens = mustache.parse(contents)
         .filter((x) => x[0] !== 'text')
         .map((x) => ({ id: x[1] }))
-        // .map((x) => {
-        //   console.log(x);
-        //   return x;
-        // })
         .filter((x) => x.id !== 'author' && x.id !== 'id'); // Provided by cyto
-
 
       return [
         ...accum.filter((x) => !tokens.includes(x)),

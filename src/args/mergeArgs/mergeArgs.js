@@ -5,8 +5,6 @@
  */
 import _ from 'lodash';
 
-import parseArgsFromDependencies from '../parseArgsFromDependencies';
-
 /**
  * Description of mergeArgs
  * @param {  } config -

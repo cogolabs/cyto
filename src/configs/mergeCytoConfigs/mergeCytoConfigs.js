@@ -3,6 +3,7 @@
  * mergeCytoConfigs.js
  * Written by: Connor Taylor
  */
+import _ from 'lodash';
 
 import mergeArgs from '../../args/mergeArgs';
 import parseArgsFromDependencies from '../../args/parseArgsFromDependencies';

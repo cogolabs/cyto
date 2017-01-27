@@ -39,7 +39,5 @@ export default function loadTemplate(templateId: string): Object {
     }
 
     return accum;
-  }, {
-    'cyto.config.js': cytoConfig,
-  });
+  }, {});
 }

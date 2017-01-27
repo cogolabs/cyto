@@ -7,10 +7,12 @@ import isString from './isString';
 import isArray from './isArray';
 import isObject from './isObject';
 import isFunction from './isFunction';
+import isPartial from './isPartial';
 
 export default {
   isString,
   isArray,
   isObject,
   isFunction,
+  isPartial,
 };
