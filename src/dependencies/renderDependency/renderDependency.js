@@ -26,8 +26,6 @@ export default function renderDependency(dep, outputRoot, args) {
   );
 
   const template = loadTemplate(templateId);
-  console.log(template);
-
   const contents = renderString(template[name], args);
 
   fs.writeFileSync(outputPath, contents);

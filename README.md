@@ -1,20 +1,18 @@
-# README.md
+<img src="logo.png" height="75"/>
 
-A simple description of the project
+A declarative boilerplate generator designed to be unopinionated, extensible, and usable beyond initial project generation. Helps you write less meaningless code and think more deeply about your project structure.
 
 ## Installation
 
 ```bash
-yarn install README.md
+yarn install cyto
 # or
-npm install README.md
+npm install cyto
 ```
 
 ## Getting Started
 
-  - High
-  - level
-  - concepts
+1. Run `cyto config` and provided the required information
 
 ## Contributing
 
