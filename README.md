@@ -5,25 +5,28 @@ A declarative boilerplate generator designed to be unopinionated, extensible, an
 ## Installation
 
 ```bash
-yarn install cyto
-# or
-npm install cyto
+yarn global install cyto
+# or `npm install -g cyto`
+cyto config
 ```
 
-## Getting Started
+## Docs
 
-1. Run `cyto config` and provided the required information
+1. [Why use Cyto?](docs/why.md)
+1. [Hello world with Cyto templates](docs/helloWorld.md)
+1. [Composing templates](docs/composing.md)
+1. [Unit vs Container templates](docs/unitContainer.md)
+1. [Base templates](docs/baseTemplates.md)
+1. [Partial templates](docs/partialTemplates.md)
+1. [Publishing templates](docs/publishingTemplates.md)
+1. [Plugins](docs/plugins.md)
+1. [Best Practices](docs/bestPractices.md)
+1. [API reference](docs/reference.md)
+1. [Glossary](docs/glossary.md)
 
 ## Contributing
-
-1. Clone this repository
 1. Read the docs on contributing [here](CONTRIBUTING.md)
+1. Clone this repository
 1. Run `yarn` or `npm i`
 
-## Docs + References
-
-1. [API reference]()
-1. [More detailed docs]()
-
-Written by: Connor Taylor
-
+Written by: Connor Taylor [@taylorc93](https://github.com/taylorc93)

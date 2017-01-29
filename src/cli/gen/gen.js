@@ -16,7 +16,8 @@ import parseArgsFromCli from '../../args/parseArgsFromCli';
 export default function gen(program: Object) {
   program
     .command('gen <templateId> <id> [args...]')
-    .description('Generate a template and all of its dependencies using the provided args')
+    .alias('generate')
+    .description('Generate a cyto template')
     .option('-o, --output [val]', 'Where to output the template')
     .action((templateString, id, args, options) => {
       generateTemplate({

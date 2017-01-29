@@ -20,6 +20,7 @@ import file from '../../utils/file';
 export default function config(program: Object) {
   program
     .command('config')
+    .description('Set required information for cyto')
     .action(() => {
       const cytoDir: string = path.join(file.getUserHomeDir(), '.cyto');
       mkdirp(cytoDir, (err) => {
