@@ -10,34 +10,28 @@ import parseListArg from '../parseListArg';
  * Gets the set of arguments that a template needs to render itself. Prompts for
  * any arguments that were not provided initially.
  */
-export default function getArgsForTemplate(cytoConfig, args) {
-  const templateArgs = cytoConfig.args.reduce((accum, arg) => {
-    return args[arg.id] // eslint-disable-line
-      ? Object.assign(accum, { [arg.id]: args[arg.id] })
-      : arg.default && arg.dontPrompt
-        ? Object.assign(accum, { [arg.id]: arg.default })
-        : accum;
-  }, { id: args.id, author: args.author });
+export default async function getArgsForTemplate(cytoConfig, args) {
+  const synchronousPrompt = async ([arg, ...rest], templateArgs) => {
+    if (!arg) {
+      return templateArgs;
+    }
 
-  const promptArgs = cytoConfig.args
-    .filter((arg) => !Object.keys(templateArgs).includes(arg.id));
+    let value = args[arg.id] ? args[arg.id] : undefined;
+    if (!value) {
+      value = arg.dontPrompt
+        ? { [arg.id]: arg.default }
+        : await promptForArg(arg);
+    }
 
-  return new Promise((resolve) => {
-    const synchronousPrompt = ([arg, ...rest]) => {
-      if (!arg) {
-        resolve(templateArgs);
-        return;
-      }
+    const parsedValue = arg.type === 'list'
+      ? { [arg.id]: parseListArg(value[arg.id]) }
+      : value;
 
-      promptForArg(arg).then((result) => {
-        templateArgs[arg.id] = arg.type === 'list'
-          ? parseListArg(result[arg.id])
-          : result[arg.id];
+    return synchronousPrompt(rest, Object.assign(templateArgs, parsedValue));
+  };
 
-        synchronousPrompt(rest);
-      });
-    };
-
-    synchronousPrompt(promptArgs);
+  return synchronousPrompt(cytoConfig.args, {
+    id: args.id,
+    author: args.author,
   });
 }

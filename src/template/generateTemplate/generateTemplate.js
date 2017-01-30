@@ -40,7 +40,7 @@ type GenerateOptions = {
  * @param {object} options - Options to tweak the template generation
  * @returns {Promise} A promise that resolves once the template is generated
  */
-export default function generateTemplate(options: GenerateOptions) {
+export default async function generateTemplate(options: GenerateOptions) {
   log.info(`Generating ${chalk.green(options.templateString)}
   - id ${chalk.green(options.args.id)}`);
 
@@ -52,30 +52,28 @@ export default function generateTemplate(options: GenerateOptions) {
     ? path.join(options.outputRoot, args.id)
     : options.outputRoot;
 
-  return new Promise((resolve) => {
-    getArgsForTemplate(cytoConfig, args) // 3
-      .then((templateArgs) => {
-        mkdirp.sync(outputRoot); // 4
+  const templateArgs = await getArgsForTemplate(cytoConfig, args); // 3
 
-        const dependencies = loadDependencies(cytoConfig, templateArgs); // 5
-        const handleDeps = ([dep, ...rest]) => {
-          if (!dep) {
-            resolve();
-            return;
-          }
-          if (types.isObject(dep)) { // 6a
-            generateTemplate({
-              templateString: dep.templateId,
-              args: Object.assign(args, { id: dep.id }),
-              outputRoot,
-            }).then(() => handleDeps(rest));
-          } else { // 6b
-            renderDependency(dep, outputRoot, templateArgs);
-            handleDeps(rest);
-          }
-        };
+  console.log(templateArgs);
+  mkdirp.sync(outputRoot); // 4
 
-        handleDeps(dependencies); // 6
+  const dependencies = loadDependencies(cytoConfig, templateArgs); // 5
+  const handleDeps = ([dep, ...rest]) => {
+    if (!dep) {
+      return;
+    }
+    if (types.isObject(dep)) { // 6a
+      generateTemplate({
+        templateString: dep.templateId,
+        args: Object.assign(args, { id: dep.id }),
+        outputRoot,
       });
-  });
+      handleDeps(rest);
+    } else { // 6b
+      renderDependency(dep, outputRoot, templateArgs);
+      handleDeps(rest);
+    }
+  };
+
+  handleDeps(dependencies); // 6
 }
