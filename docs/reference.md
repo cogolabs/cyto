@@ -9,6 +9,11 @@ module.exports = {
   // recommended namespace is your github username.
   templateId: "taylorc93/project",
 
+  // Templates can also specify a different template as their base template. These
+  // are conceptually similar to docker base images. Anything that is in a base template
+  // will get generated along with the template using it as a base.
+  base: 'taylorc93/base-demo',
+
   // dependencies contains all of the required files and templates to create a
   // template.
   dependencies: [
@@ -17,13 +22,22 @@ module.exports = {
     'README.md',
     '.gitignore',
 
-    // Templates are objects with 2 keys, `templateId` and `id`. `templateId`
-    // is the global template id and `id` is a unique identifier for that
-    // template instance. Templates are pulled from the user's local library
+    // Templates are objects with at least 2 keys, `templateId` and `id`. 
+    // `templateId` is the global template id and `id` is a unique identifier for
+    // that template instance. Templates are pulled from the user's local library
     { templateId: 'taylorc93/node-module', id: 'src' },
-    { templateId: 'webpack/config', id: 'webpack.config.js' }
+    
+    // Templates can also take an `args` object that will act the same as arguments
+    // passed via the CLI (ie. the user won't be prompted to provide a value
+    {
+      templateId: 'webpack/config',
+      id: 'webpack.config.js',
+      args: {
+        foo: 'bar'
+      }
+    },
 
-    // Functions provide custom ways to generate dependencies at runtime. 
+    // Functions provide custom ways to generate dependencies at generation time. 
     // Most often, this is used to render sets of templates based on the
     // provided args
     (args) => {
