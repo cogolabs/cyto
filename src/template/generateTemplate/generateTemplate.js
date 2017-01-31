@@ -11,7 +11,7 @@ import formatTemplateString from '../formatTemplateString';
 
 import getArgsForTemplate from '../../args/getArgsForTemplate';
 
-import loadDependencies from '../../dependencies/loadDependencies';
+import getRuntimeDependencies from '../../dependencies/getRuntimeDependencies';
 import renderDependency from '../../dependencies/renderDependency';
 
 import loadCytoConfig from '../../configs/loadCytoConfig';
@@ -54,10 +54,11 @@ export default async function generateTemplate(options: GenerateOptions) {
     : options.outputRoot;
   mkdirp.sync(outputRoot);
 
-  const dependencies = loadDependencies(cytoConfig, templateArgs); // 5
+  const dependencies = getRuntimeDependencies(cytoConfig, templateArgs); // 5
 
   return new Promise((resolve) => {
-    const handleDeps = async ([dep, ...rest]) => {
+    // Ensures that each dependency is generated / rendered synchronously
+    const processDependencies = async ([dep, ...rest]) => {
       if (!dep) {
         resolve();
         return;
@@ -71,13 +72,13 @@ export default async function generateTemplate(options: GenerateOptions) {
           }),
           outputRoot,
         });
-        handleDeps(rest);
+        processDependencies(rest);
       } else { // 6b
         renderDependency(dep, outputRoot, templateArgs);
-        handleDeps(rest);
+        processDependencies(rest);
       }
     };
 
-    handleDeps(dependencies); // 6
+    processDependencies(dependencies); // 6
   });
 }

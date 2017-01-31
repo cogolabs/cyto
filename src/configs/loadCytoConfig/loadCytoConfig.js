@@ -12,7 +12,11 @@ import errors from '../../utils/errors';
 import types from '../../utils/types';
 
 /**
- * Loads the cyto.config.js file for the given template
+ * Loads the cyto.config.js file for the given template. Converts all string
+ * dependencies to arrays with 2 values:
+ *   - fileName - The original string with the file
+ *   - templateId - The template that the file comes from
+ * We do this to ensure we load the correct file when base templates are used
  *
  * @param {string} templateId - The template to load
  * @returns {Object} The loaded cyto.config.js object
@@ -23,20 +27,16 @@ export default function loadCytoConfig(templateId: string): Object {
 
   try {
     const configPath: string = path.join(templatePath, 'cyto.config');
-
     // We have to use eval here to make sure that webpack doesn't try and
     // process this require statement :/
     // Open to other ideas on how to fix this
     const rawConfig = eval('require')(configPath); // eslint-disable-line
-
-    // Convert any string dependencies to arrays
     const dependencies = [
       ...rawConfig.dependencies.filter((d) => !types.isString(d)),
       ...rawConfig.dependencies
         .filter((d) => types.isString(d))
         .map((d) => [d, rawConfig.templateId]),
     ];
-
     const partialConfig = Object.assign(rawConfig, { dependencies });
 
     return rawConfig.base

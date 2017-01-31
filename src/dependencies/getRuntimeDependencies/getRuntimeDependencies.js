@@ -1,15 +1,18 @@
 /* @flow */
 /**
- * loadDependencies.js
+ * getRuntimeDependencies.js
  * Written by: Connor Taylor
  */
 import types from '../../utils/types';
 
 /**
- * Description of loadDependencies
+ * Generates a new set of dependencies after applying each dependency that's a
+ * function.
  *
+ * @param {Object} cytoConfig - The config file with the dependencies
+ * @param {Object} args - The arguments to pass to each functional dependency
  */
-export default function loadDependencies(cytoConfig, args) {
+export default function getRuntimeDependencies(cytoConfig, args) {
   const formatDep = (dep) => {
     return types.isString(dep)
       ? [dep, cytoConfig.templateId]

@@ -10,7 +10,7 @@ import loadGlobalConfig from '../../configs/loadGlobalConfig';
 import file from '../../utils/file';
 
 /**
- * Loads the raw contents of a single dependency
+ * Loads the raw contents of a single dependency.
  */
 export default function loadDependency(dep) {
   const [name, templateId] = dep;
