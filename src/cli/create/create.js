@@ -3,8 +3,6 @@
  * create.js
  * Written by: Connor Taylor
  */
-import path from 'path';
-
 import parseArgsFromCli from '../../args/parseArgsFromCli';
 import generateTemplate from '../../template/generateTemplate';
 import formatTemplateString from '../../template/formatTemplateString';
@@ -24,6 +22,7 @@ export default function create(program: Object) {
         templateString: 'cyto/template',
         args: parseArgsFromCli(args, formattedId),
         outputRoot: process.cwd(),
+        skipRendering: true,
       });
     });
 }

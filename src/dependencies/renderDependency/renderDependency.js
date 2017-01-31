@@ -27,7 +27,7 @@ export default function renderDependency(dep, outputRoot, args) {
 
   const template = loadTemplate(templateId);
 
-  const contents = template[name] 
+  const contents = template[name]
     ? renderString(template[name], args)
     : '';
 

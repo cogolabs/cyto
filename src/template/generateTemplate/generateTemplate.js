@@ -54,22 +54,26 @@ export default async function generateTemplate(options: GenerateOptions) {
   mkdirp.sync(outputRoot);
 
   const dependencies = loadDependencies(cytoConfig, templateArgs); // 5
-  const handleDeps = ([dep, ...rest]) => {
-    if (!dep) {
-      return;
-    }
-    if (types.isObject(dep)) { // 6a
-      generateTemplate({
-        templateString: dep.templateId,
-        args: Object.assign(args, { id: dep.id }),
-        outputRoot,
-      });
-      handleDeps(rest);
-    } else { // 6b
-      renderDependency(dep, outputRoot, templateArgs);
-      handleDeps(rest);
-    }
-  };
 
-  handleDeps(dependencies); // 6
+  return new Promise((resolve) => {
+    const handleDeps = async ([dep, ...rest]) => {
+      if (!dep) {
+        resolve();
+        return;
+      }
+      if (types.isObject(dep)) { // 6a
+        await generateTemplate({
+          templateString: dep.templateId,
+          args: Object.assign(args, { id: dep.id }),
+          outputRoot,
+        });
+        handleDeps(rest);
+      } else { // 6b
+        renderDependency(dep, outputRoot, templateArgs);
+        handleDeps(rest);
+      }
+    };
+
+    return handleDeps(dependencies); // 6
+  });
 }
