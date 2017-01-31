@@ -45,6 +45,7 @@ export default async function generateTemplate(options: GenerateOptions) {
   - id ${chalk.green(options.args.id)}`);
 
   const { templateString, args } = options;
+
   const templateId: string = formatTemplateString(templateString); // 1
   const cytoConfig = loadCytoConfig(templateId); // 2
   const templateArgs = await getArgsForTemplate(cytoConfig, args); // 3
@@ -64,7 +65,10 @@ export default async function generateTemplate(options: GenerateOptions) {
       if (types.isObject(dep)) { // 6a
         await generateTemplate({
           templateString: dep.templateId,
-          args: Object.assign(args, { id: dep.id }),
+          args: Object.assign(dep.args || {}, {
+            id: dep.id,
+            author: args.author,
+          }),
           outputRoot,
         });
         handleDeps(rest);
@@ -74,6 +78,6 @@ export default async function generateTemplate(options: GenerateOptions) {
       }
     };
 
-    return handleDeps(dependencies); // 6
+    handleDeps(dependencies); // 6
   });
 }

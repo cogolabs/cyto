@@ -3,6 +3,8 @@
  * getArgsForTemplate.js
  * Written by: Connor Taylor
  */
+import types from '../../utils/types';
+
 import promptForArg from '../promptForArg';
 import parseListArg from '../parseListArg';
 
@@ -16,14 +18,13 @@ export default async function getArgsForTemplate(cytoConfig, args) {
       return templateArgs;
     }
 
-    let value = args[arg.id] ? args[arg.id] : undefined;
-    if (!value) {
-      value = arg.dontPrompt
+    const value = args[arg.id]
+      ? { [arg.id]: args[arg.id] }
+      : arg.dontPrompt
         ? { [arg.id]: arg.default }
         : await promptForArg(arg);
-    }
 
-    const parsedValue = arg.type === 'list'
+    const parsedValue = arg.type === 'list' && !types.isArray(value)
       ? { [arg.id]: parseListArg(value[arg.id]) }
       : value;
 
