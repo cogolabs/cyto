@@ -10,13 +10,19 @@ import types from '../../utils/types';
  *
  */
 export default function loadDependencies(cytoConfig, args) {
+  const formatDep = (dep) => {
+    return types.isString(dep)
+      ? [dep, cytoConfig.templateId]
+      : dep;
+  };
+
   const runtimeDeps = cytoConfig.dependencies
     .filter((dep) => types.isFunction(dep))
     .reduce((accum, func) => {
       const result = func(args);
-      return Array.isArray(result)
-        ? [...accum, ...result]
-        : [...accum, result];
+      return types.isArray(result)
+        ? [...accum, ...result.map(formatDep)]
+        : [...accum, formatDep(result)];
     }, []);
 
   return [

@@ -14,6 +14,7 @@ import errors from '../../utils/errors';
  */
 export default function parseArgsFromCli(args, id) {
   const { author } = loadGlobalConfig();
+  if (!args) { return { author, id }; }
   return args
     .map((arg) => {
       const tokens = arg.split('=');

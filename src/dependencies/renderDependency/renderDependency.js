@@ -26,7 +26,10 @@ export default function renderDependency(dep, outputRoot, args) {
   );
 
   const template = loadTemplate(templateId);
-  const contents = renderString(template[name], args);
+
+  const contents = template[name] 
+    ? renderString(template[name], args)
+    : '';
 
   fs.writeFileSync(outputPath, contents);
 }

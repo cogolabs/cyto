@@ -47,15 +47,11 @@ export default async function generateTemplate(options: GenerateOptions) {
   const { templateString, args } = options;
   const templateId: string = formatTemplateString(templateString); // 1
   const cytoConfig = loadCytoConfig(templateId); // 2
-
-  const outputRoot: string = cytoConfig.createDirectory
+  const templateArgs = await getArgsForTemplate(cytoConfig, args); // 3
+  const outputRoot: string = cytoConfig.createDirectory  // 4
     ? path.join(options.outputRoot, args.id)
     : options.outputRoot;
-
-  const templateArgs = await getArgsForTemplate(cytoConfig, args); // 3
-
-  console.log(templateArgs);
-  mkdirp.sync(outputRoot); // 4
+  mkdirp.sync(outputRoot);
 
   const dependencies = loadDependencies(cytoConfig, templateArgs); // 5
   const handleDeps = ([dep, ...rest]) => {
