@@ -22,11 +22,11 @@ module.exports = {
     'README.md',
     '.gitignore',
 
-    // Templates are objects with at least 2 keys, `templateId` and `id`. 
+    // Templates are objects with at least 2 keys, `templateId` and `id`.
     // `templateId` is the global template id and `id` is a unique identifier for
     // that template instance. Templates are pulled from the user's local library
     { templateId: 'taylorc93/node-module', id: 'src' },
-    
+
     // Templates can also take an `args` object that will act the same as arguments
     // passed via the CLI (ie. the user won't be prompted to provide a value
     {
@@ -37,7 +37,7 @@ module.exports = {
       }
     },
 
-    // Functions provide custom ways to generate dependencies at generation time. 
+    // Functions provide custom ways to generate dependencies at generation time.
     // Most often, this is used to render sets of templates based on the
     // provided args
     (args) => {

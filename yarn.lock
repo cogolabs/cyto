@@ -2977,9 +2977,9 @@ ms@0.7.2:
   version "0.7.2"
   resolved "https://registry.yarnpkg.com/ms/-/ms-0.7.2.tgz#ae25cf2512b3885a1d95d7f037868d8431124765"
 
-"mustache@git+ssh://git@github.com/taylorc93/mustache.js.git":
+"mustache@git+https://github.com/taylorc93/mustache.js.git":
   version "2.3.0"
-  resolved "git+ssh://git@github.com/taylorc93/mustache.js.git#c4a08e62df197f053893362a5bcb06d467a71139"
+  resolved "git+https://github.com/taylorc93/mustache.js.git#c4a08e62df197f053893362a5bcb06d467a71139"
 
 mute-stream@0.0.5:
   version "0.0.5"

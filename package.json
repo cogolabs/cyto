@@ -21,7 +21,7 @@
     "inquirer": "^3.0.1",
     "lodash": "^4.17.4",
     "mkdirp": "^0.5.1",
-    "mustache": "git+ssh://git@github.com/taylorc93/mustache.js.git"
+    "mustache": "git+https://github.com/taylorc93/mustache.js.git"
   },
   "devDependencies": {
     "babel-core": "^6.22.1",
