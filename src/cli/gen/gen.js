@@ -24,6 +24,7 @@ export default function gen(program: Object) {
         templateString,
         args: parseArgsFromCli(args, id),
         outputRoot: path.join(process.cwd(), options.output || ''),
+        initialRoot: path.join(process.cwd(), options.output || ''),
       });
     });
 }

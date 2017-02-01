@@ -41,18 +41,21 @@ type GenerateOptions = {
  * @returns {Promise} A promise that resolves once the template is generated
  */
 export default async function generateTemplate(options: GenerateOptions) {
-  log.info(`Generating ${chalk.green(options.templateString)}
-  - id ${chalk.green(options.args.id)}`);
-
-  const { templateString, args } = options;
-
+  const { templateString, args, initialRoot } = options;
   const templateId: string = formatTemplateString(templateString); // 1
   const cytoConfig = loadCytoConfig(templateId); // 2
-  const templateArgs = await getArgsForTemplate(cytoConfig, args); // 3
-  const outputRoot: string = cytoConfig.createDirectory  // 4
+
+  const outputRoot: string = cytoConfig.createDirectory
     ? path.join(options.outputRoot, args.id)
     : options.outputRoot;
-  mkdirp.sync(outputRoot);
+
+  const relativePath = outputRoot.replace(`${initialRoot}/`, '');
+  if (cytoConfig.createDirectory) {
+    log.info(`Generating ${chalk.green(relativePath)}`);
+  }
+
+  const templateArgs = await getArgsForTemplate(cytoConfig, args); // 3
+  mkdirp.sync(outputRoot); // 4
 
   const dependencies = getRuntimeDependencies(cytoConfig, templateArgs); // 5
 
@@ -71,10 +74,11 @@ export default async function generateTemplate(options: GenerateOptions) {
             author: args.author,
           }),
           outputRoot,
+          initialRoot,
         });
         processDependencies(rest);
       } else { // 6b
-        renderDependency(dep, outputRoot, templateArgs);
+        renderDependency(dep, outputRoot, templateArgs, initialRoot);
         processDependencies(rest);
       }
     };
