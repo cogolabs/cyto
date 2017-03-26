@@ -28,5 +28,8 @@ cyto config
 1. Read the docs on contributing [here](CONTRIBUTING.md)
 1. Clone this repository
 1. Run `yarn` or `npm i`
+1. Run `npm run build`
+1. Run `npm link`
+1. You should now have the cyto command installed!
 
 Written by: Connor Taylor [@taylorc93](https://github.com/taylorc93)
