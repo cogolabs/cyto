@@ -29,7 +29,7 @@ export default function loadCytoConfig(templateId: string): Object {
     const configPath: string = path.join(templatePath, 'cyto.config');
     // We have to use eval here to make sure that webpack doesn't try and
     // process this require statement :/
-    // Open to other ideas on how to fix this
+    // Open to other ideas on how to implement this
     const rawConfig = eval('require')(configPath); // eslint-disable-line
     const dependencies = [
       ...rawConfig.dependencies.filter((d) => !types.isString(d)),
@@ -37,6 +37,9 @@ export default function loadCytoConfig(templateId: string): Object {
         .filter((d) => types.isString(d))
         .map((d) => [d, rawConfig.templateId]),
     ];
+
+    // We have to ensure that the string dependencies are removed since we
+    // may have to merge it with the base config before returning
     const partialConfig = Object.assign(rawConfig, { dependencies });
 
     return rawConfig.base

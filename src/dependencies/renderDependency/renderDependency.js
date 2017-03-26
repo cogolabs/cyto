@@ -3,7 +3,6 @@
  * renderDependency.js
  * Written by: Connor Taylor
  */
-import fs from 'fs';
 import path from 'path';
 
 import loadTemplate from '../../template/loadTemplate';
@@ -26,10 +25,9 @@ export default function renderDependency(dep, outputRoot, args) {
   );
 
   const template = loadTemplate(templateId);
-
   const contents = template[name]
     ? renderString(template[name], args)
     : '';
 
-  fs.writeFileSync(outputPath, contents);
+  return { [outputPath]: contents };
 }
