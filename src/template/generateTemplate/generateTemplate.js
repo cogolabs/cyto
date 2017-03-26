@@ -76,7 +76,7 @@ export default async function generateTemplate(options: GenerateOptions) {
 
         return processDependencies({ ...accum, ...generatedTemplate }, rest);
       }
-      const renderedDep = renderDependency( // 5b
+      const renderedDep = await renderDependency( // 5b
         dep,
         outputRoot,
         templateArgs,

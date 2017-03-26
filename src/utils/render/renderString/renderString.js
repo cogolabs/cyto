@@ -3,10 +3,10 @@
  * renderString.js
  * Written by: Connor Taylor
  */
-import mustache from 'mustache';
+import mustache from '../../mustache';
 
 import loadCytoConfig from '../../../configs/loadCytoConfig';
-import loadTemplate from '../../../template/loadTemplate';
+import generateTemplate from '../../../template/generateTemplate';
 import types from '../../types';
 import log from '../../log';
 
@@ -17,15 +17,25 @@ import log from '../../log';
 export default function renderString(str, args) {
   mustache.escape = (text) => text; // Don't escape html
 
-  const renderPartial = (templateId, context) => {
-    const template = loadTemplate(templateId);
-    const cytoConfig = loadCytoConfig(templateId);
+  const renderPartial = async (templateString, context) => {
+    const cytoConfig = loadCytoConfig(templateString);
 
     if (!types.isPartial(cytoConfig)) {
-      log.fatal(`${templateId} is not a partial!`);
+      log.fatal(`${templateString} is not a partial!`);
     }
 
-    return renderString(Object.values(template)[0], context);
+    const generatedPartial = await generateTemplate({
+      templateString,
+      args: context,
+      outputRoot: '',
+    });
+
+
+    return Object.keys(generatedPartial).reduce((s, k) => {
+      const contents = generatedPartial[k];
+
+      return `${s}${contents}`;
+    }, '');
   };
 
   return mustache.render(str, args, renderPartial);

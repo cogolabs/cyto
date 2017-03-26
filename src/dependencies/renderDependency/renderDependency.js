@@ -17,16 +17,16 @@ import renderString from '../../utils/render/renderString';
  * @param {string} outputRoot - Where to write the rendered content
  * @param {Object} args - Args for the renderer to use
  */
-export default function renderDependency(dep, outputRoot, args) {
+export default async function renderDependency(dep, outputRoot, args) {
   const [name, templateId] = dep;
-  const outputPath = renderString(
+  const outputPath = await renderString(
     path.join(outputRoot, name),
     args,
   );
 
   const template = loadTemplate(templateId);
   const contents = template[name]
-    ? renderString(template[name], args)
+    ? await renderString(template[name], args)
     : '';
 
   return { [outputPath]: contents };
