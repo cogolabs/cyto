@@ -462,10 +462,12 @@
    * also be a function that is used to load partial templates on the fly
    * that takes a single argument: the name of the partial.
    */
-  Writer.prototype.render = function render (template, view, partials) {
+  Writer.prototype.render = async function render (template, view, partials) {
     var tokens = this.parse(template);
     var context = (view instanceof Context) ? view : new Context(view);
-    return this.renderTokens(tokens, context, partials, template);
+    const value = await this.renderTokens(tokens, context, partials, template);
+
+    return value;
   };
 
   /**
@@ -477,67 +479,57 @@
    * If the template doesn't use higher-order sections, this argument may
    * be omitted.
    */
-  Writer.prototype.renderTokens = function renderTokens (tokens, context, partials, originalTemplate) {
-    return new Promise((resolve, reject) => {
-      var buffer = '';
+  Writer.prototype.renderTokens = async function renderTokens (tokens, context, partials, originalTemplate) {
+    var buffer = '';
 
-      var processTokens = ([token, ...rest]) => {
-        if (!token) {
-          resolve(buffer);
-          return;
-        }
+    var token, symbol, value;
+    for (var i = 0, numTokens = tokens.length; i < numTokens; ++i) {
+      value = undefined;
+      token = tokens[i];
+      symbol = token[0];
 
-        var value = undefined;
-        var symbol = token[0];
+      if (symbol === '#'){
+        value = await this.renderSection(token, context, partials, originalTemplate);
+      }
+      else if (symbol === '^') {
+        value = await this.renderInverted(token, context, partials, originalTemplate);
+      } 
+      else if (symbol === '>'){
+        value = await this.renderPartial(token, context, partials, originalTemplate);
+      } 
+      else if (symbol === '&') value = this.unescapedValue(token, context);
+      else if (symbol === 'name') value = this.escapedValue(token, context);
+      else if (symbol === 'text') value = this.rawValue(token);
 
-        if (symbol === '>') {
-          this.renderPartial(token, context, partials, originalTemplate)
-            .then((str) => {
-              value = str;
-              if (value !== undefined) {
-                buffer += value;
-              }
+      if (value !== undefined)
+        buffer += value;
+    }
 
-              processTokens(rest);
-            });
-        } else {
-          if (symbol === '#') value = this.renderSection(token, context, partials, originalTemplate);
-          else if (symbol === '^') value = this.renderInverted(token, context, partials, originalTemplate);
-          else if (symbol === '&') value = this.unescapedValue(token, context);
-          else if (symbol === 'name') value = this.escapedValue(token, context);
-          else if (symbol === 'text') value = this.rawValue(token);
-
-          if (value !== undefined) {
-            buffer += value;
-          }
-
-          processTokens(rest);
-        }
-      };
-
-      processTokens(tokens);
-    });
+    return buffer;
   };
 
-  Writer.prototype.renderSection = function renderSection (token, context, partials, originalTemplate) {
+  Writer.prototype.renderSection = async function renderSection (token, context, partials, originalTemplate) {
     var self = this;
     var buffer = '';
     var value = context.lookup(token[1]);
 
     // This function is used to render an arbitrary template
     // in the current context by higher-order sections.
-    function subRender (template) {
-      return self.render(template, context, partials);
+    async function subRender (template) {
+      const value = await self.render(template, context, partials);
+      return value;
     }
 
     if (!value) return;
 
     if (isArray(value)) {
       for (var j = 0, valueLength = value.length; j < valueLength; ++j) {
-        buffer += this.renderTokens(token[4], context.push(value[j]), partials, originalTemplate);
+        const v = await this.renderTokens(token[4], context.push(value[j]), partials, originalTemplate);
+        buffer += v;
       }
     } else if (typeof value === 'object' || typeof value === 'string' || typeof value === 'number') {
-      buffer += this.renderTokens(token[4], context.push(value), partials, originalTemplate);
+      const v = await this.renderTokens(token[4], context.push(value), partials, originalTemplate);
+      buffer += v;
     } else if (isFunction(value)) {
       if (typeof originalTemplate !== 'string')
         throw new Error('Cannot use higher-order sections without the original template');
@@ -548,34 +540,31 @@
       if (value != null)
         buffer += value;
     } else {
-      buffer += this.renderTokens(token[4], context, partials, originalTemplate);
+      const v = await this.renderTokens(token[4], context, partials, originalTemplate);
+      buffer += v;
     }
     return buffer;
   };
 
-  Writer.prototype.renderInverted = function renderInverted (token, context, partials, originalTemplate) {
+  Writer.prototype.renderInverted = async function renderInverted (token, context, partials, originalTemplate) {
     var value = context.lookup(token[1]);
 
     // Use JavaScript's definition of falsy. Include empty arrays.
     // See https://github.com/janl/mustache.js/issues/186
-    if (!value || (isArray(value) && value.length === 0))
-      return this.renderTokens(token[4], context, partials, originalTemplate);
+    if (!value || (isArray(value) && value.length === 0)) {
+      const value = await this.renderTokens(token[4], context, partials, originalTemplate);
+      return value;
+    }
   };
 
-  Writer.prototype.renderPartial = function renderPartial (token, context, partials) {
+  Writer.prototype.renderPartial = async function renderPartial (token, context, partials) {
     if (!partials) {
-      return new Promise((resolve) => resolve(''));
+      return '';
     }
 
-    return new Promise((resolve, reject) => {
-      if (isFunction(partials)) {
-        partials(token[1], context.view).then((str) => resolve(str));
-      } else {
-        var value = partials[token[1]];
-        if (value != null)
-          resolve(this.renderTokens(this.parse(value), context, partials, value));
-      }
-    });
+    const value = await partials(token[1], context.view);
+
+    return value;
   };
 
   Writer.prototype.unescapedValue = function unescapedValue (token, context) {

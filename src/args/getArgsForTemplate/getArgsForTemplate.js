@@ -29,7 +29,7 @@ export default async function getArgsForTemplate(cytoConfig, args) {
       ? { [arg.id]: parseListArg(value[arg.id]) }
       : value;
 
-    return synchronousPrompt(rest, Object.assign(templateArgs, parsedValue));
+    return synchronousPrompt(rest, { ...templateArgs, ...parsedValue });
   };
 
   return synchronousPrompt(cytoConfig.args, {
