@@ -12,7 +12,7 @@ import isArray from '../isArray';
  *
  */
 export default function isPartial(cytoConfig) {
-  if (cytoConfig.createDirectory) {
+  if (cytoConfig.options.createDirectory) {
     return false;
   } else if (cytoConfig.dependencies.length !== 1) {
     return false;
