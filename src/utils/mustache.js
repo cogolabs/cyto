@@ -112,11 +112,12 @@
     var spaces = [];       // Indices of whitespace tokens on the current line
     var hasTag = false;    // Is there a {{tag}} on the current line?
     var nonSpace = false;  // Is there a non-space char on the current line?
+    var isPartial = false; // Is the tag we're on a partial tag?
 
     // Strips all whitespace tokens array for the current line
     // if there was a {{#tag}} on it and otherwise only space.
     function stripSpace () {
-      if (hasTag && !nonSpace) {
+      if (hasTag && !nonSpace && !isPartial) {
         while (spaces.length)
           delete tokens[spaces.pop()];
       } else {
@@ -178,6 +179,7 @@
 
       // Get the tag type.
       type = scanner.scan(tagRe) || 'name';
+      isPartial = type === '>';
       scanner.scan(whiteRe);
 
       // Get the tag value.
@@ -493,10 +495,10 @@
       }
       else if (symbol === '^') {
         value = await this.renderInverted(token, context, partials, originalTemplate);
-      } 
+      }
       else if (symbol === '>'){
         value = await this.renderPartial(token, context, partials, originalTemplate);
-      } 
+      }
       else if (symbol === '&') value = this.unescapedValue(token, context);
       else if (symbol === 'name') value = this.escapedValue(token, context);
       else if (symbol === 'text') value = this.rawValue(token);
