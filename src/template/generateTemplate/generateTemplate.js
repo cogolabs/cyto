@@ -44,13 +44,11 @@ export default async function generateTemplate(options: GenerateOptions) {
   const templateId: string = formatTemplateString(templateString); // 1
   const cytoConfig = loadCytoConfig(templateId); // 2
 
-  const outputRoot: string = cytoConfig.createDirectory
+  const outputRoot: string = cytoConfig.options.createDirectory
     ? path.join(options.outputRoot, args.id)
     : options.outputRoot;
 
-  if (cytoConfig.createDirectory) {
-    log.info(`Generating ${chalk.green(outputRoot)}`);
-  }
+  log.info(`Generating ${chalk.green(templateId)} with id ${chalk.green(args.id)}`);
 
   const templateArgs = await getArgsForTemplate(cytoConfig, args); // 3
   const dependencies = getRuntimeDependencies(cytoConfig, templateArgs); // 4
@@ -86,5 +84,7 @@ export default async function generateTemplate(options: GenerateOptions) {
     };
 
     return processDependencies({}, dependencies); // 5
+  }).catch((e) => {
+    console.log(e);
   });
 }
