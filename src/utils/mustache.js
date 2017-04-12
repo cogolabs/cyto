@@ -220,6 +220,7 @@
         // Set the tags for the next time around.
         compileTags(value);
       }
+      isPartial = false;
     }
 
     // Make sure there are no open sections when we're done.
@@ -537,7 +538,7 @@
         throw new Error('Cannot use higher-order sections without the original template');
 
       // Extract the portion of the original template that the section contains.
-      value = value.call(context.view, originalTemplate.slice(token[3], token[5]), subRender);
+      value = await value.call(context.view, originalTemplate.slice(token[3], token[5]), subRender);
 
       if (value != null)
         buffer += value;
