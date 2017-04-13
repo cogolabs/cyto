@@ -3,6 +3,7 @@
  * invalidTemplateString.js
  * Written by: Connor Taylor
  */
+import chalk from 'chalk';
 import log from '../../log';
 
 /**
@@ -11,9 +12,7 @@ import log from '../../log';
  */
 export default function invalidTemplateString(str) {
   log.fatal(
-    `Invalid template string ${str}.
-Valid template strings are in the form: '<org>/<name>'.
-<org> may be omitted if you intend to load the template from the org in
-your config.json file created by 'cyto config'`,
+    `Invalid template string ${chalk.green(str)}.
+Valid template strings are of the form: '<group>/<name>'.`,
   );
 }

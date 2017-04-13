@@ -33,10 +33,6 @@ export default function init(program: Object) {
             message: 'What is your name?',
           },
           {
-            name: 'org',
-            message: 'What is the default group you want for your templates?',
-          },
-          {
             name: 'libraryPath',
             message: 'Where do you want your templates stored?',
             default: `${cytoDir}/templates`,
@@ -46,12 +42,10 @@ export default function init(program: Object) {
             if (e) {
               errors.fileSystemError(e);
             }
-            mkdirp(path.join(result.libraryPath, result.org), () => {
-              fs.writeFileSync(
-                path.join(cytoDir, 'config.json'),
-                JSON.stringify(result, null, '  '),
-              );
-            });
+            fs.writeFileSync(
+              path.join(cytoDir, 'config.json'),
+              JSON.stringify(result, null, '  '),
+            );
           });
         });
       });

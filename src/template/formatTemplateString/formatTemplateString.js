@@ -4,7 +4,6 @@
  * Written by: Connor Taylor
  */
 import errors from '../../utils/errors';
-import loadGlobalConfig from '../../configs/loadGlobalConfig';
 
 /**
  * Takes a string and ensures that it's a valid templateString
@@ -17,12 +16,9 @@ import loadGlobalConfig from '../../configs/loadGlobalConfig';
 export default function formatTemplateString(templateString: string): string {
   const tokens = templateString.split('/');
 
-  if (tokens.length > 2 || tokens.length === 0) {
+  if (tokens.length !== 2) {
     errors.invalidTemplateString(templateString);
-  } else if (tokens.length === 2) {
-    return templateString;
-  } else {
-    const { org } = loadGlobalConfig();
-    return `${org}/${templateString}`;
   }
+
+  return templateString;
 }
