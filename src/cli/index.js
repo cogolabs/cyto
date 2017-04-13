@@ -7,7 +7,7 @@
  */
 import cli from 'commander';
 
-import config from './config';
+import init from './init';
 import create from './create';
 import gen from './gen';
 
@@ -15,7 +15,7 @@ cli
   .version('');
 
 const commands = [
-  config,
+  init,
   create,
   gen,
 ];

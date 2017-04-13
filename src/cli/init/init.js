@@ -1,6 +1,6 @@
 /* @flow */
 /**
- * config.js
+ * init.js
  * Written by: Connor Taylor
  */
 import fs from 'fs';
@@ -13,13 +13,13 @@ import errors from '../../utils/errors';
 import file from '../../utils/file';
 
 /**
- * `config`. Does x when envoked. The arguments listed below are meant to be
+ * `init`. Does x when envoked. The arguments listed below are meant to be
  * passed via the command line.
  *
  */
-export default function config(program: Object) {
+export default function init(program: Object) {
   program
-    .command('config')
+    .command('init')
     .description('Set required information for cyto')
     .action(() => {
       const cytoDir: string = path.join(file.getUserHomeDir(), '.cyto');
@@ -34,7 +34,7 @@ export default function config(program: Object) {
           },
           {
             name: 'org',
-            message: 'What namespace do you want your templates to be under?',
+            message: 'What is the default group you want for your templates?',
           },
           {
             name: 'libraryPath',

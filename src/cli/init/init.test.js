@@ -1,8 +1,8 @@
 /* @flow */
 /**
- * config.test.js
+ * init.test.js
  * Written by: Connor Taylor
  */
 
-describe('config', () => {
+describe('init', () => {
 });
