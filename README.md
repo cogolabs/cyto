@@ -170,4 +170,12 @@ Explanation of all of the values that can be set in the `options` object of a `c
 
 Section describing the best practices of using Cyto
 
+## Contributing
+1. Read the docs on contributing [here](CONTRIBUTING.md) and sign the CLA
+1. Clone this repository
+1. Run `yarn` or `npm i`
+1. Run `npm watch`
+1. Run `npm link`
+1. You should now have the cyto command installed! It will update with your latest changes while you have `npm watch` active
+
 Written by: Connor Taylor [@taylorc93](https://github.com/taylorc93)
