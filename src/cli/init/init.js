@@ -27,6 +27,7 @@ export default function init(program: Object) {
         if (err) {
           errors.fileSystemError(err);
         }
+
         inquirer.prompt([
           {
             name: 'author',

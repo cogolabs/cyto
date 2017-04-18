@@ -126,6 +126,7 @@
 
       hasTag = false;
       nonSpace = false;
+      isPartial = false;
     }
 
     var openingTagRe, closingTagRe, closingCurlyRe;
@@ -220,7 +221,6 @@
         // Set the tags for the next time around.
         compileTags(value);
       }
-      isPartial = false;
     }
 
     // Make sure there are no open sections when we're done.
@@ -498,7 +498,14 @@
         value = await this.renderInverted(token, context, partials, originalTemplate);
       }
       else if (symbol === '>'){
+        const previousLine = buffer.split('\n').slice(-1)[0];
+        const indent = previousLine.match(/^\s*/);
         value = await this.renderPartial(token, context, partials, originalTemplate);
+        // Add indenting to multi-line partials
+        value = value
+          .split('\n')
+          .map((l, i) => i === 0 ? l : `${indent[0] || ''}${l}`)
+          .join('\n');
       }
       else if (symbol === '&') value = this.unescapedValue(token, context);
       else if (symbol === 'name') value = this.escapedValue(token, context);

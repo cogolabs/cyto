@@ -9,7 +9,6 @@ import mkdirp from 'mkdirp';
 
 import parseArgsFromCli from '../../args/parseArgsFromCli';
 import generateTemplate from '../../template/generateTemplate';
-import formatTemplateString from '../../template/formatTemplateString';
 
 /**
  * `create`. Does x when envoked. The arguments listed below are meant to be
@@ -21,10 +20,9 @@ export default function create(program: Object) {
     .command('create <id> [...args]')
     .description('Create a new cyto template')
     .action(async (id, args) => {
-      const formattedId = formatTemplateString(id);
       const generatedTemplate = await generateTemplate({
         templateString: 'cyto/template',
-        args: parseArgsFromCli(args, formattedId),
+        args: parseArgsFromCli(args, id),
         outputRoot: '',
         skipRendering: true,
       });
