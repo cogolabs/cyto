@@ -12,6 +12,6 @@ import log from '../../log';
 export default function noGlobalConfig() {
   log.fatal(
     `No config.json could be found at ${getUserHomeDir()}/.cyto
-    Please run 'cyto config' to generate one`,
+    Please run 'cyto init' to generate one`,
   );
 }

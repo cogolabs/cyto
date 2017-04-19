@@ -31,20 +31,22 @@ export default function loadCytoConfig(templateId: string): Object {
     // process this require statement :/
     // Open to other ideas on how to implement this
     const rawConfig = eval('require')(configPath); // eslint-disable-line
-    const dependencies = [
+
+    // Convert string dependencies to arrays with 2 elements:
+    //  1. The original string
+    //  2. The templateId of the Cyto template it came from
+    // This allows us to handle duplicate string dependencies between 2
+    // templates much more easily
+    rawConfig.dependencies = [
       ...rawConfig.dependencies.filter((d) => !types.isString(d)),
       ...rawConfig.dependencies
         .filter((d) => types.isString(d))
         .map((d) => [d, rawConfig.templateId]),
     ];
 
-    // We have to ensure that the string dependencies are removed since we
-    // may have to merge it with the base config before returning
-    const partialConfig = Object.assign(rawConfig, { dependencies });
-
     return rawConfig.base
-      ? mergeCytoConfigs(partialConfig, loadCytoConfig(rawConfig.base))
-      : partialConfig;
+      ? mergeCytoConfigs(rawConfig, loadCytoConfig(rawConfig.base))
+      : rawConfig;
   } catch (e) {
     console.log(e);
     errors.noCytoConfig(templateId);

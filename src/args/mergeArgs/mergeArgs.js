@@ -12,8 +12,8 @@
  * @param {Object} baseConfig - The config to get the initial set of args from
  *
  */
-export default function mergeArgs(config, baseConfig) {
-  return config.args.reduce((accum, arg) => {
+export default function mergeArgs(args, baseArgs) {
+  return args.reduce((accum, arg) => {
     const existingArg = accum.find((a) => a.id === arg.id);
 
     if (existingArg) {
@@ -21,5 +21,5 @@ export default function mergeArgs(config, baseConfig) {
     }
 
     return [...accum, arg];
-  }, baseConfig.args);
+  }, baseArgs);
 }

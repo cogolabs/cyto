@@ -8,11 +8,11 @@ import path from 'path';
 
 import file from '../../utils/file';
 import errors from '../../utils/errors';
+
 /**
- * Description of loadGlobalConfig
+ * Loads the `config.json` file stored in the user's ~/.cyto directory
  *
  */
-
 export default function loadGlobalConfig() {
   const configPath = path.resolve(file.getUserHomeDir(), '.cyto/config.json');
   if (!fs.existsSync(configPath)) {

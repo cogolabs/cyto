@@ -10,8 +10,9 @@ import loadTemplate from '../../template/loadTemplate';
 import renderString from '../../utils/render/renderString';
 
 /**
- * Renders the file that a dependency refers to and write it to the desired
- * output path.
+ * Loads the file contents referred to by dep and renders them. Returns an
+ * object where the key is content output path and the value is the rendered
+ * contents.
  *
  * @param {Array} dep - The dependency to render
  * @param {string} outputRoot - Where to write the rendered content

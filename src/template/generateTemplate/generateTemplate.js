@@ -17,6 +17,7 @@ import loadCytoConfig from '../../configs/loadCytoConfig';
 
 import log from '../../utils/log';
 import types from '../../utils/types';
+import synchReduce from '../../utils/func/synchReduce';
 
 type GenerateOptions = {
   templateString: string,
@@ -25,15 +26,17 @@ type GenerateOptions = {
 };
 
 /**
- * Driver for the template generation algorithm. The algorithm can be broken
- * down into these steps:
- *  1. Format the template string for consistency and error checking
+ * Driver for the entire template generation algorithm. The algorithm can be
+ * broken down into these steps:
+ *  1. Validate the given templateId
  *  2. Load the cyto.config.js file for the given template
  *  3. Get the args for the template, prompting if necessary
  *  4. Get the set of dependencies after applying any function dependencies
  *  5. For each dependency:
- *    a. Recursive call generateTemplate if it's an object (template).
- *    b. Render and write to the filesystem if it's a string
+ *    a. Recursively call generateTemplate if it's an object (template).
+ *    b. Render the dependency if it's an array
+ *  6. Return the result of synchronously reducing all of a template's
+ *     dependencies
  *
  * @param {object} options - Options to tweak the template generation
  * @returns {Promise} A promise that resolves with the generated template
@@ -53,38 +56,27 @@ export default async function generateTemplate(options: GenerateOptions) {
   const templateArgs = await getArgsForTemplate(cytoConfig, args); // 3
   const dependencies = getRuntimeDependencies(cytoConfig, templateArgs); // 4
 
-  return new Promise((resolve) => {
-    // Ensures that each dependency is generated / rendered in a synchronous
-    // fashion (one after the other). We have to do this to prevent race
-    // conditions when prompting the user for argument values
-    const processDependencies = async (accum, [dep, ...rest]) => {
-      if (!dep) {
-        resolve(accum);
-        return accum;
-      }
-      if (types.isObject(dep)) { // 5a
-        const generatedTemplate = await generateTemplate({
-          templateString: dep.templateId,
-          args: Object.assign(dep.args || {}, {
-            id: dep.id,
-            author: args.author,
-          }),
-          outputRoot,
-        });
-
-        return processDependencies({ ...accum, ...generatedTemplate }, rest);
-      }
-      const renderedDep = await renderDependency( // 5b
-        dep,
+  const processDependency = async (accum, dep) => { // 5
+    if (types.isObject(dep)) { // 5a
+      const generatedTemplate = await generateTemplate({
+        templateString: dep.templateId,
+        args: Object.assign(dep.args || {}, {
+          id: dep.id,
+          author: args.author,
+        }),
         outputRoot,
-        templateArgs,
-      );
+      });
 
-      return processDependencies({ ...accum, ...renderedDep }, rest);
-    };
+      return { ...accum, ...generatedTemplate };
+    }
+    const renderedDep = await renderDependency( // 5b
+      dep,
+      outputRoot,
+      templateArgs,
+    );
 
-    return processDependencies({}, dependencies); // 5
-  }).catch((e) => {
-    console.log(e);
-  });
+    return { ...accum, ...renderedDep };
+  };
+
+  return synchReduce(dependencies, processDependency, {}); // 6
 }
