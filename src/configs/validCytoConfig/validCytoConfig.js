@@ -36,6 +36,10 @@ export default function validCytoConfig(config, providedId) {
   });
 
   if (config.templateId !== providedId) {
-    errors.templateIdMismatch(providedId, templateId);
+    errors.templateIdMismatch(providedId, config.templateId);
+  }
+
+  if (config.dependencies.length === 0) {
+    errors.invalidCytoConfig(providedId, `${chalk.green('dependencies')} is empty, this template will not generate anything`);
   }
 }
