@@ -9,6 +9,7 @@ import mkdirp from 'mkdirp';
 
 import parseArgsFromCli from '../../args/parseArgsFromCli';
 import generateTemplate from '../../template/generateTemplate';
+import loadGlobalConfig from '../../configs/loadGlobalConfig';
 
 /**
  * `create`. Does x when envoked. The arguments listed below are meant to be
@@ -27,7 +28,7 @@ export default function create(program: Object) {
         skipRendering: true,
       });
 
-      const outputRoot = process.cwd();
+      const { libraryPath: outputRoot } = loadGlobalConfig();
 
       Object.keys(generatedTemplate).forEach((filePath) => {
         const outputPath = path.join(outputRoot, filePath);
