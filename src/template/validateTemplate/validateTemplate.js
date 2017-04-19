@@ -3,28 +3,25 @@
  * validateTemplate.js
  * Written by: Connor Taylor
  */
-import errors from '../../utils/errors';
-import validate from '../../utils/validate';
-import loadCytoConfig from '../../configs/loadCytoConfig';
+import validCytoConfig from '../../configs/validCytoConfig';
+import validateDependencies from '../../dependencies/validateDependencies';
 
 /**
- * Ensures that the given templateString corresponds to a valid template. This
- * involves checking 2 things:
+ * Driver for validation of a template after it has been loaded. Performs the
+ * following checks:
  *
- *  1. The template referred to by the templateString exists
- *  2. The template contains a valid cyto.config.js
+ *  1. Validates the cyto config as a whole
+ *  2. Validates the cyto config's dependencies
+ *  3. Validates the cyto config's arguments
  *
- * This is not meant to return anything, any problems with the above are fatal
- * errors that will trigger a process.exit(1) call. The templateString is
- * expected to be valid (<namespace>/<name>)
+ * Any problems encountered will cause Cyto to exit. This function should be
+ * called after the cyto.config.js file has been loaded but BEFORE its
+ * string dependencies have been converted to arrays.
  *
- * @param {string} templateId - The template to validate
+ * @param { Object } config - The config to validate
+ * @param { string } providedId - The templateId given by the user on the CLI
  */
-export default function validateTemplate(templateId) {
-  if (!validate.templateExists(templateId)) {
-    errors.templateNotFound(templateId);
-  }
-
-  const cytoFile: Object = loadCytoConfig(templateId);
-  console.log(cytoFile);
+export default function validateTemplate(config, providedId) {
+  validCytoConfig(config, providedId);
+  validateDependencies(config.dependencies);
 }
