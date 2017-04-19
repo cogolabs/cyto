@@ -3,6 +3,7 @@
  * getRuntimeDependencies.js
  * Written by: Connor Taylor
  */
+import mergeDependencies from '../mergeDependencies';
 import types from '../../utils/types';
 
 /**
@@ -13,23 +14,25 @@ import types from '../../utils/types';
  * @param {Object} args - The arguments to pass to each functional dependency
  */
 export default function getRuntimeDependencies(cytoConfig, args) {
+  const { templateId, dependencies } = cytoConfig;
   const formatDep = (dep) => {
     return types.isString(dep)
-      ? [dep, cytoConfig.templateId]
+      ? [dep, templateId]
       : dep;
   };
 
-  const runtimeDeps = cytoConfig.dependencies
+  const runtimeDeps = dependencies
     .filter((dep) => types.isFunction(dep))
     .reduce((accum, func) => {
       const result = func(args);
+
       return types.isArray(result)
-        ? [...accum, ...result.map(formatDep)]
-        : [...accum, formatDep(result)];
+        ? mergeDependencies(result.map(formatDep), accum)
+        : mergeDependencies([formatDep(result)], accum);
     }, []);
 
-  return [
-    ...cytoConfig.dependencies.filter((d) => !types.isFunction(d)),
-    ...runtimeDeps,
-  ];
+  return mergeDependencies(
+    runtimeDeps,
+    dependencies.filter((d) => !types.isFunction(d)),
+  );
 }
