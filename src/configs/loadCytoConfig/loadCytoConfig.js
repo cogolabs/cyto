@@ -4,9 +4,11 @@
  * Written by: Connor Taylor
  */
 import path from 'path';
+import _ from 'lodash';
 
 import mergeCytoConfigs from '../mergeCytoConfigs';
 import loadGlobalConfig from '../loadGlobalConfig';
+import validateTemplate from '../../template/validateTemplate';
 
 import errors from '../../utils/errors';
 import types from '../../utils/types';
@@ -30,7 +32,11 @@ export default function loadCytoConfig(templateId: string): Object {
     // We have to use eval here to make sure that webpack doesn't try and
     // process this require statement :/
     // Open to other ideas on how to implement this
-    const rawConfig = eval('require')(configPath); // eslint-disable-line
+    // We also deep clone to prevent modifying the original config later on
+    const rawConfig = _.cloneDeep(eval('require')(configPath)); // eslint-disable-line
+
+    // Make sure the config is valid before processing further
+    validateTemplate(rawConfig, templateId);
 
     // Convert string dependencies to arrays with 2 elements:
     //  1. The original string
