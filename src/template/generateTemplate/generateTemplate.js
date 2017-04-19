@@ -61,7 +61,7 @@ export default async function generateTemplate(options: GenerateOptions) {
       const generatedTemplate = await generateTemplate({
         templateString: dep.templateId,
         args: Object.assign(dep.args || {}, {
-          id: dep.id,
+          id: dep.args.id,
           author: args.author,
         }),
         outputRoot,
