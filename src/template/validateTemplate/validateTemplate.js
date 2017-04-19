@@ -3,6 +3,7 @@
  * validateTemplate.js
  * Written by: Connor Taylor
  */
+import validateTemplateArgs from '../../args/validateTemplateArgs';
 import validCytoConfig from '../../configs/validCytoConfig';
 import validateDependencies from '../../dependencies/validateDependencies';
 
@@ -24,4 +25,5 @@ import validateDependencies from '../../dependencies/validateDependencies';
 export default function validateTemplate(config, providedId) {
   validCytoConfig(config, providedId);
   validateDependencies(config.dependencies);
+  validateTemplateArgs(config.args);
 }
