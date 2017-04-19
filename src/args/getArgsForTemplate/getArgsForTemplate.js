@@ -8,19 +8,16 @@ import types from '../../utils/types';
 import promptForArg from '../promptForArg';
 import parseListArg from '../parseListArg';
 
+import synchReduce from '../../utils/func/synchReduce';
+
 /**
  * Gets the set of arguments that a template needs to render itself. Prompts
  * for any arguments that were not provided initially.
  */
 export default async function getArgsForTemplate(cytoConfig, args) {
-  const synchronousPrompt = async ([arg, ...rest], templateArgs) => {
-    // Base case, return once we've processed all arguments
-    if (!arg) {
-      return templateArgs;
-    }
-
-    const value = args[arg.id] // Was a value already set?
-      ? { [arg.id]: args[arg.id] }
+  const getArg = async (accum, arg) => {
+    const value = accum[arg.id] // Was a value already set?
+      ? { [arg.id]: accum[arg.id] }
       : arg.dontPrompt // Should we avoid prompting and use the default?
         ? { [arg.id]: arg.default }
         : await promptForArg(arg);
@@ -29,10 +26,11 @@ export default async function getArgsForTemplate(cytoConfig, args) {
       ? { [arg.id]: parseListArg(value[arg.id]) }
       : value;
 
-    return synchronousPrompt(rest, { ...templateArgs, ...parsedValue });
+    return { ...accum, ...parsedValue };
   };
 
-  return synchronousPrompt(cytoConfig.args, {
+  return synchReduce(cytoConfig.args, getArg, {
+    ...args,
     id: args.id,
     author: args.author,
   });

@@ -31,11 +31,13 @@ export default function loadTemplate(templateId: string): Object {
   return cytoConfig.dependencies.reduce((accum: Object, dep: any) => {
     if (types.isArray(dep)) {
       const [name, depTemplateId] = dep;
-      return Object.assign(accum, {
+
+      return {
+        ...accum,
         [name]: file.loadUTF8FileSafe(
           path.join(libraryPath, depTemplateId, name),
         ),
-      });
+      };
     }
 
     return accum;

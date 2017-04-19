@@ -6,12 +6,14 @@
 import types from '../../utils/types';
 
 /**
- * Description of mergeDependencies
- * @param {Object} config - The new config to merge in
- * @param {Object} baseConfig - The config to inherit from
+ * Given 2 sets of dependencies, merges them into 1. Prefers values from `deps`
+ * in the case of a duplicate
+ *
+ * @param {Object} deps - The dependencies to merge in
+ * @param {Object} baseDeps - The pre-existing dependencies
  */
-export default function mergeDependencies(config, baseConfig) {
-  return config.dependencies.reduce((accum, dep) => {
+export default function mergeDependencies(deps, baseDeps) {
+  return deps.reduce((accum, dep) => {
     if (types.isArray(dep)) {
       return [
         ...accum.filter((d) => !types.isArray(d) || dep[0] !== d[0]),
@@ -25,5 +27,5 @@ export default function mergeDependencies(config, baseConfig) {
     }
     // Dep must be a function and those will be uniqued later, so just add it
     return [...accum, dep];
-  }, baseConfig.dependencies);
+  }, baseDeps);
 }
