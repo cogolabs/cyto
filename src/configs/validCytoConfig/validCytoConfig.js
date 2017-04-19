@@ -19,30 +19,19 @@ import types from '../../utils/types';
  *  5. `options` must be an object
  */
 export default function validCytoConfig(config, providedId) {
-  ['templateId', 'dependencies', 'args', 'options'].forEach((key) => {
+  [
+    ['templateId', types.isString],
+    ['dependencies', types.isArray],
+    ['args', types.isArray],
+    ['options', types.isObject],
+  ].forEach(([key, typeTest]) => {
     const hasProperty = _.has(config, key);
     if (!hasProperty) {
       errors.invalidCytoConfig(providedId, `Missing key: ${chalk.green(key)}`);
     }
+
+    if (!typeTest(config[key])) {
+      errors.invalidCytoConfig(providedId, `${chalk.green(key)} is the wrong type`);
+    }
   });
-
-  const { templateId, dependencies, args, options } = config;
-
-  if (templateId !== providedId) {
-    errors.templateIdMismatch(providedId, templateId);
-  }
-
-  if (!types.isArray(dependencies)) {
-    errors.invalidCytoConfig(providedId, `${chalk.green('dependencies')} must be an Array`);
-  }
-
-  if (!types.isArray(args)) {
-    errors.invalidCytoConfig(providedId, `${chalk.green('args')} must be an Array`);
-  }
-
-  if (!types.isObject(options)) {
-    errors.invalidCytoConfig(providedId, `${chalk.green('options')} must be an Object`);
-  }
-
-  return true;
 }
