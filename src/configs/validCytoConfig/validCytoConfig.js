@@ -34,4 +34,8 @@ export default function validCytoConfig(config, providedId) {
       errors.invalidCytoConfig(providedId, `${chalk.green(key)} is the wrong type`);
     }
   });
+
+  if (config.templateId !== providedId) {
+    errors.templateIdMismatch(providedId, templateId);
+  }
 }
