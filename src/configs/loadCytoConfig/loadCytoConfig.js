@@ -7,6 +7,7 @@ import path from 'path';
 
 import mergeCytoConfigs from '../mergeCytoConfigs';
 import loadGlobalConfig from '../loadGlobalConfig';
+import validCytoConfig from '../validCytoConfig';
 
 import errors from '../../utils/errors';
 import types from '../../utils/types';
@@ -31,6 +32,9 @@ export default function loadCytoConfig(templateId: string): Object {
     // process this require statement :/
     // Open to other ideas on how to implement this
     const rawConfig = eval('require')(configPath); // eslint-disable-line
+
+    // Make sure the config is valid before processing further
+    validCytoConfig(templateId, rawConfig);
 
     // Convert string dependencies to arrays with 2 elements:
     //  1. The original string
