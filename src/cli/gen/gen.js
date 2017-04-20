@@ -21,7 +21,7 @@ export default function gen(program: Object) {
     .alias('generate')
     .description('Generate a cyto template')
     .option('-o, --output [val]', 'Where to output the template')
-    .action(async (templateString, id, args, options) => {
+    .action(async (templateString, id, options) => {
       // Returns an object where the keys are filepaths and the values are
       // the rendered dependencies that should be written to those filepaths
       const generatedTemplate = await generateTemplate({

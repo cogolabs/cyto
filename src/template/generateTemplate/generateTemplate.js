@@ -69,6 +69,7 @@ export default async function generateTemplate(options: GenerateOptions) {
 
       return { ...accum, ...generatedTemplate };
     }
+
     const renderedDep = await renderDependency( // 5b
       dep,
       outputRoot,
