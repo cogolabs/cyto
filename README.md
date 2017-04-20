@@ -42,4 +42,7 @@ Cyto is different. While Yeoman solves boilerplate generation through an imperat
 1. Run `npm link` in a separate terminal
 1. You should now have the cyto command installed! It will update with your latest changes while you have `npm watch` active
 
-Written by: Connor Taylor [@taylorc93](https://github.com/taylorc93)
+## Contributors
+Cyto is written and maintained by Connor Taylor [@taylorc93](https://github.com/taylorc93). However, it wouldn't have been possible without the help of these amazing people:
+
+List to come later
