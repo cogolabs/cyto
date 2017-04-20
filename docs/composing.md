@@ -1,6 +1,6 @@
 # Composing Templates
 
-One of the primary reasons that Cyto templates are so powerful is that they are composable, meaning that templates can have other templates as dependencies. This allows you to make templates that are much more modular and reusable. For those who are familiar with React, this design choice was heavily inspired by how React components work.
+One of the primary reasons that Cyto templates are so powerful is that they are composable, meaning that templates can have other templates as dependencies. This allows you to make templates that are much more modular and reusable. For those who are familiar with [React](https://facebook.github.io/react/), this design choice was heavily inspired by how React components work.
 
 To indicate that a template depends on another template, we use object dependencies. Let's take a look at the `cyto/composing` template, which depends on the `cyto/composed` template:
 
@@ -74,3 +74,4 @@ The parent template supplied this value: I was passed via another template
 ```
 
 Note that although both templates have an arg called `userArg`, they both get prompted for it. Cyto generates each template independently, so one set of args doesn't clobber another.
+
