@@ -20,14 +20,15 @@ export default function create(program: Object) {
     .command('create <id>')
     .description('Create a new cyto template')
     .action(async (id) => {
+      const { libraryPath: outputRoot, author } = loadGlobalConfig();
+
       const generatedTemplate = await generateTemplate({
         templateString: 'cyto/template',
-        args: { id },
+        args: { id, author },
         outputRoot: '',
         skipRendering: true,
       });
 
-      const { libraryPath: outputRoot } = loadGlobalConfig();
 
       Object.keys(generatedTemplate).forEach((filePath) => {
         const outputPath = path.join(outputRoot, filePath);
