@@ -7,7 +7,6 @@ import fs from 'fs';
 import path from 'path';
 import mkdirp from 'mkdirp';
 
-import parseArgsFromCli from '../../args/parseArgsFromCli';
 import generateTemplate from '../../template/generateTemplate';
 import loadGlobalConfig from '../../configs/loadGlobalConfig';
 
@@ -18,12 +17,12 @@ import loadGlobalConfig from '../../configs/loadGlobalConfig';
  */
 export default function create(program: Object) {
   program
-    .command('create <id> [...args]')
+    .command('create <id>')
     .description('Create a new cyto template')
-    .action(async (id, args) => {
+    .action(async (id) => {
       const generatedTemplate = await generateTemplate({
         templateString: 'cyto/template',
-        args: parseArgsFromCli(args, id),
+        args: { id },
         outputRoot: '',
         skipRendering: true,
       });

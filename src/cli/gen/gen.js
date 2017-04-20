@@ -14,11 +14,10 @@ import path from 'path';
 import mkdirp from 'mkdirp';
 
 import generateTemplate from '../../template/generateTemplate';
-import parseArgsFromCli from '../../args/parseArgsFromCli';
 
 export default function gen(program: Object) {
   program
-    .command('gen <templateId> <id> [args...]')
+    .command('gen <templateId> <id>')
     .alias('generate')
     .description('Generate a cyto template')
     .option('-o, --output [val]', 'Where to output the template')
@@ -27,7 +26,7 @@ export default function gen(program: Object) {
       // the rendered dependencies that should be written to those filepaths
       const generatedTemplate = await generateTemplate({
         templateString,
-        args: parseArgsFromCli(args, id),
+        args: { id },
         outputRoot: '',
       });
 
