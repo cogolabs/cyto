@@ -13,6 +13,7 @@ import types from '../../utils/types';
  * arg is valid. This assures 2 things:
  *  1. Every arg is an Object
  *  2. Every arg has an `id` key
+ *  3. If an arg has a `type`, ensure that it's valid
  *
  * @param { Array } args - The arguments to validate
  */
