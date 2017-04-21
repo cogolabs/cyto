@@ -23,7 +23,7 @@ import types from '../../utils/types';
 export default function validCytoConfig(config, providedId) {
   if (!types.isObject(config)) { // 1
     errors.invalidCytoConfig(
-      provided,
+      providedId,
       "cyto.config.js doesn't export an Object",
     );
   }
@@ -44,7 +44,7 @@ export default function validCytoConfig(config, providedId) {
 
     if (!typeTest(config[key])) { // 3-5
       errors.invalidCytoConfig(
-        providedId, 
+        providedId,
         `${chalk.green(key)} is the wrong type`,
       );
     }
@@ -56,7 +56,7 @@ export default function validCytoConfig(config, providedId) {
 
   if (config.dependencies.length === 0) { // 7
     errors.invalidCytoConfig(
-      providedId, 
+      providedId,
       `${chalk.green('dependencies')} is empty, this template will not generate anything`,
     );
   }
