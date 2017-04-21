@@ -29,7 +29,6 @@ export default function create(program: Object) {
         skipRendering: true,
       });
 
-
       Object.keys(generatedTemplate).forEach((filePath) => {
         const outputPath = path.join(outputRoot, filePath);
         const contents = generatedTemplate[filePath];

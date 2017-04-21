@@ -26,5 +26,13 @@ export default function validateTemplateArgs(args) {
     if (!hasId) {
       errors.invalidTemplateArg(arg, 'No id found');
     }
+
+    const validTypes = ['string', 'boolean', 'function', 'list'];
+    if (arg.type && !validTypes.includes(arg.type)) {
+      errors.invalidTemplateArg(
+        arg,
+        `Invalid type: ${arg.type}`,
+      );
+    }
   });
 }
