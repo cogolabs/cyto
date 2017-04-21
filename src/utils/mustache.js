@@ -3,7 +3,7 @@
  * mustache.js - Logic-less {{mustache}} templates with JavaScript
  * http://github.com/janl/mustache.js
  */
-
+import chalk from 'chalk';
 /*global define: false Mustache: true*/
 
 (function defineMustache (global, factory) {
@@ -466,11 +466,16 @@
    * that takes a single argument: the name of the partial.
    */
   Writer.prototype.render = async function render (template, view, partials) {
-    var tokens = this.parse(template);
-    var context = (view instanceof Context) ? view : new Context(view);
-    const value = await this.renderTokens(tokens, context, partials, template);
+    try {
+      const tokens = this.parse(template);
+      const context = (view instanceof Context) ? view : new Context(view);
+      const value = await this.renderTokens(tokens, context, partials, template);
 
-    return value;
+      return value;
+    } catch(err) {
+      console.error(err);
+      console.error(`${chalk.red('Error:')} Mustache failed to render the given string`);
+    }
   };
 
   /**
@@ -545,7 +550,18 @@
         throw new Error('Cannot use higher-order sections without the original template');
 
       // Extract the portion of the original template that the section contains.
-      value = await value.call(context.view, originalTemplate.slice(token[3], token[5]), subRender);
+      try {
+        value = await value.call(
+          context.view,
+          originalTemplate.slice(token[3], token[5]),
+          subRender,
+        );
+      } catch (err) {
+        console.error(err);
+        console.error(`${chalk.red('Error:')} Mustache couldn't process ${chalk.green(token[1])}`);
+        console.error('Remember that cyto uses a modified version of Mustache where rendering is asynchronous!');
+        process.exit(1);
+      }
 
       if (value != null)
         buffer += value;

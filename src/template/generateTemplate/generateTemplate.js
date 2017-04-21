@@ -44,10 +44,10 @@ type GenerateOptions = {
  */
 export default async function generateTemplate(options: GenerateOptions) {
   const { templateString, args } = options;
-  const templateId: string = formatTemplateString(templateString); // 1
+  const templateId = formatTemplateString(templateString); // 1
   const cytoConfig = loadCytoConfig(templateId); // 2
 
-  const outputRoot: string = cytoConfig.options.createDirectory
+  const outputRoot = cytoConfig.options.createDirectory
     ? path.join(options.outputRoot, args.id)
     : options.outputRoot;
 

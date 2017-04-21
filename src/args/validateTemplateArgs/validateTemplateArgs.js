@@ -13,6 +13,7 @@ import types from '../../utils/types';
  * arg is valid. This assures 2 things:
  *  1. Every arg is an Object
  *  2. Every arg has an `id` key
+ *  3. If an arg has a `type`, ensure that it's valid
  *
  * @param { Array } args - The arguments to validate
  */
@@ -25,6 +26,14 @@ export default function validateTemplateArgs(args) {
     const hasId = _.has(arg, 'id');
     if (!hasId) {
       errors.invalidTemplateArg(arg, 'No id found');
+    }
+
+    const validTypes = ['string', 'boolean', 'function', 'list'];
+    if (arg.type && !validTypes.includes(arg.type)) {
+      errors.invalidTemplateArg(
+        arg,
+        `Invalid type: ${arg.type}`,
+      );
     }
   });
 }
