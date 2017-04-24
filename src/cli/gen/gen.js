@@ -14,20 +14,22 @@ import path from 'path';
 import mkdirp from 'mkdirp';
 
 import generateTemplate from '../../template/generateTemplate';
-import parseArgsFromCli from '../../args/parseArgsFromCli';
+import loadGlobalConfig from '../../configs/loadGlobalConfig';
 
 export default function gen(program: Object) {
   program
-    .command('gen <templateId> <id> [args...]')
+    .command('gen <templateId> <id>')
     .alias('generate')
     .description('Generate a cyto template')
     .option('-o, --output [val]', 'Where to output the template')
-    .action(async (templateString, id, args, options) => {
+    .action(async (templateId, id, options) => {
+      const { author } = loadGlobalConfig();
+
       // Returns an object where the keys are filepaths and the values are
       // the rendered dependencies that should be written to those filepaths
       const generatedTemplate = await generateTemplate({
-        templateString,
-        args: parseArgsFromCli(args, id),
+        templateId,
+        args: { id, author },
         outputRoot: '',
       });
 

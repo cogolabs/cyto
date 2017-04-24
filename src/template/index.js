@@ -5,10 +5,12 @@
  */
 import loadTemplate from './loadTemplate';
 import generateTemplate from './generateTemplate';
-import formatTemplateString from './formatTemplateString';
+import validateTemplateId from './validateTemplateId';
+import validateTemplate from './validateTemplate';
 
 export default {
   loadTemplate,
   generateTemplate,
-  formatTemplateString,
+  validateTemplate,
+  validateTemplateId,
 };

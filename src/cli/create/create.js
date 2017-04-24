@@ -7,7 +7,6 @@ import fs from 'fs';
 import path from 'path';
 import mkdirp from 'mkdirp';
 
-import parseArgsFromCli from '../../args/parseArgsFromCli';
 import generateTemplate from '../../template/generateTemplate';
 import loadGlobalConfig from '../../configs/loadGlobalConfig';
 
@@ -18,17 +17,17 @@ import loadGlobalConfig from '../../configs/loadGlobalConfig';
  */
 export default function create(program: Object) {
   program
-    .command('create <id> [...args]')
+    .command('create <id>')
     .description('Create a new cyto template')
-    .action(async (id, args) => {
+    .action(async (id) => {
+      const { libraryPath: outputRoot, author } = loadGlobalConfig();
+
       const generatedTemplate = await generateTemplate({
-        templateString: 'cyto/template',
-        args: parseArgsFromCli(args, id),
+        templateId: 'cyto/template',
+        args: { id, author },
         outputRoot: '',
         skipRendering: true,
       });
-
-      const { libraryPath: outputRoot } = loadGlobalConfig();
 
       Object.keys(generatedTemplate).forEach((filePath) => {
         const outputPath = path.join(outputRoot, filePath);

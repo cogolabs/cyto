@@ -21,7 +21,9 @@ export default function mergeDependencies(deps, baseDeps) {
       ];
     } else if (types.isObject(dep)) {
       return [
-        ...accum.filter((d) => !types.isObject(d) || dep.id !== d.id),
+        ...accum.filter((d) => {
+          return !types.isObject(d) || dep.args.id !== d.args.id;
+        }),
         dep,
       ];
     }
