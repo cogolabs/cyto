@@ -6,7 +6,7 @@ After you've written a few templates, you'll probably find that some of them hav
 
 ## How do base templates work?
 
-Base templates are templates that other templates can extend by using the `base` key in their `cyto.config.js` file. Any template can be used as a base template without any changes to their config file. Let's take a look at the config files for the `cyto/baseConfig` and `cyto/childConfig` templates:
+Base templates are templates can be extended by other templates using the `base` key in the new template's `cyto.config.js` file. Any valid Cyto template can be used as a base template without any modifications. Let's take a look at the config files for the `cyto/baseConfig` and `cyto/childConfig` templates:
 
 `cyto/baseConfig/cyto.config.js`
 ```js
@@ -15,9 +15,7 @@ module.exports = {
   dependencies: [
     'fromBase.txt',
   ],
-  args: [
-
-  ],
+  args: [],
   options: {
     createDirectory: false,
   }
@@ -33,16 +31,14 @@ module.exports = {
   dependencies: [
     'fromChild.txt',
   ],
-  args: [
-
-  ],
+  args: [],
   options: {
     createDirectory: false,
   }
 };
 ```
 
-When a user tries to generate `cyto/childConfig`, Cyto will notice that it has a base template and load `cyto/baseConfig`. It then merges the two configs by merging their sets of arguments and dependencies, preferring items from `cyto/childConfig` in the case of duplicates. This merged config is what is actually generated. The result for this example will look like this:
+When a user tries to generate `cyto/childConfig`, Cyto will notice that it has a base template and load `cyto/baseConfig`. It then merges the two configs by merging their sets of arguments and dependencies, preferring items from `cyto/childConfig` in the case of duplicates. Note that options are not copied and must be explicitly stated. After merging the two configs into one, the merged config is what is actually generated. The result for this example will look like this:
 
 ```bash
 > cyto gen cyto/childConfig foobar
