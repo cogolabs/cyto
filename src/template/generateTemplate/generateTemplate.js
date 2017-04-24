@@ -20,7 +20,7 @@ import types from '../../utils/types';
 import synchReduce from '../../utils/func/synchReduce';
 
 type GenerateOptions = {
-  templateString: string,
+  templateId: string,
   args: string[],
   outputRoot: string,
 };
@@ -43,26 +43,25 @@ type GenerateOptions = {
  *    object. This has the filenames as keys and the file contents as values.
  */
 export default async function generateTemplate(options: GenerateOptions) {
-  const { templateString, args } = options;
-  const templateId = formatTemplateString(templateString); // 1
+  const { templateId, args } = options;
+  formatTemplateString(templateId); // 1
   const cytoConfig = loadCytoConfig(templateId); // 2
 
   const outputRoot = cytoConfig.options.createDirectory
     ? path.join(options.outputRoot, args.id)
     : options.outputRoot;
 
-  log.info(`Generating ${chalk.green(templateId)} with id ${chalk.green(args.id)}`);
+  log.info(`Generating ${chalk.green(templateId)} with id ${chalk.green(options.args.id)}`);
 
-  const templateArgs = await getArgsForTemplate(cytoConfig, args); // 3
+  const templateArgs = await getArgsForTemplate(cytoConfig, options.args); // 3
   const dependencies = getRuntimeDependencies(cytoConfig, templateArgs); // 4
 
   const processDependency = async (accum, dep) => { // 5
     if (types.isObject(dep)) { // 5a
       const generatedTemplate = await generateTemplate({
-        templateString: dep.templateId,
+        templateId: dep.templateId,
         args: Object.assign(dep.args || {}, {
-          id: dep.args.id,
-          author: args.author,
+          author: templateArgs.author,
         }),
         outputRoot,
       });
