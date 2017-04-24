@@ -6,7 +6,7 @@
 import path from 'path';
 import chalk from 'chalk';
 
-import validTemplateId from '../validTemplateId';
+import validateTemplateId from '../validateTemplateId';
 
 import getArgsForTemplate from '../../args/getArgsForTemplate';
 
@@ -44,7 +44,7 @@ type GenerateOptions = {
  */
 export default async function generateTemplate(options: GenerateOptions) {
   const { templateId, args } = options;
-  validTemplateId(templateId); // 1
+  validateTemplateId(templateId); // 1
   const cytoConfig = loadCytoConfig(templateId); // 2
 
   const outputRoot = cytoConfig.options.createDirectory
