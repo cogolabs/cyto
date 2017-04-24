@@ -23,7 +23,7 @@ export default function create(program: Object) {
       const { libraryPath: outputRoot, author } = loadGlobalConfig();
 
       const generatedTemplate = await generateTemplate({
-        templateString: 'cyto/template',
+        templateId: 'cyto/template',
         args: { id, author },
         outputRoot: '',
         skipRendering: true,
