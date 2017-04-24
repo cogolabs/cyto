@@ -12,6 +12,7 @@ import noCytoConfig from './noCytoConfig';
 import missingRequiredArg from './missingRequiredArg';
 import invalidArgSyntax from './invalidArgSyntax';
 import invalidDependency from './invalidDependency';
+import invalidPartial from './invalidPartial';
 import invalidTemplateArg from './invalidTemplateArg';
 import templateIdMismatch from './templateIdMismatch';
 
@@ -26,5 +27,6 @@ export default {
   invalidArgSyntax,
   templateIdMismatch,
   invalidDependency,
+  invalidPartial,
   invalidTemplateArg,
 };

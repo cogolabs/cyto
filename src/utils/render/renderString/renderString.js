@@ -8,7 +8,7 @@ import mustache from '../../mustache';
 import loadCytoConfig from '../../../configs/loadCytoConfig';
 import generateTemplate from '../../../template/generateTemplate';
 import types from '../../types';
-import log from '../../log';
+import errors from '../../errors';
 
 /**
  * Description of renderString
@@ -19,13 +19,13 @@ export default function renderString(str, args) {
 
   const renderPartial = async (partialString, context) => {
     const tokens = partialString.split(' ').filter((s) => s.trim());
-    if (tokens.length > 2 || tokens.length === 0) {
-      log.fatal('Partial string is invalid');
+    if (!tokens.length || tokens.length > 2) {
+      errors.invalidPartial(partialString, '');
     } else if (tokens.length === 1) {
       if (context.id) {
         tokens.push(context.id);
       } else {
-        log.fatal('Partial string is invalid');
+        errors.invalidPartial(partialString);
       }
     }
 
@@ -33,7 +33,7 @@ export default function renderString(str, args) {
     const cytoConfig = loadCytoConfig(templateId);
 
     if (!types.isPartial(cytoConfig)) {
-      log.fatal(`${templateId} is not a partial!`);
+      errors.invalidPartial(partialString, `${templateId} is not a partial!`);
     }
 
     const generatedPartial = await generateTemplate({

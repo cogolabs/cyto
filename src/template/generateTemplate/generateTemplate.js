@@ -51,9 +51,9 @@ export default async function generateTemplate(options: GenerateOptions) {
     ? path.join(options.outputRoot, args.id)
     : options.outputRoot;
 
-  log.info(`Generating ${chalk.green(templateId)} with id ${chalk.green(options.args.id)}`);
+  log.info(`Generating ${chalk.green(templateId)} with id ${chalk.green(args.id)}`);
 
-  const templateArgs = await getArgsForTemplate(cytoConfig, options.args); // 3
+  const templateArgs = await getArgsForTemplate(cytoConfig, args); // 3
   const dependencies = getRuntimeDependencies(cytoConfig, templateArgs); // 4
 
   const processDependency = async (accum, dep) => { // 5
