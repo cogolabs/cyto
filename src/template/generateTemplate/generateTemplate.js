@@ -6,7 +6,7 @@
 import path from 'path';
 import chalk from 'chalk';
 
-import formatTemplateString from '../formatTemplateString';
+import validateTemplateId from '../validateTemplateId';
 
 import getArgsForTemplate from '../../args/getArgsForTemplate';
 
@@ -20,7 +20,7 @@ import types from '../../utils/types';
 import synchReduce from '../../utils/func/synchReduce';
 
 type GenerateOptions = {
-  templateString: string,
+  templateId: string,
   args: string[],
   outputRoot: string,
 };
@@ -43,8 +43,8 @@ type GenerateOptions = {
  *    object. This has the filenames as keys and the file contents as values.
  */
 export default async function generateTemplate(options: GenerateOptions) {
-  const { templateString, args } = options;
-  const templateId = formatTemplateString(templateString); // 1
+  const { templateId, args } = options;
+  validateTemplateId(templateId); // 1
   const cytoConfig = loadCytoConfig(templateId); // 2
 
   const outputRoot = cytoConfig.options.createDirectory
@@ -59,10 +59,9 @@ export default async function generateTemplate(options: GenerateOptions) {
   const processDependency = async (accum, dep) => { // 5
     if (types.isObject(dep)) { // 5a
       const generatedTemplate = await generateTemplate({
-        templateString: dep.templateId,
+        templateId: dep.templateId,
         args: Object.assign(dep.args || {}, {
-          id: dep.args.id,
-          author: args.author,
+          author: templateArgs.author,
         }),
         outputRoot,
       });

@@ -11,7 +11,7 @@
  * @returns {string} The path to the home directory
  */
 
-export default function getUserHomeDir(): string {
+export default function getUserHomeDir() {
   return process.env[
     (process.platform === 'win32') ? 'USERPROFILE' : 'HOME'
   ] || '';
