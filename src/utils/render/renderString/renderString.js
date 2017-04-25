@@ -38,7 +38,7 @@ export default function renderString(str, args) {
 
     const generatedPartial = await generateTemplate({
       templateId,
-      args: { ...context, id },
+      args: { ...context, id, author: args.author },
       outputRoot: '',
     });
 

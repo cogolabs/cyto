@@ -1,6 +1,6 @@
 {
   "name": "cyto",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "A better boilerplate generator",
   "scripts": {
     "build": "cross-env NODE_ENV=production webpack",
