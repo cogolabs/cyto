@@ -1,12 +1,13 @@
 {
   "name": "cyto",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "description": "A better boilerplate generator",
   "scripts": {
     "build": "cross-env NODE_ENV=production webpack",
     "flow": "flow; test $? -eq 0 -o $? -eq 2",
     "test": "jest",
-    "watch": "webpack --watch"
+    "watch": "webpack --watch",
+    "prepublish": "npm run build"
   },
   "bin": {
     "cyto": "bin/cyto"
