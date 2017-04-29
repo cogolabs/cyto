@@ -3,20 +3,19 @@
  * isString.test.js
  * Written by: Connor Taylor
  */
+import isString from './isString';
 
 describe('isString', () => {
-  /**
-   * Test description
-   */
-  it(''returns true when string'', () => {
-
+  it('returns true when string', () => {
+    expect(isString('')).toBe(true);
   });
 
-  /**
-   * Test description
-   */
-  it(''returns false when string'', () => {
-
+  it('returns false when string', () => {
+    expect(isString(1)).toBe(false);
+    expect(isString([])).toBe(false);
+    expect(isString({})).toBe(false);
+    expect(isString(() => {})).toBe(false);
+    expect(isString(true)).toBe(false);
   });
 
 });
