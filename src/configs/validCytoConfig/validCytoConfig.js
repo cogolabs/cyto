@@ -14,11 +14,12 @@ import types from '../../utils/types';
  * meet the following conditions:
  *  1. The config is an Object
  *  2. Config has `templateId`, `args`, `dependencies`, and `options` keys
- *  3. `dependencies` must be an array
- *  4. `args` must be an array
- *  5. `options` must be an object`
- *  6. `templateId` must match the provided id
- *  7. `dependencies` has at least 1 element
+ *  3. `templateId` must be a string
+ *  4. `dependencies` must be an array
+ *  5. `args` must be an array
+ *  6. `options` must be an object`
+ *  7. `templateId` must match the provided id
+ *  8. `dependencies` has at least 1 element
  */
 export default function validCytoConfig(config, providedId) {
   if (!types.isObject(config)) { // 1
@@ -42,7 +43,7 @@ export default function validCytoConfig(config, providedId) {
       );
     }
 
-    if (!typeTest(config[key])) { // 3-5
+    if (!typeTest(config[key])) { // 3-6
       errors.invalidCytoConfig(
         providedId,
         `${chalk.green(key)} is the wrong type`,
@@ -50,11 +51,11 @@ export default function validCytoConfig(config, providedId) {
     }
   });
 
-  if (config.templateId !== providedId) { // 6
+  if (config.templateId !== providedId) { // 7
     errors.templateIdMismatch(providedId, config.templateId);
   }
 
-  if (config.dependencies.length === 0) { // 7
+  if (config.dependencies.length === 0) { // 8
     errors.invalidCytoConfig(
       providedId,
       `${chalk.green('dependencies')} is empty, this template will not generate anything`,
