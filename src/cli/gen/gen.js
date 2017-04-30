@@ -13,6 +13,8 @@ import fs from 'fs';
 import path from 'path';
 import mkdirp from 'mkdirp';
 
+import log from '../../utils/log';
+
 import generateTemplate from '../../template/generateTemplate';
 import loadGlobalConfig from '../../configs/loadGlobalConfig';
 
@@ -43,7 +45,7 @@ export default function gen(program: Object) {
           fs.writeFileSync(outputPath, contents);
         });
       } catch (e) {
-        console.log(e);
+        log.info(e);
       }
     });
 }
