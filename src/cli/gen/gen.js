@@ -25,22 +25,25 @@ export default function gen(program: Object) {
     .action(async (templateId, id, options) => {
       const { author } = loadGlobalConfig();
 
-      // Returns an object where the keys are filepaths and the values are
-      // the rendered dependencies that should be written to those filepaths
-      const generatedTemplate = await generateTemplate({
-        templateId,
-        args: { id, author },
-        outputRoot: '',
-      });
+      try {
+        // Returns an object where the keys are filepaths and the values are
+        // the rendered dependencies that should be written to those filepaths
+        const generatedTemplate = await generateTemplate({
+          templateId,
+          args: { id, author },
+          outputRoot: '',
+        });
+        const outputRoot = path.join(process.cwd(), options.output || '');
 
-      const outputRoot = path.join(process.cwd(), options.output || '');
+        Object.keys(generatedTemplate).forEach((filePath) => {
+          const outputPath = path.join(outputRoot, filePath);
+          const contents = generatedTemplate[filePath];
 
-      Object.keys(generatedTemplate).forEach((filePath) => {
-        const outputPath = path.join(outputRoot, filePath);
-        const contents = generatedTemplate[filePath];
-
-        mkdirp.sync(path.dirname(outputPath));
-        fs.writeFileSync(outputPath, contents);
-      });
+          mkdirp.sync(path.dirname(outputPath));
+          fs.writeFileSync(outputPath, contents);
+        });
+      } catch (e) {
+        console.log(e);
+      }
     });
 }

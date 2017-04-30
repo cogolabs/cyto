@@ -11,8 +11,7 @@ import log from '../../log';
  *
  */
 export default function invalidArgSyntax(arg) {
-  log.fatal(
-  `Invalid argument ${arg}
+  log.fatal(`Invalid argument ${arg}
 Valid args are provided in the form: key=value`,
   );
 }

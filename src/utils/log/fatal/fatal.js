@@ -3,15 +3,13 @@
  * fatal.js
  * Written by: Connor Taylor
  */
-import error from '../error';
 
 /**
- * Logs an error to the console and quits afterwards
+ * Throws an Error with the specified prefix and message
  *
  * @param {string} msg - The message to log
- * @param {string} prefix - A prefix to add to the message. Default is `Error: `
+ * @param {string} prefix - A prefix for the message. Default is `Error: `
  */
-export default function fatal(msg: string, prefix: string = 'Error: ') {
-  error(msg, prefix);
-  process.exit(1);
+export default function fatal(msg) {
+  throw new Error(`${msg}`);
 }
