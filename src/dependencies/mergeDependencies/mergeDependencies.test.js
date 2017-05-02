@@ -5,4 +5,15 @@
  */
 
 describe('mergeDependencies', () => {
+  it('merges dependencies correctly', () => {
+    
+  });
+
+  it('uniques array dependencies correctly', () => {
+
+  });
+
+  it('uniques object dependencies correctly', () => {
+
+  });
 });

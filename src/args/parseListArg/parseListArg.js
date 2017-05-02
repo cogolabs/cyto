@@ -3,17 +3,15 @@
  * parseListArg.js
  * Written by: Connor Taylor
  */
-import types from '../../utils/types';
 
 /**
- * Description of parseListArg
+ * Parses the input of a list argument provided by the user into a form that
+ * is usable by Cyto. Does nothing if the input is already an array
  * @param {string} list - The CSV list
  *
+ * @returns {Array} The parsed argument
  */
-
 export default function parseListArg(list) {
-  if (types.isArray(list)) { return list; }
-
   return list
     .split(',')
     .filter((x) => x.trim())
