@@ -31,11 +31,11 @@ export default function init(program: Object) {
         inquirer.prompt([
           {
             name: 'author',
-            message: 'What is your name?',
+            message: 'What is your full name (used for the {{author}} variable)?',
           },
           {
             name: 'libraryPath',
-            message: 'Where do you want your templates stored?',
+            message: 'Where do you want your Global Template Library to be created?',
             default: `${cytoDir}/templates`,
           },
         ]).then((result) => {
