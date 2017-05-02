@@ -19,12 +19,6 @@ import log from '../../utils/log';
 import types from '../../utils/types';
 import synchReduce from '../../utils/func/synchReduce';
 
-type GenerateOptions = {
-  templateId: string,
-  args: string[],
-  outputRoot: string,
-};
-
 /**
  * Driver for the entire template generation algorithm. The algorithm can be
  * broken down into these steps:
@@ -42,7 +36,7 @@ type GenerateOptions = {
  * @returns {Promise} A promise that resolves with the generated template
  *    object. This has the filenames as keys and the file contents as values.
  */
-export default async function generateTemplate(options: GenerateOptions) {
+export default async function generateTemplate(options) {
   const { templateId, args } = options;
   validateTemplateId(templateId); // 1
   const cytoConfig = loadCytoConfig(templateId); // 2

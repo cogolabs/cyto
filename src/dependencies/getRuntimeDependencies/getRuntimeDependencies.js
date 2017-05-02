@@ -4,6 +4,7 @@
  * Written by: Connor Taylor
  */
 import mergeDependencies from '../mergeDependencies';
+import validateDependencies from '../validateDependencies';
 import types from '../../utils/types';
 
 /**
@@ -26,9 +27,14 @@ export default function getRuntimeDependencies(cytoConfig, args) {
     .reduce((accum, func) => {
       const result = func(args);
 
-      return types.isArray(result)
-        ? mergeDependencies(result.map(formatDep), accum)
-        : mergeDependencies([formatDep(result)], accum);
+      if (types.isArray(result)) {
+        validateDependencies(result);
+        return mergeDependencies(result.map(formatDep), accum);
+      }
+
+      validateDependencies([result]);
+
+      return mergeDependencies([formatDep(result)], accum);
     }, []);
 
   return mergeDependencies(

@@ -5,7 +5,7 @@
   "scripts": {
     "build": "cross-env NODE_ENV=production webpack",
     "flow": "flow; test $? -eq 0 -o $? -eq 2",
-    "test": "jest",
+    "test": "jest --watch",
     "watch": "webpack --watch",
     "prepublish": "npm run build"
   },
@@ -14,7 +14,7 @@
   },
   "keywords": [],
   "author": "Connor Taylor",
-  "license": "ISC",
+  "license": "Apache-2.0",
   "dependencies": {
     "babel-plugin-transform-runtime": "^6.22.0",
     "chalk": "^1.1.3",
