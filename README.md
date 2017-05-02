@@ -12,6 +12,9 @@ Cyto is primarily meant to be used as a global command line tool:
 > yarn global add cyto
 # or `npm install -g cyto`
 > cyto init
+# These following steps are temporary but necessary
+> git clone https://github.com/taylorc93/cyto-templates
+> cp -r cyto-templates/cyto <path/to/GTL>
 ```
 
 Note: If you installed `yarn` via homebrew, you may need to update your config. Following the steps outlined in [this comment](https://github.com/yarnpkg/yarn/issues/1321#issuecomment-283495343) should resolve that.
