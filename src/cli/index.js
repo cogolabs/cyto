@@ -11,8 +11,10 @@ import init from './init';
 import create from './create';
 import gen from './gen';
 
+import packageJson from '../../package.json';
+
 cli
-  .version('');
+  .version(packageJson.version);
 
 const commands = [
   init,
