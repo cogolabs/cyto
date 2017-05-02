@@ -14,7 +14,9 @@ Cyto is primarily meant to be used as a global command line tool:
 > cyto init
 ```
 
-It can also be used as a library in any node.js application (more on this later)
+Note: If you installed `yarn` via homebrew, you may need to update your config. Following the steps outlined in [this comment](https://github.com/yarnpkg/yarn/issues/1321#issuecomment-283495343) should resolve that.
+
+Cyto can also be used as a library in any node.js application (more on this later)
 
 ## Why Use Cyto?
 
