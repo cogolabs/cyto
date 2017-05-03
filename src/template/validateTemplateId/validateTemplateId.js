@@ -4,6 +4,7 @@
  * Written by: Connor Taylor
  */
 import errors from '../../utils/errors';
+import types from '../../utils/types';
 
 /**
  * Takes a string and ensures that it's a valid templateId. Valid templateIds
@@ -13,6 +14,10 @@ import errors from '../../utils/errors';
  * @param {string} templateId - The string to format
  */
 export default function validateTemplateId(templateId) {
+  if (!types.isString(templateId)) {
+    errors.invalidTemplateString(templateId);
+  }
+
   const tokens = templateId.split('/');
 
   if (tokens.length !== 2) {

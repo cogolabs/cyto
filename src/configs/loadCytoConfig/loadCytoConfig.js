@@ -4,7 +4,7 @@
  * Written by: Connor Taylor
  */
 import path from 'path';
-import _ from 'lodash';
+import cloneDeep from 'lodash/cloneDeep';
 
 import mergeCytoConfigs from '../mergeCytoConfigs';
 import loadGlobalConfig from '../loadGlobalConfig';
@@ -39,7 +39,7 @@ export default function loadCytoConfig(templateId) {
     // process this require statement :/
     // Open to other ideas on how to implement this
     // We also deep clone to prevent modifying the original config later on
-    rawConfig = _.cloneDeep(eval('require')(configPath)); // eslint-disable-line
+    rawConfig = cloneDeep(eval('require')(configPath)); // eslint-disable-line
   } catch (e) {
     errors.noCytoConfig(templateId);
   }

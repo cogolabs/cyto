@@ -10,7 +10,6 @@ jest.mock('inquirer');
 describe('promptForArg', () => {
   it('calls inquirer.prompt to get the argument', () => {
     const arg = { id: 'foo' };
-
     promptForArg(arg);
 
     expect(inquirer.prompt).toHaveBeenCalled();
@@ -20,7 +19,6 @@ describe('promptForArg', () => {
 
   it('uses the confirm prompt for boolean arguments', () => {
     const arg = { id: 'foo', type: 'boolean' };
-
     promptForArg(arg);
 
     expect(inquirer.prompt).toHaveBeenCalledWith([

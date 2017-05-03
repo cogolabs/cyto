@@ -4,7 +4,7 @@
  * Written by: Connor Taylor
  */
 import mustache from 'mustache';
-import _ from 'lodash';
+import uniqBy from 'lodash/uniqBy';
 
 import types from '../../utils/types';
 
@@ -29,7 +29,7 @@ export default function parseArgsFromDependencies(dependencies) {
 
       return [
         ...accum.filter((x) => !tokens.includes(x)),
-        ..._.uniqBy(tokens, 'id'),
+        ...uniqBy(tokens, 'id'),
       ];
     }, []);
 }
