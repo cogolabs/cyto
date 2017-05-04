@@ -35,6 +35,7 @@
     "babel-preset-env": "^1.1.8",
     "babel-preset-latest": "^6.22.0",
     "babili-webpack-plugin": "^0.0.8",
+    "coveralls": "^2.13.1",
     "cross-env": "^3.1.4",
     "eslint": "^3.14.0",
     "eslint-config-airbnb": "^14.0.0",
