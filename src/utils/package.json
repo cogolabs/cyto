@@ -1,0 +1,5 @@
+{
+  "devDependencies": {
+    "coveralls": "^2.13.1"
+  }
+}

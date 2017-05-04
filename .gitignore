@@ -2,4 +2,6 @@ node_modules
 *.log
 bin
 
+coverage
+
 .DS_Store
