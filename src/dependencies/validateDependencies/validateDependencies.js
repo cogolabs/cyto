@@ -4,7 +4,7 @@
  * Written by: Connor Taylor
  */
 import chalk from 'chalk';
-import _ from 'lodash';
+import has from 'lodash/has';
 
 import errors from '../../utils/errors';
 import types from '../../utils/types';
@@ -31,13 +31,12 @@ export default function validateDependencies(deps) {
 
     if (types.isObject(dep)) {
       ['templateId', 'args'].forEach((key) => {
-        const hasProperty = _.has(dep, key);
-        if (!hasProperty) {
+        if (!has(dep, key)) {
           errors.invalidDependency(dep, `Missing key: ${chalk.green(key)}`);
         }
       });
 
-      if (!_.has(dep, 'args.id')) {
+      if (!has(dep, 'args.id')) {
         errors.invalidDependency(dep, 'Missing id arg');
       }
     }

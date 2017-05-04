@@ -3,7 +3,7 @@
  * isFunction.js
  * Written by: Connor Taylor
  */
-import _ from 'lodash';
+import lodashIsFunction from 'lodash/isFunction';
 
 /**
  * Description of isFunction
@@ -12,5 +12,5 @@ import _ from 'lodash';
  */
 
 export default function isFunction(x) {
-  return _.isFunction(x);
+  return lodashIsFunction(x);
 }

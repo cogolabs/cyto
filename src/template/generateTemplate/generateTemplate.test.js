@@ -5,4 +5,7 @@
  */
 
 describe('generateTemplate', () => {
+  it('can generate templates', () =>{
+
+  });
 });

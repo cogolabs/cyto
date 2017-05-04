@@ -8,7 +8,8 @@ import validateTemplateId from './validateTemplateId';
 const VALID_ID = 'foo/bar';
 const INVALID_IDS = [
   'foo',
-  'foo/bar/baz'
+  'foo/bar/baz',
+  1,
 ];
 
 

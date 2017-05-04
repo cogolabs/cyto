@@ -5,7 +5,8 @@
   "scripts": {
     "build": "cross-env NODE_ENV=production webpack",
     "flow": "flow; test $? -eq 0 -o $? -eq 2",
-    "test": "jest --watch",
+    "test": "jest --coverage",
+    "test-watch": "jest --watch",
     "watch": "webpack --watch",
     "prepublish": "npm run build"
   },
@@ -35,6 +36,7 @@
     "babel-preset-env": "^1.1.8",
     "babel-preset-latest": "^6.22.0",
     "babili-webpack-plugin": "^0.0.8",
+    "coveralls": "^2.13.1",
     "cross-env": "^3.1.4",
     "eslint": "^3.14.0",
     "eslint-config-airbnb": "^14.0.0",

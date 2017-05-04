@@ -3,7 +3,7 @@
  * validCytoConfig.js
  * Written by: Connor Taylor
  */
-import _ from 'lodash';
+import has from 'lodash/has';
 import chalk from 'chalk';
 
 import errors from '../../utils/errors';
@@ -35,8 +35,7 @@ export default function validCytoConfig(config, providedId) {
     ['args', types.isArray],
     ['options', types.isObject],
   ].forEach(([key, typeTest]) => {
-    const hasProperty = _.has(config, key);
-    if (!hasProperty) { // 2
+    if (!has(config, key)) { // 2
       errors.invalidCytoConfig(
         providedId,
         `Missing key: ${chalk.green(key)}`,
