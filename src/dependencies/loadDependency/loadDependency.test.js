@@ -5,4 +5,7 @@
  */
 
 describe('loadDependency', () => {
+  it('loads the unrendered dependency file', () => {
+
+  });
 });
