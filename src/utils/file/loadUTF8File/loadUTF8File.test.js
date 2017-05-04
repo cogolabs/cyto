@@ -5,4 +5,7 @@
  */
 
 describe('loadUTF8File', () => {
+  it('reads from a local cache if the file was already loaded', () => {
+
+  });
 });

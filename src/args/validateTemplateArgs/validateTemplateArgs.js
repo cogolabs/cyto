@@ -3,7 +3,7 @@
  * validateTemplateArgs.js
  * Written by: Connor Taylor
  */
-import _ from 'lodash';
+import has from 'lodash/has';
 
 import errors from '../../utils/errors';
 import types from '../../utils/types';
@@ -23,8 +23,7 @@ export default function validateTemplateArgs(args) {
       errors.invalidTemplateArg(arg, 'Not an object');
     }
 
-    const hasId = _.has(arg, 'id');
-    if (!hasId) {
+    if (!has(arg, 'id')) {
       errors.invalidTemplateArg(arg, 'No id found');
     }
 

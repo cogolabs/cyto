@@ -31,19 +31,19 @@ const INVALID_KEY_TYPES = [
     options: {}
   },
   {
-    templateId: 'foo/bar', 
+    templateId: 'foo/bar',
     dependencies: 1, // invalid
     args: [],
     options: {}
   },
   {
-    templateId: 'foo/bar', 
+    templateId: 'foo/bar',
     dependencies: [],
     args: 1, // invalid
     options: {}
   },
   {
-    templateId: 'foo/bar', 
+    templateId: 'foo/bar',
     dependencies: [],
     args: [],
     options: 1 // invalid
@@ -51,7 +51,7 @@ const INVALID_KEY_TYPES = [
 ];
 
 const INVALID_DEPENDENCY_LENGTH = {
-  templateId: 'foo/bar', 
+  templateId: 'foo/bar',
   dependencies: [],
   args: [],
   options: {}

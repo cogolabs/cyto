@@ -5,4 +5,7 @@
  */
 
 describe('synchReduce', () => {
+  it('processes each item synchronously', () => {
+
+  });
 });

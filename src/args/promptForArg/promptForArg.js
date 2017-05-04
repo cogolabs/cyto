@@ -6,8 +6,13 @@
 import inquirer from 'inquirer';
 
 /**
- * Description of promptForArg
+ * Given an arg object, prompts the user for a value for the arg. Currently done
+ * through inquirer.js.
  *
+ * @param { Object } arg - The arg object to prompt for
+ *
+ * @returns { Promise } A promise that resolves with the value once the user has
+ *  provided one.
  */
 export default function promptForArg(arg) {
   const type = arg.type && arg.type === 'boolean'

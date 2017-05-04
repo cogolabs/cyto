@@ -11,7 +11,6 @@ import errors from '../../utils/errors';
 
 /**
  * Loads the `config.json` file stored in the user's ~/.cyto directory
- *
  */
 export default function loadGlobalConfig() {
   const configPath = path.resolve(file.getUserHomeDir(), '.cyto/config.json');
