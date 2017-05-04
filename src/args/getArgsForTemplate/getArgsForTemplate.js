@@ -22,7 +22,7 @@ export default async function getArgsForTemplate(cytoConfig, args) {
         ? { [arg.id]: arg.default }
         : await promptForArg(arg);
 
-    const parsedValue = arg.type === 'list' && !types.isArray(value)
+    const parsedValue = arg.type === 'list' && !types.isArray(value[arg.id])
       ? { [arg.id]: parseListArg(value[arg.id]) }
       : value;
 
