@@ -52,5 +52,10 @@ Cyto is different. While Yeoman solves boilerplate generation through an imperat
 Cyto is written and maintained by Connor Taylor [@taylorc93](https://github.com/taylorc93). However, it wouldn't have been possible without the help of these amazing people:
 
 1. Scott Staniewicz
+    - For all of the documentation edits and user testing
+1. Alicia Payette [apayette](https://github.com/apayette)
+    - For designing the awesome logo
 1. Alex Kasemir
+    - For documentation edits and user testing
 1. Anna Richardson
+    - For user testing
