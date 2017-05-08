@@ -6,23 +6,36 @@
 // import fs from 'fs';
 import path from 'path';
 import mkdirp from 'mkdirp';
-// import ncp from 'ncp';
+import ncp from 'ncp';
 
 import getUserHomeDir from './utils/file/getUserHomeDir';
+import errors from './utils/errors';
 
+/* Creates a .cyto directory in the user's home directory. This stores the
+ * config.json created by `cyto init` and the template examples to be copied
+ * into the user's GTL.
+ */
 const createCytoDir = () => {
   const dir = path.join(getUserHomeDir(), '.cyto');
-  console.log(dir);
 
   mkdirp(dir, (err) => {
     if (err) {
-      console.log(err);
-      process.exit(1);
+      errors.fileSystemError(err);
     }
-    console.log(process.cwd());
 
     const templatePath = path.join(process.cwd(), 'templates');
-    console.log(templatePath);
+    const outputPath = path.join(dir, 'examples');
+    mkdirp(outputPath, (templatePathErr) => {
+      if (templatePathErr) {
+        errors.fileSystemError(templatePathErr);
+      }
+
+      ncp(templatePath, outputPath, (copyErr) => {
+        if (copyErr) {
+          errors.fileSystemError(copyErr);
+        }
+      });
+    });
   });
 };
 

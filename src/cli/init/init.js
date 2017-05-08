@@ -8,6 +8,7 @@ import path from 'path';
 
 import inquirer from 'inquirer';
 import mkdirp from 'mkdirp';
+import ncp from 'ncp';
 
 import errors from '../../utils/errors';
 import file from '../../utils/file';
@@ -23,32 +24,31 @@ export default function init(program: Object) {
     .description('Set required information for cyto')
     .action(() => {
       const cytoDir = path.join(file.getUserHomeDir(), '.cyto');
-      mkdirp(cytoDir, (err) => {
-        if (err) {
-          errors.fileSystemError(err);
-        }
 
-        inquirer.prompt([
-          {
-            name: 'author',
-            message: 'What is your full name (used for the {{author}} variable)?',
-          },
-          {
-            name: 'libraryPath',
-            message: 'Where do you want your Global Template Library to be created?',
-            default: `${cytoDir}/templates`,
-          },
-        ]).then((result) => {
-          mkdirp(result.libraryPath, (e) => {
-            if (e) {
-              errors.fileSystemError(e);
-            }
-            fs.writeFileSync(
-              path.join(cytoDir, 'config.json'),
-              JSON.stringify(result, null, '  '),
-            );
-          });
+      inquirer.prompt([
+        {
+          name: 'author',
+          message: 'What is your full name (used for the {{author}} variable)?',
+        },
+        {
+          name: 'libraryPath',
+          message: 'Where do you want your Global Template Library to be created?',
+          default: `${cytoDir}/templates`,
+        },
+      ]).then((result) => {
+        const examplesPath = path.join(cytoDir, 'examples');
+        mkdirp.sync(result.libraryPath);
+
+        ncp(examplesPath, result.libraryPath, (err) => {
+          if (err) {
+            errors.fileSystemError(err);
+          }
         });
+
+        fs.writeFileSync(
+          path.join(cytoDir, 'config.json'),
+          JSON.stringify(result, null, '  '),
+        );
       });
     });
 }
