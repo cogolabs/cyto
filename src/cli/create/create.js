@@ -3,21 +3,17 @@
  * create.js
  * Written by: Connor Taylor
  */
-import fs from 'fs';
-import path from 'path';
-import mkdirp from 'mkdirp';
-
 import log from '../../utils/log';
 
 import generateTemplate from '../../template/generateTemplate';
+import writeTemplate from '../../template/writeTemplate';
 import loadGlobalConfig from '../../configs/loadGlobalConfig';
 
 /**
- * `create`. Does x when envoked. The arguments listed below are meant to be
- * passed via the command line.
- *
+ * `cyto create` creates a new template inside of the user's GTL. It does this
+ * through generating the `cyto/template` template
  */
-export default function create(program: Object) {
+export default function create(program) {
   program
     .command('create <id>')
     .description('Create a new cyto template')
@@ -29,16 +25,9 @@ export default function create(program: Object) {
           templateId: 'cyto/template',
           args: { id, author },
           outputRoot: '',
-          skipRendering: true,
         });
 
-        Object.keys(generatedTemplate).forEach((filePath) => {
-          const outputPath = path.join(outputRoot, filePath);
-          const contents = generatedTemplate[filePath];
-
-          mkdirp.sync(path.dirname(outputPath));
-          fs.writeFileSync(outputPath, contents);
-        });
+        writeTemplate(generatedTemplate, outputRoot);
       } catch (e) {
         log.info(e);
       }

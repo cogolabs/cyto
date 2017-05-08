@@ -1,11 +1,11 @@
 module.exports = {
-  templateId: "cyto/composed",
+  templateId: "cyto/test",
   dependencies: [
-    '{{id}}.txt',
+    'foo',
+    'bar',
   ],
   args: [
-    { id: 'templateArg' },
-    { id: 'userArg' }
+
   ],
   options: {
     createDirectory: false,
