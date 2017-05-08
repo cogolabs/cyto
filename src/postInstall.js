@@ -3,7 +3,6 @@
  * Written by: Connor Taylor
  * Script that runs directly after the user installs cyto.
  */
-// import fs from 'fs';
 import path from 'path';
 import mkdirp from 'mkdirp';
 import ncp from 'ncp';
