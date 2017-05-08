@@ -22,7 +22,7 @@ export default function init(program: Object) {
     .command('init')
     .description('Set required information for cyto')
     .action(() => {
-      const cytoDir: string = path.join(file.getUserHomeDir(), '.cyto');
+      const cytoDir = path.join(file.getUserHomeDir(), '.cyto');
       mkdirp(cytoDir, (err) => {
         if (err) {
           errors.fileSystemError(err);

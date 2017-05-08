@@ -10,11 +10,10 @@ import writeTemplate from '../../template/writeTemplate';
 import loadGlobalConfig from '../../configs/loadGlobalConfig';
 
 /**
- * `create`. Does x when envoked. The arguments listed below are meant to be
- * passed via the command line.
- *
+ * `cyto create` creates a new template inside of the user's GTL. It does this
+ * through generating the `cyto/template` template
  */
-export default function create(program: Object) {
+export default function create(program) {
   program
     .command('create <id>')
     .description('Create a new cyto template')
