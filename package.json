@@ -8,7 +8,8 @@
     "test": "jest --coverage",
     "test-watch": "jest --watch",
     "watch": "webpack --watch",
-    "prepublish": "npm run build"
+    "prepublish": "npm run build",
+    "postinstall": "./bin/postInstall"
   },
   "bin": {
     "cyto": "bin/cyto"

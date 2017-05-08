@@ -1,0 +1,7 @@
+This template is passed the same context as cyto/partialsDemo
+{{> cyto/tutorial }}
+
+These templates are passed the context from the `thingsToGreet` arg
+{{# thingsToGreet }}
+{{> cyto/tutorial}}
+{{/ thingsToGreet }}

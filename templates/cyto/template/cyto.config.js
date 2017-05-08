@@ -1,5 +1,5 @@
 module.exports = {
-  templateId: "cyto/template",
+  templateId: 'cyto/template',
   dependencies: [
     '{{name}}.js',
     (args) => args.files.map((f) => f.id),

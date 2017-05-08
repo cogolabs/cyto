@@ -9,13 +9,12 @@
  * passed via the command line.
  *
  */
-import fs from 'fs';
 import path from 'path';
-import mkdirp from 'mkdirp';
 
 import log from '../../utils/log';
 
 import generateTemplate from '../../template/generateTemplate';
+import writeTemplate from '../../template/writeTemplate';
 import loadGlobalConfig from '../../configs/loadGlobalConfig';
 
 export default function gen(program: Object) {
@@ -37,13 +36,7 @@ export default function gen(program: Object) {
         });
         const outputRoot = path.join(process.cwd(), options.output || '');
 
-        Object.keys(generatedTemplate).forEach((filePath) => {
-          const outputPath = path.join(outputRoot, filePath);
-          const contents = generatedTemplate[filePath];
-
-          mkdirp.sync(path.dirname(outputPath));
-          fs.writeFileSync(outputPath, contents);
-        });
+        writeTemplate(generatedTemplate, outputRoot);
       } catch (e) {
         log.info(e);
       }

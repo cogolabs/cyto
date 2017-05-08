@@ -14,9 +14,6 @@ Cyto is primarily meant to be used as a global command line tool:
 > yarn global add cyto
 # or `npm install -g cyto`
 > cyto init
-# These following steps are temporary but necessary
-> git clone https://github.com/taylorc93/cyto-templates
-> cp -r cyto-templates/cyto <path/to/GTL>
 ```
 
 Note: If you installed `yarn` via homebrew, you may need to update your config. Following the steps outlined in [this comment](https://github.com/yarnpkg/yarn/issues/1321#issuecomment-283495343) should resolve that.
@@ -53,6 +50,11 @@ Cyto is different. While Yeoman solves boilerplate generation through an imperat
 ## Contributors
 Cyto is written and maintained by Connor Taylor [@taylorc93](https://github.com/taylorc93). However, it wouldn't have been possible without the help of these amazing people:
 
-1. Scott Staniewicz
-1. Alex Kasemir
-1. Anna Richardson
+1. Scott Staniewicz [scottstanie](https://github.com/scottstanie)
+    - For all of the documentation edits and user testing
+1. Alicia Payette [apayette](https://github.com/apayette)
+    - For designing the awesome logo
+1. Alex Kasemir [annarichardson](https://github.com/annarichardson)
+    - For documentation edits and user testing
+1. Anna Richardson [alexkasemir](https://github.com/alexkasemir)
+    - For user testing
