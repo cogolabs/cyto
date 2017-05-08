@@ -7,6 +7,7 @@
  */
 import fs from 'fs';
 import path from 'path';
+import mkdirp from 'mkdirp';
 
 /**
  * Given a generated template object, writes the template's files to the

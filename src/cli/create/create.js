@@ -3,13 +3,10 @@
  * create.js
  * Written by: Connor Taylor
  */
-import fs from 'fs';
-import path from 'path';
-import mkdirp from 'mkdirp';
-
 import log from '../../utils/log';
 
 import generateTemplate from '../../template/generateTemplate';
+import writeTemplate from '../../template/writeTemplate';
 import loadGlobalConfig from '../../configs/loadGlobalConfig';
 
 /**
@@ -29,16 +26,9 @@ export default function create(program: Object) {
           templateId: 'cyto/template',
           args: { id, author },
           outputRoot: '',
-          skipRendering: true,
         });
 
-        Object.keys(generatedTemplate).forEach((filePath) => {
-          const outputPath = path.join(outputRoot, filePath);
-          const contents = generatedTemplate[filePath];
-
-          mkdirp.sync(path.dirname(outputPath));
-          fs.writeFileSync(outputPath, contents);
-        });
+        writeTemplate(generatedTemplate, outputRoot);
       } catch (e) {
         log.info(e);
       }
