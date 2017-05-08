@@ -14,11 +14,12 @@ import errors from '../../utils/errors';
 import file from '../../utils/file';
 
 /**
- * `init`. Does x when envoked. The arguments listed below are meant to be
- * passed via the command line.
- *
+ * `cyto init` prompts the user for their full name and the location to create
+ * their GTL. It then saves this information in a config.json file in the .cyto
+ * directory, creates the GTL, and copies the example templates created during
+ * the postinstall script into the GTL.
  */
-export default function init(program: Object) {
+export default function init(program) {
   program
     .command('init')
     .description('Set required information for cyto')
