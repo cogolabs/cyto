@@ -2,7 +2,7 @@
 
 A declarative boilerplate generator designed to help you write less meaningless code.
 
-[![npm](https://img.shields.io/npm/v/cyto.svg)]() [![Travis](https://img.shields.io/travis/cogolabs/cyto.svg)]() [![Coveralls](https://img.shields.io/coveralls/cogolabs/cyto.svg)]()
+[![npm](https://img.shields.io/npm/v/cyto.svg)]() [![Travis](https://img.shields.io/travis/cogolabs/cyto/master.svg)]() [![Coveralls](https://img.shields.io/coveralls/cogolabs/cyto.svg)]()
 
 <Put a screen capture of some cool usage here>
 
