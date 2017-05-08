@@ -6,12 +6,12 @@ module.exports = {
       templateId: 'cyto/composed',
       args: {
         id: 'composedTemplate',
-        blurb: 'I was passed via another template'
+        templateArg: 'I was passed via another template'
       }
+    },
   ],
   args: [
-    { id: 'templateArg' },
-    { id: 'userArg' }
+    { id: 'userArg' },
   ],
   options: {
     createDirectory: false,

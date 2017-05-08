@@ -16,6 +16,8 @@ const plugins = [
     this.plugin('done', () => {
       fs.chmodSync('bin/cyto.js', '755');
       fs.renameSync('bin/cyto.js', 'bin/cyto');
+      fs.chmodSync('bin/postInstall.js', '755');
+      fs.renameSync('bin/postInstall.js', 'bin/postInstall');
     })
   }
 ];
@@ -27,7 +29,8 @@ if (process.env.NODE_ENV === 'production') {
 module.exports = {
   context: path.resolve(__dirname, './src'),
   entry: {
-    cyto: './index.js'
+    cyto: './index.js',
+    postInstall: './postInstall.js',
   },
   output: {
     path: path.resolve(__dirname, './bin'),

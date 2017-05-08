@@ -8,47 +8,48 @@ import path from 'path';
 
 import inquirer from 'inquirer';
 import mkdirp from 'mkdirp';
+import ncp from 'ncp';
 
 import errors from '../../utils/errors';
 import file from '../../utils/file';
 
 /**
- * `init`. Does x when envoked. The arguments listed below are meant to be
- * passed via the command line.
- *
+ * `cyto init` prompts the user for their full name and the location to create
+ * their GTL. It then saves this information in a config.json file in the .cyto
+ * directory, creates the GTL, and copies the example templates created during
+ * the postinstall script into the GTL.
  */
-export default function init(program: Object) {
+export default function init(program) {
   program
     .command('init')
     .description('Set required information for cyto')
     .action(() => {
-      const cytoDir: string = path.join(file.getUserHomeDir(), '.cyto');
-      mkdirp(cytoDir, (err) => {
-        if (err) {
-          errors.fileSystemError(err);
-        }
+      const cytoDir = path.join(file.getUserHomeDir(), '.cyto');
 
-        inquirer.prompt([
-          {
-            name: 'author',
-            message: 'What is your full name (used for the {{author}} variable)?',
-          },
-          {
-            name: 'libraryPath',
-            message: 'Where do you want your Global Template Library to be created?',
-            default: `${cytoDir}/templates`,
-          },
-        ]).then((result) => {
-          mkdirp(result.libraryPath, (e) => {
-            if (e) {
-              errors.fileSystemError(e);
-            }
-            fs.writeFileSync(
-              path.join(cytoDir, 'config.json'),
-              JSON.stringify(result, null, '  '),
-            );
-          });
+      inquirer.prompt([
+        {
+          name: 'author',
+          message: 'What is your full name (used for the {{author}} variable)?',
+        },
+        {
+          name: 'libraryPath',
+          message: 'Where do you want your Global Template Library to be created?',
+          default: `${cytoDir}/templates`,
+        },
+      ]).then((result) => {
+        const examplesPath = path.join(cytoDir, 'examples');
+        mkdirp.sync(result.libraryPath);
+
+        ncp(examplesPath, result.libraryPath, (err) => {
+          if (err) {
+            errors.fileSystemError(err);
+          }
         });
+
+        fs.writeFileSync(
+          path.join(cytoDir, 'config.json'),
+          JSON.stringify(result, null, '  '),
+        );
       });
     });
 }
