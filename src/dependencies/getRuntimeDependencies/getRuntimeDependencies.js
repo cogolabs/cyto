@@ -9,7 +9,8 @@ import types from '../../utils/types';
 
 /**
  * Generates a new set of dependencies after applying each dependency that's a
- * function.
+ * function. For string dependencies, a 3rd element is added to the array that
+ * indicates that the filename should not be rendered by mustache
  *
  * @param {Object} cytoConfig - The config file with the dependencies
  * @param {Object} args - The arguments to pass to each functional dependency
@@ -18,7 +19,7 @@ export default function getRuntimeDependencies(cytoConfig, args) {
   const { templateId, dependencies } = cytoConfig;
   const formatDep = (dep) => {
     return types.isString(dep)
-      ? [dep, templateId]
+      ? [dep, templateId, true]
       : dep;
   };
 

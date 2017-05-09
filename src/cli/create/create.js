@@ -27,6 +27,7 @@ export default function create(program) {
           outputRoot: '',
         });
 
+        console.log(generatedTemplate);
         writeTemplate(generatedTemplate, outputRoot);
       } catch (e) {
         log.info(e);

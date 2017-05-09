@@ -19,9 +19,10 @@ import types from '../../utils/types';
  * and return a merged version of the 2 configs.
  *
  * Whe Cyto configs are loaded, all string dependencies are converted to
- * arrays with 2 values:
+ * arrays with 3 values:
  *   1. fileName - The original string with the file
  *   2. templateId - The template that the file comes from
+ *   3. skipRendering - Should we skip the rendering process for this file?
  * We do this to ensure we load the correct dependency files when configs are
  * merged. We can allow also store more information in the future if needed
  *
@@ -51,7 +52,7 @@ export default function loadCytoConfig(templateId) {
     ...rawConfig.dependencies.filter((d) => !types.isString(d)),
     ...rawConfig.dependencies
       .filter((d) => types.isString(d))
-      .map((d) => [d, rawConfig.templateId]),
+      .map((d) => [d, rawConfig.templateId, false]),
   ];
 
   return rawConfig.base
