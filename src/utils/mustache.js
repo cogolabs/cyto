@@ -518,8 +518,6 @@ import chalk from 'chalk';
 
       if (value !== undefined)
         buffer += value;
-
-      console.log(buffer);
     }
 
     return buffer;
