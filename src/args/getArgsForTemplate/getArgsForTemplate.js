@@ -29,8 +29,13 @@ export default async function getArgsForTemplate(cytoConfig, args) {
     return { ...accum, ...parsedValue };
   };
 
+  const baseArgs = cytoConfig.base
+    ? cytoConfig.base.args
+    : {};
+
   return synchReduce(cytoConfig.args, getArg, {
     ...args,
+    ...baseArgs,
     id: args.id,
     author: args.author,
   });

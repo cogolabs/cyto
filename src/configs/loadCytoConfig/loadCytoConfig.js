@@ -56,6 +56,6 @@ export default function loadCytoConfig(templateId) {
   ];
 
   return rawConfig.base
-    ? mergeCytoConfigs(rawConfig, loadCytoConfig(rawConfig.base))
+    ? mergeCytoConfigs(rawConfig, loadCytoConfig(rawConfig.base.templateId))
     : rawConfig;
 }
