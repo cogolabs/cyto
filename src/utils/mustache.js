@@ -569,6 +569,7 @@ import chalk from 'chalk';
       const v = await this.renderTokens(token[4], context, partials, originalTemplate);
       buffer += v;
     }
+
     return buffer;
   };
 

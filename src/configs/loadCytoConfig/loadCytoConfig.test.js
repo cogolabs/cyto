@@ -13,6 +13,10 @@ describe('loadCytoConfig', () => {
 
   });
 
+  it('converts all string dependencies to arrays', () => {
+
+  });
+
   it('ensures the template is valid by calling validateTemplate', () => {
 
   });
