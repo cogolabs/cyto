@@ -29,7 +29,7 @@ export default async function getArgsForTemplate(cytoConfig, args) {
     return { ...accum, ...parsedValue };
   };
 
-  const baseArgs = cytoConfig.base
+  const baseArgs = cytoConfig.base && cytoConfig.base.args
     ? cytoConfig.base.args
     : {};
 
