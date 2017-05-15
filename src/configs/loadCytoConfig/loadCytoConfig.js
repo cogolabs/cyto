@@ -22,7 +22,7 @@ import types from '../../utils/types';
  * arrays with 3 values:
  *   1. fileName - The original string with the file
  *   2. templateId - The template that the file comes from
- *   3. skipRendering - Should we skip the rendering process for this file?
+ *   3. isRuntimeDep - Was this dependency created at runtime?
  * We do this to ensure we load the correct dependency files when configs are
  * merged. We can allow also store more information in the future if needed
  *
@@ -56,6 +56,6 @@ export default function loadCytoConfig(templateId) {
   ];
 
   return rawConfig.base
-    ? mergeCytoConfigs(rawConfig, loadCytoConfig(rawConfig.base))
+    ? mergeCytoConfigs(rawConfig, loadCytoConfig(rawConfig.base.templateId))
     : rawConfig;
 }

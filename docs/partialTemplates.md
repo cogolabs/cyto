@@ -1,15 +1,15 @@
 # Cyto Partials
 
 ## What are partials?
-If you've used Mustache or a similar templating language before, you're probably familiar with the concept of partials. For those who aren't, [partials](https://mustache.github.io/mustache.5.html#Partials) are Mustache templates that can be rendered inside of another Mustache template.  The documentation has a great quote that I feel explains partials very well:
+If you've used Mustache or a similar templating language before, you're probably familiar with the concept of partials. For those who aren't, [partials](https://mustache.github.io/mustache.5.html#Partials) are Mustache templates that can be rendered inside of another Mustache template.  The documentation has a great quote that explains partials very well:
 
 > You may want to think of partials as includes, imports, template expansion, nested templates, or subtemplates, even though those aren't literally the case here.
 
-Partials are great because they allow you to break out repeated snippets of text in one or more Mustache templates and move them into their own Mustache templates. However, Cyto handles all of the Mustache rendering for you, so you might be wondering how to use partials in Cyto dependency files. Fortunately, Cyto does support using partials in dependency files! However, there are some small differences between how Cyto handles partials and how Mustache does, which will be explained in the rest of this document.
+Partials are great because they allow you to break out repeated snippets of text in one or more Mustache templates and move them into their own Mustache templates. Normally, partial templates are provided to Mustache via an object passed to the render function (eg. [how it works in Mustache.js](https://github.com/janl/mustache.js/#partials). However, Cyto handles all of the Mustache rendering for you, leaving you with no opportunity to supply a set of partials. This might leave you wondering how to use partials in Cyto dependency files or if you can use them at all. Fortunately, Cyto does support using partials in dependency files. However, there are some small differences between how Cyto handles partials and how Mustache does, which will be explained in the rest of this document.
 
 ## How Cyto partials work
 
-Cyto partials are Cyto templates: there's no special syntax to declare that a Cyto template is a partial. However, Cyto partials must meet a single requirement:  their `dependencies`  section in the `cyto.config.js` file must have exactly 1 element, which must be a string dependency. Other than that, Cyto partials are no different from normal Cyto templates.
+Cyto partials are just Cyto templates: there's no special syntax to declare that a Cyto template is a partial. However, Cyto partials must meet a single requirement:  their `dependencies`  section in the `cyto.config.js` file must have exactly 1 item, which must be a string dependency. So long as that requirement is met, any Cyto template can be used as a Cyto partial.
 
 Let's take a look at what the `cyto/partialsDemo`  template looks like:
 
@@ -29,6 +29,10 @@ module.exports = {
     {
       id: 'thingToGreet',
       default: 'Cyto expert :D'
+    },
+    {
+      id: 'partialToGenerate',
+      default: 'cyto/tutorial'
     }
   ],
   options: {
@@ -39,68 +43,83 @@ module.exports = {
 
 `<path to GTL>/cyto/partialsDemo/demo.txt`
 ```
-This template is passed the same args as cyto/partialsDemo
+Case 1: This template is passed the same context as cyto/partialsDemo
 {{> cyto/tutorial }}
 
-These templates are passed the args from the `thingsToGreet` array
+Case 2: These templates are passed the context from the `thingsToGreet` arg
 {{# thingsToGreet }}
 {{> cyto/tutorial}}
 {{/ thingsToGreet }}
+
+Case 3: You can also explicitly specify the id of a partial by adding another
+string to the partial tag
+{{> cyto/tutorial baz }}
+
+Case 4: Finally, you can also dynamically choose the partial to render based
+on the value of another argument
+{{> {{partialToGenerate}} qux }}
 ```
 
-As you can see, Cyto partials are used the same way as Mustache partials. To use them, we specify the `templateId` of the partial we'd like to include in the project and Cyto handles the rest. Here, we specify that we'd like to use the `cyto/tutorial` template as a partial. The generation process will look like this:
+As you can see, partials in Cyto use the same `{{>` tag as regular Mustache. The main difference lies in how the contents for the partial are retrieved. As mentioned before, the plain Mustache.js renderer expects an object with a mapping of partial names to contents. This isn't feasible for Cyto since there are potentially hundreds of templates that could be used as partials. When Cyto's modified Mustache renderer encounters a partial, it instead requests the contents for that partial from Cyto, passing it the string inside of the partial tag. Cyto expects that the string it receives is a valid `templateId`. Assuming that it is, it then fully generates the specified template and send the generated content back to Mustache to be used as the partial text.
+
+Now, before explaining each use case in the `cyto/partialsDemo` template, lets take a look at what the generated flow for this template looks like:
 
 ```bash
 > cyto gen cyto/partialsDemo demo
 Generating cyto/partialsDemo with id demo
 ? thingsToGreet:  foo,bar
 ? thingToGreet:  Cyto expert :D
+? partialToGenerate:  cyto/tutorial
 Generating cyto/tutorial with id demo
 Generating cyto/tutorial with id foo
 ? thingToGreet:  world
 Generating cyto/tutorial with id bar
 ? thingToGreet:  other world
+Generating cyto/tutorial with id baz
+Generating cyto/tutorial with id qux
 > cat demo.txt
-This template is passed the same context as cyto/partialsDemo
+Case 1: This template is passed the same context as cyto/partialsDemo
 Hello Cyto expert :D!
 
 This file was generated by Connor Taylor with an id of demo using Cyto.
 
-These templates are passed the context from the `thingsToGreet` arg
+
+Case 2: These templates are passed the context from the `thingsToGreet` arg
 Hello world!
 
 This file was generated by Connor Taylor with an id of foo using Cyto.
+
 Hello other world!
 
 This file was generated by Connor Taylor with an id of bar using Cyto.
+
+
+Case 3: You can also explicitly specify the id of a partial by adding another
+string to the partial tag
+Hello Cyto expert :D!
+
+This file was generated by Connor Taylor with an id of baz using Cyto.
+
+
+Case 4: Finally, you can also dynamically choose the partial to render based
+on the value of another argument
+Hello Cyto expert :D!
+
+This file was generated by Connor Taylor with an id of qux using Cyto.
 ```
+Some of the output might be slightly confusing. That's okay, partials are arguably the most complex feature of Cyto. But now that we have the output to examine, let's break down each of these cases.
 
-## Caveats
+##The 4 partial use cases
 
-You'll notice in the generation process that the first `cyto/tutorial` template didn't prompt us for a `thingToGreet`. Cyto partials, when generated, are passed an `args` object that supplies some arg values. In the `{{#thingsToGreet}}` section, each `cyto/tutorial` template's `args` object is the current item in the `thingsToGreet` array, which looks like this:
+1.  **A partial at the root context:** This is the most common use case for partials in Cyto. When Mustache encounters the partial tag for case 1, the `cyto/tutorial` template gets generated with the same set of arguments the `cyto/partialsDemo` template received. This is because it is rendered at the **root context**, meaning that it isn't contained inside any Mustache sections. This is why we weren't prompted for a `thingToGreet` for case 1 in the generation flow: it used the `thingToGreet` value that had been supplied to the `cyto/partialsDemo` template.
 
-```js
-[
-  { id: 'foo' },
-  { id: 'bar' },
-]
-```
+1.  **A partial in a Mustache section:** Here, the `cyto/tutorial` template is also generated, but the set of arguments will be different from case 1. Instead of using the set of arguments that was provided to the `cyto/partialsDemo` template, Cyto will use whatever the current item in `thingsToGreet` as the set of arguments. Since list arguments are converted into an array of objects with an `id` key, the set of arguments passed to Mustache will be an object with 1 key: `id`. This is why these templates prompt for a `thingToGreet` while the `cyto/tutorial` template in case 1 does not: the set of pre-supplied arguments doesn't include `thingToGreet`.
 
-Since the `thingToGreet` arg isn't set, we have to prompt the user for it. However, the first `cyto/tutorial` partial is passed the same `args` object that the `cyto/partialsDemo` template is passed since it is rendered outside of any section. The `cyto/partialsDemo` `args` object looks like this:
+1. **Explicitly providing an id:** This case is almost the exact same as the case 1 since it's also generated at the root context. However, you'll notice that inside the partial tag, two strings are provided: `cyto/tutorial` and `baz`. When Cyto sees this, it is assumed that the 2nd string is the `id` for the partial template. This format is the same as the input format for the `cyto gen` command. Thus, the `cyto/tutorial` here will receive the same set of arguments as the `cyto/partialsDemo` except for `id`, which will be set to `baz`.
 
-```js
-{
-  thingToGreet: 'Cyto expert :D',
-  thingsToGreet: [
-    { id: 'foo' },
-    { id: 'bar' },
-  ]
-}
-```
+1. **Using a Mustache variable to set the** `templateId`**:** In the final case, we are still using the same set of arguments as the `cyto/partialsDemo` template (excluding `id`), but we determine the `templateId` through the value of the `partialToGenerate` argument. This allows users to dynamically chose the partial template to generate, which is extremely powerful when combined with base templates.
 
-Since the `thingToGreet` argument is already set, Cyto will not prompt the user for it.
-
-This partial generation process is the primary reason that Cyto's needs a custom implementation of [Mustache.js](https://github.com/janl/mustache.js). Since Cyto may need to prompt the user for arguments, the rendering process must be asynchronous. Otherwise, the renderer is almost exactly the same. The 2 other main differences is that Cyto's Mustache renderer does **not** escape HTML and handles whitespaces a bit differently.
+And that's it! Partials are complex at first, but are similar enough to Mustache partials that you should be able to get started using them without any extra effort.
 
 ## When to use Cyto partials
 
