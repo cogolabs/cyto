@@ -2,12 +2,12 @@
 
 ## What is Cyto?
 
-Cyto is built around one concept: the generation of boilerplate from templates. Templates are like blueprints, they tell Cyto exactly what boilerplate to generate, what arguments to prompt the user for, and what special options to set. Generation is just the process of taking a template and creating the boilerplate it specifies. Generation can be broken down into this flow of events:
+Cyto is built around one concept: the generation of boilerplate from templates. Templates are like blueprints, they tell Cyto exactly what boilerplate to generate, what arguments to prompt the user for, and what special options to set. Generation is just the process of taking a template and creating the boilerplate it specifies. At a high level, template generation can be broken down into this flow of events:
 
 1. User indicates that they want to generate boilerplate from a template by running the `cyto gen` command
 2. Cyto loads the specified template from the user's Global Template Library (abbreviated GTL) and performs some validation checks
 3. Cyto prompts the user for the arguments specified by the template
-4. Cyto processes each dependency, which produces the boilerplate to write to the filesystem. This process includes embedding the argument values into the dependency files.
+4. Cyto processes each of the template's declared dependencies, creating the boilerplate to write to the filesystem.
 5. Cyto outputs the created boilerplate. Tada!
 
 This document will walk you through the structure of templates and what the generation process looks like in practice.
@@ -16,10 +16,12 @@ This document will walk you through the structure of templates and what the gene
 
 Cyto requires some initialization before it can be used. This is done by running the `cyto init` command. This will prompt you for 2 things:
 
-1. Your name
+1. Your full name
 1. Where to create your GTL. This is where all of your templates will be stored, so make sure you pick a location that's easily accessible and not prone to deletion.
 
-If your GTL ever gets removed or you want to change your name, you can just rerun `cyto init`.
+If your GTL ever gets removed or you want to change your name, you can just rerun `cyto init`. `cyto init` will also pre-populate your GTL with some example templates that will help demonstrate the features that Cyto offers. You can find them all underneath the `cyto` directory in your GTL. These templates will be referenced extensively throughout the documentation.
+
+**NOTE**: Do not delete any of the templates in the `cyto` directory of your GTL. Some of them are required for Cyto to function properly.
 
 ## Template Structure
 
@@ -54,7 +56,7 @@ Even at it's simplest, there's a decent amount of information to process here, s
 
 ## The cyto.config.js file
 
-The `cyto.config.js` file is the key piece of any template. It holds all the information Cyto needs to take a template and create its specified boilerplate. A `cyto.config.js` must be written in Javascript, but you'll only need to understand basic Javascript syntax to get started using them. The actual config for the template is an object exported by the `cyto.config.js` file. That object must contain, at minimum, four keys:
+The `cyto.config.js` file is the key piece of any template. It holds all the information Cyto needs to take a template and create its specified boilerplate. A `cyto.config.js` must be written in Javascript, but you'll only need to understand basic Javascript syntax to get started. The actual config for the template is an object exported by the `cyto.config.js` file. That object must contain, at minimum, four keys:
 
 1. `templateId`: A unique identifier that determines where Cyto will look for the template in the GTL. Each `templateId` must be of the format `<group>/<name>`, where `group` is a logical grouping for related templates and `name` is a more specific descriptor for that template within the group. This template is in the `cyto` group and has a name of `tutorial`.
 2. `dependencies`: An array that represents everything a template needs to be generated. Dependencies can be strings, objects, or functions (more on this later). In this template, we have one string dependency: `{{id}}.txt`. This means Cyto will look for a file called `{{id}}.txt` inside of the `cyto/tutorial` directory and output it when the template is generated.
