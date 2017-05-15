@@ -2,9 +2,9 @@ module.exports = {
   templateId: "cyto/runtimeDependencies",
   dependencies: [
     // Case 1: Returns a string
-    (args) => '{{fileName}}.txt',
+    (args) => '{{id}}.txt',
     // Case 2: Returns an array of strings
-    (args) => ['{{fileName}}.txt', 'blank.txt'],
+    (args) => ['{{id}}.txt', 'blank.txt'],
     // Case 3: Returns an object
     (args) => {
       return {
@@ -21,14 +21,21 @@ module.exports = {
         {
           templateId: 'cyto/composed',
           args: {
-            id: 'unique',
+            id: 'nonUnique',
             templateArg: 'I came from case 4'
+          }
+        },
+        {
+          templateId: 'cyto/composed',
+          args: {
+            id: 'unique',
+            templateArg: 'I also came from case 4'
           }
         }
       ];
     },
-    // A more realistic use case, creates a new template for each value in
-    // args.templates
+    // Case 5: A more realistic use case, creates a new template for each value
+    // in args.templates
     (args) => {
       return args
         .templates
@@ -44,7 +51,6 @@ module.exports = {
     }
   ],
   args: [
-    { id: 'fileName' },
     {
       id: 'templates',
       type: 'list',
@@ -53,5 +59,6 @@ module.exports = {
   ],
   options: {
     createDirectory: false,
+    skipRuntimeRendering: true,
   }
 };

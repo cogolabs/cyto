@@ -23,8 +23,6 @@ module.exports = {
       type: 'function',
       default: () => {
         return (text, render) => {
-          const value = render(text);
-          return value.replace('Replace me', 'Got replaced');
           return render(text)
             .then((renderedText) => {
               return renderedText.replace('Replace me', 'Got replaced');

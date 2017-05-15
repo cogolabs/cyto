@@ -12,6 +12,10 @@ module.exports = {
     {
       id: 'thingToGreet',
       default: 'Cyto expert :D'
+    },
+    {
+      id: 'partialToGenerate',
+      default: 'cyto/tutorial'
     }
   ],
   options: {

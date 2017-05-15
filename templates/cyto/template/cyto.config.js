@@ -23,6 +23,7 @@ module.exports = {
     }
   ],
   options: {
-    createDirectory: true
+    createDirectory: true,
+    skipRuntimeRendering: true,
   }
 };

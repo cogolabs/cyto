@@ -4,7 +4,7 @@ module.exports = {
     'fromBase.txt',
   ],
   args: [
-
+    { id: 'foo' }
   ],
   options: {
     createDirectory: false,
