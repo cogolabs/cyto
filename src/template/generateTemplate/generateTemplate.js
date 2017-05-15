@@ -67,6 +67,7 @@ export default async function generateTemplate(options) {
       dep,
       outputRoot,
       templateArgs,
+      cytoConfig.options,
     );
 
     return { ...accum, ...renderedDep };

@@ -180,7 +180,6 @@ import chalk from 'chalk';
 
       // Get the tag type.
       type = scanner.scan(tagRe) || 'name';
-      isPartial = type === '>';
       scanner.scan(whiteRe);
 
       // Get the tag value.
@@ -193,6 +192,14 @@ import chalk from 'chalk';
         scanner.scan(curlyRe);
         scanner.scanUntil(closingTagRe);
         type = '&';
+      } else if (type === '>') {
+        isPartial = true;
+        value = scanner.scanUntil(closingTagRe);
+        if (value.includes('{')) {
+          value += scanner.scan(closingTagRe);
+
+          value += scanner.scanUntil(closingTagRe);
+        }
       } else {
         value = scanner.scanUntil(closingTagRe);
       }
@@ -569,6 +576,7 @@ import chalk from 'chalk';
       const v = await this.renderTokens(token[4], context, partials, originalTemplate);
       buffer += v;
     }
+
     return buffer;
   };
 

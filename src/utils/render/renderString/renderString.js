@@ -11,12 +11,11 @@ import types from '../../types';
 import errors from '../../errors';
 
 /**
- * Description of renderString
- *
+ * Renders a string by passing it through the mustache renderer with the given
+ * arguments. Handles partials in a special way.
  */
-export default function renderString(str, args) {
+export default async function renderString(str, args) {
   mustache.escape = (text) => text; // Don't escape html
-
   const renderPartial = async (partialString, context) => {
     const tokens = partialString.split(' ').filter((s) => s.trim());
     if (!tokens.length || tokens.length > 2) {
@@ -29,7 +28,8 @@ export default function renderString(str, args) {
       }
     }
 
-    const [templateId, id] = tokens;
+    const [rawId, id] = tokens;
+    const templateId = await renderString(rawId, context);
     const cytoConfig = loadCytoConfig(templateId);
 
     if (!types.isPartial(cytoConfig)) {
@@ -47,5 +47,7 @@ export default function renderString(str, args) {
     }, '');
   };
 
-  return mustache.render(str, args, renderPartial);
+  const renderedString = await mustache.render(str, args, renderPartial);
+
+  return renderedString;
 }

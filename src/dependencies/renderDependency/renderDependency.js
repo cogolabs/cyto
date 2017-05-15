@@ -18,14 +18,17 @@ import renderString from '../../utils/render/renderString';
  * @param {string} outputRoot - Where to write the rendered content
  * @param {Object} args - Args for the renderer to use
  */
-export default async function renderDependency(dep, outputRoot, args) {
-  const [name, templateId] = dep;
-  const outputPath = await renderString(
-    path.join(outputRoot, name),
-    args,
-  );
+export default async function renderDependency(dep, outputRoot, args, options) {
+  const [name, templateId, isRuntimeDep] = dep;
+  const outputPath = isRuntimeDep && options.skipRuntimeRendering
+   ? path.join(outputRoot, name)
+   : await renderString(
+      path.join(outputRoot, name),
+      args,
+    );
 
   const template = loadTemplate(templateId);
+
   const contents = template[name]
     ? await renderString(template[name], args)
     : '';
