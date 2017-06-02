@@ -17,7 +17,6 @@ import errors from '../../errors';
 export default async function renderString(str, args) {
   mustache.escape = (text) => text; // Don't escape html
   const renderPartial = async (partialString, context) => {
-    console.log(partialString);
     const tokens = partialString.split(' ').filter((s) => s.trim());
     if (!tokens.length || tokens.length > 2) {
       errors.invalidPartial(partialString, '');
