@@ -3,6 +3,8 @@
  * getArgsForTemplate.js
  * Written by: Connor Taylor
  */
+import pick from 'lodash/pick';
+
 import types from '../../utils/types';
 
 import promptForArg from '../promptForArg';
@@ -32,11 +34,11 @@ export default async function getArgsForTemplate(cytoConfig, args) {
   const baseArgs = cytoConfig.base && cytoConfig.base.args
     ? cytoConfig.base.args
     : {};
+  const cytoArgs = pick(args, ['id', 'author', 'isPartial']);
 
   return synchReduce(cytoConfig.args, getArg, {
-    ...args,
     ...baseArgs,
-    id: args.id,
-    author: args.author,
+    ...args,
+    ...cytoArgs,
   });
 }
