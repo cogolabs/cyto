@@ -54,9 +54,11 @@ export default async function generateTemplate(options) {
     if (types.isObject(dep)) { // 5a
       const generatedTemplate = await generateTemplate({
         templateId: dep.templateId,
-        args: Object.assign(dep.args || {}, {
+        args: {
+          ...dep.args,
           author: templateArgs.author,
-        }),
+          isPartial: args.isPartial || false,
+        },
         outputRoot,
       });
 
