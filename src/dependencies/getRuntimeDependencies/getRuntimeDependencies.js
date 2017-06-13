@@ -6,6 +6,7 @@
 import mergeDependencies from '../mergeDependencies';
 import validateDependencies from '../validateDependencies';
 import types from '../../utils/types';
+import errors from '../../utils/errors';
 
 /**
  * Generates a new set of dependencies after applying each dependency that's a
@@ -27,6 +28,12 @@ export default function getRuntimeDependencies(cytoConfig, args) {
     .filter((dep) => types.isFunction(dep))
     .reduce((accum, func) => {
       const result = func(args);
+
+      if (!types.isArray(result)
+          && !types.isString(result)
+          && !types.isObject(result)) {
+        errors.invalidDependency(result, 'Invalid dependency created at runtime');
+      }
 
       if (types.isArray(result)) {
         validateDependencies(result);

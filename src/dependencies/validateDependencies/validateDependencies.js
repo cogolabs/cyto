@@ -19,8 +19,8 @@ import types from '../../utils/types';
  *
  * @param { Array } deps - The dependencies to validate
  */
-export default function validateDependencies(deps) {
-  deps.forEach((dep) => {
+export default function validateDependencies(dependencies) {
+  dependencies.forEach((dep) => {
     const invalidType = !types.isString(dep)
       && !types.isFunction(dep)
       && !types.isObject(dep);

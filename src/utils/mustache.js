@@ -668,9 +668,8 @@ import chalk from 'chalk';
     }
   };
 
-  // Export the escaping function so that the user may override it.
-  // See https://github.com/janl/mustache.js/issues/244
-  mustache.escape = escapeHtml;
+  // Don't escape html
+  mustache.escape = (text) => text;
 
   // Export these mainly for testing, but also for advanced usage.
   mustache.Scanner = Scanner;

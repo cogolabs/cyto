@@ -45,17 +45,19 @@ export default async function generateTemplate(options) {
     ? path.join(options.outputRoot, args.id)
     : options.outputRoot;
 
-  log.info(`Generating ${chalk.green(templateId)} with id ${chalk.green(args.id)}`);
+  log.info(
+    `Generating ${chalk.green(templateId)} with id ${chalk.green(args.id)}`,
+  );
 
   const templateArgs = await getArgsForTemplate(cytoConfig, args); // 3
   const dependencies = getRuntimeDependencies(cytoConfig, templateArgs); // 4
 
-  const processDependency = async (accum, dep) => { // 5
-    if (types.isObject(dep)) { // 5a
+  const processDependency = async (accum, dependency) => { // 5
+    if (types.isObject(dependency)) { // 5a
       const generatedTemplate = await generateTemplate({
-        templateId: dep.templateId,
+        templateId: dependency.templateId,
         args: {
-          ...dep.args,
+          ...dependency.args,
           author: templateArgs.author,
           isPartial: args.isPartial || false,
         },
@@ -65,12 +67,14 @@ export default async function generateTemplate(options) {
       return { ...accum, ...generatedTemplate };
     }
 
-    const renderedDep = await renderDependency( // 5b
-      dep,
+    const renderedDep = await renderDependency({ // 5b
+      dependency,
       outputRoot,
-      templateArgs,
-      cytoConfig.options,
-    );
+      // we have to pass generateTemplate here to avoid a circular dependency
+      generateTemplate,
+      options: cytoConfig.options,
+      args: templateArgs,
+    });
 
     return { ...accum, ...renderedDep };
   };

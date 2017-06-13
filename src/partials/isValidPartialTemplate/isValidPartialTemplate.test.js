@@ -1,9 +1,4 @@
-/* @flow */
-/**
- * isPartial.test.js
- * Written by: Connor Taylor
- */
-import isPartial from './isPartial';
+import isValidPartialTemplate from './isValidPartialTemplate';
 
 const VALID_CONFIG = {
   templateId: 'cyto/partial',
@@ -35,11 +30,11 @@ const INVALID_CONFIG2 = {
 
 describe('isPartial', () => {
   it('returns true when partial', () => {
-    expect(isPartial(VALID_CONFIG)).toBe(true);
+    expect(isValidPartialTemplate(VALID_CONFIG)).toBe(true);
   });
 
   it('returns false when not a partial', () => {
-    expect(isPartial(INVALID_CONFIG1)).toBe(false);
-    expect(isPartial(INVALID_CONFIG2)).toBe(false);
+    expect(isValidPartialTemplate(INVALID_CONFIG1)).toBe(false);
+    expect(isValidPartialTemplate(INVALID_CONFIG2)).toBe(false);
   })
 });

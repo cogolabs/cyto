@@ -1,9 +1,8 @@
-/* @flow */
 /**
- * isPartial.js
+ * isValidPartialTemplate.js
  * Written by: Connor Taylor
  */
-import isArray from '../isArray';
+import isArray from '../../utils/types/isArray';
 
 /**
  * Checks if a given cyto config can be used as a partial. A partial must have
@@ -12,6 +11,8 @@ import isArray from '../isArray';
  *
  * @returns { bool } True if the cyto config can be used as a partial
  */
-export default function isPartial({ dependencies }) {
+const isValidPartialTemplate = ({ dependencies }) => {
   return dependencies.length === 1 && isArray(dependencies[0]);
-}
+};
+
+export default isValidPartialTemplate;
