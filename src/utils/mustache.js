@@ -596,9 +596,13 @@ import chalk from 'chalk';
       return '';
     }
 
-    const value = await partials(token[1], context.view);
-
-    return value;
+    try {
+      const value = await partials(token[1], context.view);
+      return value;
+    } catch (err) {
+      console.error(err);
+      process.exit(1);
+    }
   };
 
   Writer.prototype.unescapedValue = function unescapedValue (token, context) {
