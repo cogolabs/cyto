@@ -28,6 +28,14 @@ export default function getRuntimeDependencies(cytoConfig, args) {
     .reduce((accum, func) => {
       const result = func(args);
 
+      if (!types.isArray(result)
+          && !types.isString(result)
+          && !types.isObject(result)) {
+        throw new Error(
+          `Invalid runtime dependency, function returned ${result}`,
+        );
+      }
+
       if (types.isArray(result)) {
         validateDependencies(result);
         return mergeDependencies(result.map(formatDep), accum);

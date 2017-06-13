@@ -38,8 +38,7 @@ export default function gen(program: Object) {
 
         writeTemplate(generatedTemplate, outputRoot);
       } catch (e) {
-        log.error(e.stack);
-        log.info(e);
+        log.info(e.stack);
       }
     });
 }

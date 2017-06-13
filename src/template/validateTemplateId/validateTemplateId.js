@@ -3,7 +3,6 @@
  * validateTemplateId.js
  * Written by: Connor Taylor
  */
-import errors from '../../utils/errors';
 import types from '../../utils/types';
 
 /**
@@ -15,13 +14,13 @@ import types from '../../utils/types';
  */
 export default function validateTemplateId(templateId) {
   if (!types.isString(templateId)) {
-    errors.invalidTemplateString(templateId);
+    throw new Error(`${templateId} is not a string`);
   }
 
   const tokens = templateId.split('/');
 
   if (tokens.length !== 2) {
-    errors.invalidTemplateString(templateId);
+    throw new Error(`${templateId} is invalid. A valid templateId is of the form <group>/<name>`);
   }
 
   return templateId;

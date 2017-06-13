@@ -29,7 +29,7 @@ export default function create(program) {
 
         writeTemplate(generatedTemplate, outputRoot);
       } catch (e) {
-        log.info(e);
+        log.info(e.stack);
       }
     });
 }
