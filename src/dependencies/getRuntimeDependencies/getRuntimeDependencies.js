@@ -6,7 +6,6 @@
 import mergeDependencies from '../mergeDependencies';
 import validateDependencies from '../validateDependencies';
 import types from '../../utils/types';
-import errors from '../../utils/errors';
 
 /**
  * Generates a new set of dependencies after applying each dependency that's a
@@ -32,7 +31,9 @@ export default function getRuntimeDependencies(cytoConfig, args) {
       if (!types.isArray(result)
           && !types.isString(result)
           && !types.isObject(result)) {
-        errors.invalidDependency(result, 'Invalid dependency created at runtime');
+        throw new Error(
+          `Invalid runtime dependency, function returned ${result}`,
+        );
       }
 
       if (types.isArray(result)) {

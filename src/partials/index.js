@@ -1,9 +1,9 @@
 import renderPartial from './renderPartial';
-import isValidPartialString from './isValidPartialString';
+import parsePartialString from './parsePartialString';
 import isValidPartialTemplate from './isValidPartialTemplate';
 
 export default {
   renderPartial,
-  isValidPartialString,
+  parsePartialString,
   isValidPartialTemplate,
 }

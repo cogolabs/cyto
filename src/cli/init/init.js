@@ -10,7 +10,6 @@ import inquirer from 'inquirer';
 import mkdirp from 'mkdirp';
 import ncp from 'ncp';
 
-import errors from '../../utils/errors';
 import file from '../../utils/file';
 
 /**
@@ -42,7 +41,7 @@ export default function init(program) {
 
         ncp(examplesPath, result.libraryPath, (err) => {
           if (err) {
-            errors.fileSystemError(err);
+            throw new Error('Error copying example templates to template library');
           }
         });
 

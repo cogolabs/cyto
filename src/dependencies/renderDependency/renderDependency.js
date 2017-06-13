@@ -22,7 +22,13 @@ import renderPartial from '../../partials/renderPartial';
  *    @param {Function} generateTemplate - generateTemplate. This is passed as
  *      a parameter to avoid a circular dependency
  */
-const renderDependency = async ({ dependency, outputRoot, args, options, generateTemplate }) => {
+const renderDependency = async ({
+  dependency,
+  outputRoot,
+  args,
+  options,
+  generateTemplate,
+}) => {
   const [name, templateId, isRuntimeDep] = dependency;
 
   const partialHandler = renderPartial(generateTemplate);

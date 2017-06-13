@@ -5,7 +5,6 @@
  */
 import has from 'lodash/has';
 
-import errors from '../../utils/errors';
 import types from '../../utils/types';
 
 /**
@@ -20,19 +19,21 @@ import types from '../../utils/types';
 export default function validateTemplateArgs(args) {
   args.forEach((arg) => {
     if (!types.isObject(arg)) {
-      errors.invalidTemplateArg(arg, 'Not an object');
+      throw new Error(
+        'Invalid argument. All args in a cyto config must be objects',
+      );
     }
 
     if (!has(arg, 'id')) {
-      errors.invalidTemplateArg(arg, 'No id found');
+      throw new Error(
+        `${JSON.stringify(arg)} has no id. All arguments must have an id`,
+      );
     }
 
     const validTypes = ['string', 'boolean', 'function', 'list'];
     if (arg.type && !validTypes.includes(arg.type)) {
-      errors.invalidTemplateArg(
-        arg,
-        `Invalid type: ${arg.type}`,
-      );
+      throw new Error(`Argument ${arg.id} has an invalid type ${arg.type}
+Valid types are 'list', 'boolean', 'function', or 'string' (default is string)`);
     }
   });
 }

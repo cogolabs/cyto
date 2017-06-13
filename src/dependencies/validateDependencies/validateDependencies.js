@@ -3,10 +3,8 @@
  * validateDependencies.js
  * Written by: Connor Taylor
  */
-import chalk from 'chalk';
 import has from 'lodash/has';
 
-import errors from '../../utils/errors';
 import types from '../../utils/types';
 
 /**
@@ -26,18 +24,22 @@ export default function validateDependencies(dependencies) {
       && !types.isObject(dep);
 
     if (invalidType) {
-      errors.invalidDependency(dep, 'Invalid type. Must be a string, object, or function');
+      throw new Error(`${dep} must be a string, object, or function`);
     }
 
     if (types.isObject(dep)) {
       ['templateId', 'args'].forEach((key) => {
         if (!has(dep, key)) {
-          errors.invalidDependency(dep, `Missing key: ${chalk.green(key)}`);
+          throw new Error(
+            `${JSON.stringify(dep)} is missing required key ${key}`,
+          );
         }
       });
 
       if (!has(dep, 'args.id')) {
-        errors.invalidDependency(dep, 'Missing id arg');
+        throw new Error(
+          `${JSON.stringify(dep)} is missing an id in it's args object`,
+        );
       }
     }
   });
