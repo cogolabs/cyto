@@ -13,6 +13,7 @@ import file from '../../utils/file';
  */
 export default function loadGlobalConfig() {
   const configPath = path.resolve(file.getUserHomeDir(), '.cyto/config.json');
+
   if (!fs.existsSync(configPath)) {
     throw new Error('No global config found. Please run `cyto init`');
   }
