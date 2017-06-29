@@ -5,7 +5,7 @@
  */
 import path from 'path';
 
-import mustache from '../../utils/mustache';
+import fumanchu from 'fu-manchu';
 import loadTemplate from '../../template/loadTemplate';
 import renderPartial from '../../partials/renderPartial';
 
@@ -34,7 +34,7 @@ const renderDependency = async ({
   const partialHandler = renderPartial(generateTemplate);
   const outputPath = isRuntimeDep && options.skipRuntimeRendering
    ? path.join(outputRoot, name)
-   : await mustache.render(
+   : await fumanchu.render(
       path.join(outputRoot, name),
       args,
       partialHandler,
@@ -42,7 +42,7 @@ const renderDependency = async ({
 
   const template = loadTemplate(templateId);
   const contents = template[name]
-    ? await mustache.render(template[name], args, partialHandler)
+    ? await fumanchu.render(template[name], args, partialHandler)
     : '';
 
   return { [outputPath]: contents };

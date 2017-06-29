@@ -2,7 +2,7 @@
  * parsePartialString.js
  * Written by: Connor Taylor
  */
-import mustache from '../../utils/mustache';
+import fumanchu from 'fu-manchu';
 
 /* Given a string, validates that it is a valid partial string and parses it.
  */
@@ -20,7 +20,7 @@ Either set one explicity or make sure that the partial's rendering context has a
   }
 
   const [rawId, id] = tokens;
-  const templateId = await mustache.render(rawId, context);
+  const templateId = await fumanchu.render(rawId, context);
 
   return [templateId, id];
 };
