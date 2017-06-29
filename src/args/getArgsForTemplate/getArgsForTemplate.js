@@ -18,7 +18,7 @@ import synchReduce from '../../utils/func/synchReduce';
  */
 export default async function getArgsForTemplate(cytoConfig, args) {
   const getArg = async (accum, arg) => {
-    const value = accum[arg.id] // Was a value already set?
+    const value = accum[arg.id] !== undefined // Was a value already set?
       ? { [arg.id]: accum[arg.id] }
       : arg.dontPrompt // Should we avoid prompting and use the default?
         ? { [arg.id]: arg.default }
