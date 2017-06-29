@@ -57,9 +57,17 @@ const INVALID_DEPENDENCY_LENGTH = {
   options: {}
 }
 
+const VALID_CONFIG = {
+  templateId: 'foo/bar',
+  dependencies: ['foo'],
+  args: [],
+  options: {}
+}
+
 export default {
   NOT_OBJECT,
   MISSING_KEYS,
   INVALID_KEY_TYPES,
   INVALID_DEPENDENCY_LENGTH,
+  VALID_CONFIG,
 };

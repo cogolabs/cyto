@@ -6,7 +6,6 @@
 import has from 'lodash/has';
 import chalk from 'chalk';
 
-import errors from '../../utils/errors';
 import types from '../../utils/types';
 
 /**
@@ -23,9 +22,8 @@ import types from '../../utils/types';
  */
 export default function validCytoConfig(config, providedId) {
   if (!types.isObject(config)) { // 1
-    errors.invalidCytoConfig(
-      providedId,
-      "cyto.config.js doesn't export an Object",
+    throw new Error(
+      `The cyto.config.js for ${providedId} doesn't export an object`,
     );
   }
 
@@ -36,28 +34,24 @@ export default function validCytoConfig(config, providedId) {
     ['options', types.isObject],
   ].forEach(([key, typeTest]) => {
     if (!has(config, key)) { // 2
-      errors.invalidCytoConfig(
-        providedId,
-        `Missing key: ${chalk.green(key)}`,
-      );
+      throw new Error(`Config for ${providedId} is missing required key ${key}`);
     }
 
     if (!typeTest(config[key])) { // 3-6
-      errors.invalidCytoConfig(
-        providedId,
-        `${chalk.green(key)} is the wrong type`,
+      throw new Error(
+        `${key} in the config for ${providedId} is the wrong type.`,
       );
     }
   });
 
   if (config.templateId !== providedId) { // 7
-    errors.templateIdMismatch(providedId, config.templateId);
+    throw new Error(
+      `Config for template at ${chalk.green(providedId)} has templateId ${chalk.red(config.templateId)}
+These must match, please edit the templateId or move the template to ${config.templateId}`,
+    );
   }
 
   if (config.dependencies.length === 0) { // 8
-    errors.invalidCytoConfig(
-      providedId,
-      `${chalk.green('dependencies')} is empty, this template will not generate anything`,
-    );
+    throw new Error(`${providedId} has no dependencies, this template will not generate anything`);
   }
 }

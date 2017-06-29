@@ -10,7 +10,6 @@ import mergeCytoConfigs from '../mergeCytoConfigs';
 import loadGlobalConfig from '../loadGlobalConfig';
 import validateTemplate from '../../template/validateTemplate';
 
-import errors from '../../utils/errors';
 import types from '../../utils/types';
 
 /**
@@ -42,7 +41,7 @@ export default function loadCytoConfig(templateId) {
     // We also deep clone to prevent modifying the original config later on
     rawConfig = cloneDeep(eval('require')(configPath)); // eslint-disable-line
   } catch (e) {
-    errors.noCytoConfig(templateId);
+    throw new Error(`Could not find config ${templateId} in ${libraryPath}`);
   }
 
   // Make sure the config is valid before processing further

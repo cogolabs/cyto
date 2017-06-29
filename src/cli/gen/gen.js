@@ -31,14 +31,14 @@ export default function gen(program: Object) {
         // the rendered dependencies that should be written to those filepaths
         const generatedTemplate = await generateTemplate({
           templateId,
-          args: { id, author },
+          args: { id, author, isPartial: false },
           outputRoot: '',
         });
         const outputRoot = path.join(process.cwd(), options.output || '');
 
         writeTemplate(generatedTemplate, outputRoot);
       } catch (e) {
-        log.info(e);
+        log.info(e.stack);
       }
     });
 }

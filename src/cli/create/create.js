@@ -23,13 +23,13 @@ export default function create(program) {
       try {
         const generatedTemplate = await generateTemplate({
           templateId: 'cyto/template',
-          args: { id, author },
+          args: { id, author, isPartial: false },
           outputRoot: '',
         });
 
         writeTemplate(generatedTemplate, outputRoot);
       } catch (e) {
-        log.info(e);
+        log.info(e.stack);
       }
     });
 }

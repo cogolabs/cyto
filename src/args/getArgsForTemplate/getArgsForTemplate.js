@@ -3,6 +3,8 @@
  * getArgsForTemplate.js
  * Written by: Connor Taylor
  */
+import pick from 'lodash/pick';
+
 import types from '../../utils/types';
 
 import promptForArg from '../promptForArg';
@@ -16,7 +18,7 @@ import synchReduce from '../../utils/func/synchReduce';
  */
 export default async function getArgsForTemplate(cytoConfig, args) {
   const getArg = async (accum, arg) => {
-    const value = accum[arg.id] // Was a value already set?
+    const value = accum[arg.id] !== undefined // Was a value already set?
       ? { [arg.id]: accum[arg.id] }
       : arg.dontPrompt // Should we avoid prompting and use the default?
         ? { [arg.id]: arg.default }
@@ -32,11 +34,11 @@ export default async function getArgsForTemplate(cytoConfig, args) {
   const baseArgs = cytoConfig.base && cytoConfig.base.args
     ? cytoConfig.base.args
     : {};
+  const cytoArgs = pick(args, ['id', 'author', 'isPartial']);
 
   return synchReduce(cytoConfig.args, getArg, {
-    ...args,
     ...baseArgs,
-    id: args.id,
-    author: args.author,
+    ...args,
+    ...cytoArgs,
   });
 }

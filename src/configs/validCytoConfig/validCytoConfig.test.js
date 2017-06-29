@@ -8,22 +8,26 @@ import mocks from './mocks';
 
 describe('validCytoConfig', () => {
   it('throws if the config is not an object', () => {
-    expect(() => validCytoConfig(mocks.NOT_OBJECT)).toThrow();
+    expect(() => validCytoConfig(mocks.NOT_OBJECT, 'foo/bar')).toThrow();
   });
 
   it('throws if any of the required keys are missing', () => {
     mocks.MISSING_KEYS.forEach((c) => {
-      expect(() => validCytoConfig(c)).toThrow();
+      expect(() => validCytoConfig(c, 'foo/bar')).toThrow();
     });
   });
 
   it('throws if any of the required keys are not the right type', () => {
     mocks.INVALID_KEY_TYPES.forEach((c) => {
-      expect(() => validCytoConfig(c)).toThrow();
+      expect(() => validCytoConfig(c, 'foo/bar')).toThrow();
     });
   });
 
   it('throws if any of the required keys are not the right type', () => {
-    expect(() => validCytoConfig(mocks.INVALID_DEPENDENCY_LENGTH)).toThrow();
+    expect(() => validCytoConfig(mocks.INVALID_DEPENDENCY_LENGTH, 'foo/bar')).toThrow();
   });
+
+  it('throws if the provided id does not match the templateId in the config', () => {
+    expect(() => validCytoConfig(mocks.VALID_CONFIG, 'foo/baz')).toThrow();
+  })
 });

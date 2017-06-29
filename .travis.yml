@@ -2,10 +2,10 @@ language: node_js
 node_js:
   - "7"
 
-cache: yarn
+cache: npm i
 
 install:
-  - yarn --ignore-scripts
+  - npm i --ignore-scripts
 
 after_script:
   - cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js
