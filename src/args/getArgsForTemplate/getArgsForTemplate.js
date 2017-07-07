@@ -5,8 +5,6 @@
  */
 import pick from 'lodash/pick';
 
-import types from '../../utils/types';
-
 import promptForArg from '../promptForArg';
 import parseListArg from '../parseListArg';
 
@@ -24,9 +22,11 @@ export default async function getArgsForTemplate(cytoConfig, args) {
         ? { [arg.id]: arg.default }
         : await promptForArg(arg);
 
-    const parsedValue = arg.type === 'list' && !types.isArray(value[arg.id])
+    const parsedValue = arg.type === 'list'
       ? { [arg.id]: parseListArg(value[arg.id]) }
       : value;
+
+    console.log(parsedValue);
 
     return { ...accum, ...parsedValue };
   };
