@@ -26,8 +26,6 @@ export default async function getArgsForTemplate(cytoConfig, args) {
       ? { [arg.id]: parseListArg(value[arg.id]) }
       : value;
 
-    console.log(parsedValue);
-
     return { ...accum, ...parsedValue };
   };
 
