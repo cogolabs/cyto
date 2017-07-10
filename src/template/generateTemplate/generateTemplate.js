@@ -50,8 +50,6 @@ export default async function generateTemplate(options) {
   );
 
   const templateArgs = await getArgsForTemplate(cytoConfig, args); // 3
-
-  console.log(templateArgs);
   const dependencies = getRuntimeDependencies(cytoConfig, templateArgs); // 4
 
   const processDependency = async (accum, dependency) => { // 5
