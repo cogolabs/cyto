@@ -33,16 +33,11 @@ export default function loadCytoConfig(templateId) {
   const templatePath = path.join(libraryPath, templateId);
   const configPath = path.join(templatePath, 'cyto.config');
 
-  let rawConfig;
-  try {
-    // We have to use eval here to make sure that webpack doesn't try and
-    // process this require statement :/
-    // Open to other ideas on how to implement this
-    // We also deep clone to prevent modifying the original config later on
-    rawConfig = cloneDeep(eval('require')(configPath)); // eslint-disable-line
-  } catch (e) {
-    throw new Error(`Could not find config ${templateId} in ${libraryPath}`);
-  }
+  // We have to use eval here to make sure that webpack doesn't try and
+  // process this require statement :/
+  // Open to other ideas on how to implement this
+  // We also deep clone to prevent modifying the original config later on
+  const rawConfig = cloneDeep(eval('require')(configPath)); // eslint-disable-line
 
   // Make sure the config is valid before processing further
   validateTemplate(rawConfig, templateId);
