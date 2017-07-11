@@ -23,7 +23,7 @@ export default function promptForArg(arg) {
     {
       name: arg.id,
       message: `${arg.id}: `,
-      default: arg.default || undefined,
+      default: arg.default,
       type,
     },
   ]);

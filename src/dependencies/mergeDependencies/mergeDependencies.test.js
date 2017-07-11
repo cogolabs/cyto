@@ -52,4 +52,14 @@ describe('mergeDependencies', () => {
       { templateId: 'cyto/test', args: { id: 'foo' } }
     ]);
   });
+
+  it('doesnt do anything with function dependencies', () => {
+    const f1 = () => 'foo';
+    const f2 = () => 'bar';
+    const deps = [f1];
+    const baseDeps = [f2];
+
+    const newDeps = mergeDependencies(deps, baseDeps);
+    expect(newDeps).toEqual([f2, f1]);
+  })
 });

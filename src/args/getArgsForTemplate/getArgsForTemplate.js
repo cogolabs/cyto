@@ -10,7 +10,6 @@ import parseListArg from '../parseListArg';
 import getRuntimeArgs from '../getRuntimeArgs';
 import isRuntimeArg from '../isRuntimeArg';
 
-import types from '../../utils/types';
 import synchReduce from '../../utils/func/synchReduce';
 
 /**
@@ -30,7 +29,7 @@ export default async function getArgsForTemplate(cytoConfig, args) {
         ? { [arg.id]: arg.default }
         : await promptForArg(arg);
 
-    const parsedValue = arg.type === 'list' && !types.isArray(value[arg.id])
+    const parsedValue = arg.type === 'list'
       ? { [arg.id]: parseListArg(value[arg.id]) }
       : value;
 

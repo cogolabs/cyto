@@ -31,7 +31,7 @@ import types from '../../utils/types';
 export default function loadCytoConfig(templateId) {
   const { libraryPath } = loadGlobalConfig();
   const templatePath = path.join(libraryPath, templateId);
-  const configPath = path.join(templatePath, 'cyto.config');
+  const configPath = path.join(templatePath, 'cyto.config.js');
 
   // We have to use eval here to make sure that webpack doesn't try and
   // process this require statement :/
