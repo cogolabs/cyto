@@ -11,7 +11,6 @@ import uniqBy from 'lodash/uniqBy';
  *
  * @param {Object} config - The config to prioritize
  * @param {Object} baseConfig - The config to get the initial set of args from
- *
  */
 export default function mergeArgs(args, baseArgs) {
   return uniqBy([...args, ...baseArgs], 'id');

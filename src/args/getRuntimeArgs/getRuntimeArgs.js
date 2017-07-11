@@ -4,23 +4,22 @@
  *
  * Gets the runtime argument values
  */
-import types from '../../utils/types';
+import isRuntimeArg from '../isRuntimeArg';
 
 /**
  * Given a cyto config and the set of arguments supplied thus far, returns a new
  * set of arguments after generating the value for each runtime argument.
  */
 const getRuntimeArgs = (cytoConfig, suppliedArgs) => {
-  const runtimeArgs = cytoConfig.args.filter((a) => {
-    return a.type !== 'function' && types.isFunction(a.default);
-  });
-
-  return runtimeArgs.reduce((accum, a) => {
-    return {
-      ...accum,
-      [a.id]: a.default(suppliedArgs),
-    };
-  }, suppliedArgs);
+  return cytoConfig
+    .args
+    .filter(isRuntimeArg)
+    .reduce((accum, a) => {
+      return {
+        ...accum,
+        [a.id]: a.default(suppliedArgs),
+      };
+    }, suppliedArgs);
 };
 
 export default getRuntimeArgs;
