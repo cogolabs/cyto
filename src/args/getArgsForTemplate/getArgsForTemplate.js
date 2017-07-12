@@ -5,10 +5,10 @@
  */
 import pick from 'lodash/pick';
 
-import types from '../../utils/types';
-
 import promptForArg from '../promptForArg';
 import parseListArg from '../parseListArg';
+import getRuntimeArgs from '../getRuntimeArgs';
+import isRuntimeArg from '../isRuntimeArg';
 
 import synchReduce from '../../utils/func/synchReduce';
 
@@ -18,13 +18,18 @@ import synchReduce from '../../utils/func/synchReduce';
  */
 export default async function getArgsForTemplate(cytoConfig, args) {
   const getArg = async (accum, arg) => {
+    // Runtime args are handled later. The user should not be prompted for them.
+    if (isRuntimeArg(arg)) {
+      return accum;
+    }
+
     const value = accum[arg.id] !== undefined // Was a value already set?
       ? { [arg.id]: accum[arg.id] }
-      : arg.dontPrompt // Should we avoid prompting and use the default?
+      : arg.dontPrompt // Should we stick with the default?
         ? { [arg.id]: arg.default }
         : await promptForArg(arg);
 
-    const parsedValue = arg.type === 'list' && !types.isArray(value[arg.id])
+    const parsedValue = arg.type === 'list'
       ? { [arg.id]: parseListArg(value[arg.id]) }
       : value;
 
@@ -36,9 +41,11 @@ export default async function getArgsForTemplate(cytoConfig, args) {
     : {};
   const cytoArgs = pick(args, ['id', 'author', 'isPartial']);
 
-  return synchReduce(cytoConfig.args, getArg, {
+  const promptedArgs = await synchReduce(cytoConfig.args, getArg, {
     ...baseArgs,
     ...args,
     ...cytoArgs,
   });
+
+  return getRuntimeArgs(cytoConfig, promptedArgs);
 }
