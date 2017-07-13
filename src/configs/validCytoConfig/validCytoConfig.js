@@ -44,6 +44,20 @@ export default function validCytoConfig(config, providedId) {
     }
   });
 
+  if (config.base) {
+    if (!types.isObject(config.base)) {
+      throw new Error(`Config for ${providedId} has an invalid base: Must be an object`);
+    }
+
+    if (!has(config.base, 'templateId')) {
+      throw new Error(`Config for ${providedId} has an invalid base: Must have a templateId key`);
+    }
+
+    if (!has(config.base, 'args')) {
+      throw new Error(`Config for ${providedId} has an invalid base: Must have an args key`);
+    }
+  }
+
   if (config.templateId !== providedId) { // 7
     throw new Error(
       `Config for template at ${chalk.green(providedId)} has templateId ${chalk.red(config.templateId)}

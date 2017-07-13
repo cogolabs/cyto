@@ -22,7 +22,12 @@ const renderPartial = (generateTemplate) => {
 
     const generatedPartial = await generateTemplate({
       templateId,
-      args: { ...context, id, author: loadGlobalConfig().author },
+      args: {
+        ...context,
+        author: loadGlobalConfig().author,
+        isPartial: true,
+        id,
+      },
       outputRoot: '',
     });
 
