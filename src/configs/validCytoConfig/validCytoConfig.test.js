@@ -29,5 +29,11 @@ describe('validCytoConfig', () => {
 
   it('throws if the provided id does not match the templateId in the config', () => {
     expect(() => validCytoConfig(mocks.VALID_CONFIG, 'foo/baz')).toThrow();
+  });
+
+  it('throws if the base key is invalid', () => {
+    mocks.INVALID_BASE_KEYS.forEach((invalidConfig) => {
+      expect(() => validCytoConfig(invalidConfig, 'foo/bar')).toThrow();
+    });
   })
 });
