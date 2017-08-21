@@ -44,7 +44,7 @@ export default function validCytoConfig(config, providedId) {
     }
   });
 
-  if (config.base) {
+  if (has(config, 'base')) {
     if (!types.isObject(config.base)) {
       throw new Error(`Config for ${providedId} has an invalid base: Must be an object`);
     }

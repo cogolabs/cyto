@@ -32,6 +32,8 @@ describe('validCytoConfig', () => {
   });
 
   it('throws if the base key is invalid', () => {
-    expect(() => validCytoConfig(mocks.INVALID_BASE_KEYS, 'foo/bar')).toThrow();
+    mocks.INVALID_BASE_KEYS.forEach((invalidConfig) => {
+      expect(() => validCytoConfig(invalidConfig, 'foo/bar')).toThrow();
+    });
   })
 });
