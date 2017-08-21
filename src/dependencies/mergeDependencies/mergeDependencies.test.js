@@ -39,17 +39,21 @@ describe('mergeDependencies', () => {
     ]);
   });
 
-  it('uniques object dependencies correctly', () => {
+  it('only removes object dependencies with the same templateId and id arg', () => {
     const deps = [
-      { templateId: 'cyto/test', args: { id: 'foo' } }
+      { templateId: 'cyto/test', args: { id: 'foo' } },
+      { templateId: 'cyto/base', args: { id: 'foo' } }
     ];
     const baseDeps = [
+      { templateId: 'cyto/test', args: { id: 'bar' } },
       { templateId: 'cyto/base', args: { id: 'foo' } }
     ];
     const newDeps = mergeDependencies(deps, baseDeps);
 
     expect(newDeps).toEqual([
-      { templateId: 'cyto/test', args: { id: 'foo' } }
+      { templateId: 'cyto/test', args: { id: 'bar' } },
+      { templateId: 'cyto/test', args: { id: 'foo' } },
+      { templateId: 'cyto/base', args: { id: 'foo' } }
     ]);
   });
 
