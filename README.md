@@ -11,8 +11,7 @@ A declarative boilerplate generator designed to help you write less meaningless 
 Cyto is primarily meant to be used as a global command line tool:
 
 ```bash
-> yarn global add cyto
-# or `npm install -g cyto`
+> npm install -g cyto
 > cyto init
 ```
 
