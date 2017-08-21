@@ -47,8 +47,36 @@ const INVALID_KEY_TYPES = [
     dependencies: [],
     args: [],
     options: 1 // invalid
-  },
+  }
 ];
+
+const INVALID_BASE_KEYS =[
+  {
+    base: '',
+    templateId: 'foo/bar',
+    dependencies: ['foo'],
+    args: [],
+    options: {}
+  },
+  {
+    base: {
+      templateId: 'foo/bar',
+    },
+    templateId: 'foo/bar',
+    dependencies: ['foo'],
+    args: [],
+    options: {}
+  },
+  {
+    base: {
+      args: {},
+    },
+    templateId: 'foo/bar',
+    dependencies: ['foo'],
+    args: [],
+    options: {}
+  }
+]
 
 const INVALID_DEPENDENCY_LENGTH = {
   templateId: 'foo/bar',
@@ -69,5 +97,6 @@ export default {
   MISSING_KEYS,
   INVALID_KEY_TYPES,
   INVALID_DEPENDENCY_LENGTH,
+  INVALID_BASE_KEYS,
   VALID_CONFIG,
 };
