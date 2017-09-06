@@ -1,0 +1,11 @@
+{
+  "name": "cyto-cli",
+  "version": "1.0.0",
+  "description": "The CLI for cyto",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Connor Taylor",
+  "license": "ISC"
+}

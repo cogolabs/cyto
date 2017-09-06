@@ -21,7 +21,7 @@ describe('mergeArgs', () => {
     ]);
   });
 
-  it('uniques each arg based on the id key', () => {
+  it('uniques each arg based on the id key, preferring new args', () => {
     const args = [
       { id: 'foo', type: 'list' },
 
