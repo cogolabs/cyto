@@ -1,16 +1,11 @@
-/* @flow */
-/**
- * index.js
- * Written by: Connor Taylor
- */
 import loadGlobalConfig from './loadGlobalConfig';
 import loadCytoConfig from './loadCytoConfig';
 import validCytoConfig from './validCytoConfig';
+import mergeCytoConfigs from './mergeCytoConfigs';
 
 export default {
-  // units
   loadGlobalConfig,
   loadCytoConfig,
   validCytoConfig,
-  // modules
+  mergeCytoConfigs,
 }

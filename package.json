@@ -7,9 +7,7 @@
     "flow": "flow; test $? -eq 0 -o $? -eq 2",
     "test": "jest --coverage",
     "test-watch": "jest --watch",
-    "watch": "webpack --watch",
-    "prepublishOnly": "npm run build",
-    "postinstall": "./bin/postInstall"
+    "watch": "webpack --watch"
   },
   "bin": {
     "cyto": "bin/cyto"

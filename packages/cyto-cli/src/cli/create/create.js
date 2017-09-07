@@ -5,9 +5,11 @@
  */
 import log from '../../utils/log';
 
-import generateTemplate from '../../template/generateTemplate';
-import writeTemplate from '../../template/writeTemplate';
-import loadGlobalConfig from '../../configs/loadGlobalConfig';
+import {
+  generateTemplate,
+  writeTemplate,
+  loadGlobalConfig,
+} from 'cyto-core';
 
 /**
  * `cyto create` creates a new template inside of the user's GTL. It does this

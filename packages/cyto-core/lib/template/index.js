@@ -14,5 +14,5 @@ export default {
   generateTemplate,
   validateTemplate,
   validateTemplateId,
-  writeTemplate
+  writeTemplate,
 };

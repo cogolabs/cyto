@@ -3,7 +3,6 @@
  * Written by: Connor Taylor
  * Runs a fully initialized commander program
  */
-
 import cli from './cli';
 
 cli.parse(process.argv);

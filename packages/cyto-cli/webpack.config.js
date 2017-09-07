@@ -8,10 +8,8 @@ module.exports = {
     cyto: './index.js',
   },
   output: {
-    path: path.resolve(__dirname, './build'),
+    path: path.resolve(__dirname, './bin'),
     filename: '[name].js',
-    library: "cyto-core",
-    libraryTarget: "umd",
   },
   target: 'node',
   module: {
@@ -35,7 +33,6 @@ module.exports = {
     new webpack.BannerPlugin({
       banner: '#!/usr/bin/env node',
       raw: true,
-      entryOnly: true
     }),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
@@ -44,8 +41,6 @@ module.exports = {
       this.plugin('done', () => {
         fs.chmodSync('bin/cyto.js', '755');
         fs.renameSync('bin/cyto.js', 'bin/cyto');
-        fs.chmodSync('bin/postInstall.js', '755');
-        fs.renameSync('bin/postInstall.js', 'bin/postInstall');
       })
     }
   ],

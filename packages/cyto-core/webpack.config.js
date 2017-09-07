@@ -3,9 +3,9 @@ const fs = require('fs');
 const webpack = require('webpack');
 
 module.exports = {
-  context: path.resolve(__dirname, './src'),
+  context: path.resolve(__dirname, './lib'),
   entry: {
-    cyto: './index.js',
+    index: './index.js',
   },
   output: {
     path: path.resolve(__dirname, './build'),
@@ -40,13 +40,5 @@ module.exports = {
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
     }),
-    function() {
-      this.plugin('done', () => {
-        fs.chmodSync('bin/cyto.js', '755');
-        fs.renameSync('bin/cyto.js', 'bin/cyto');
-        fs.chmodSync('bin/postInstall.js', '755');
-        fs.renameSync('bin/postInstall.js', 'bin/postInstall');
-      })
-    }
   ],
 };

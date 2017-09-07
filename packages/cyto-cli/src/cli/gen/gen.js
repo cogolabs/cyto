@@ -13,9 +13,11 @@ import path from 'path';
 
 import log from '../../utils/log';
 
-import generateTemplate from '../../template/generateTemplate';
-import writeTemplate from '../../template/writeTemplate';
-import loadGlobalConfig from '../../configs/loadGlobalConfig';
+import {
+  generateTemplate,
+  writeTemplate,
+  loadGlobalConfig,
+} from 'cyto-core';
 
 export default function gen(program: Object) {
   program
