@@ -10,14 +10,13 @@
  *
  */
 import path from 'path';
-
-import log from '../../utils/log';
-
 import {
   generateTemplate,
   writeTemplate,
-  loadGlobalConfig,
-} from 'cyto-core';
+} from 'cyto-core/lib/template';
+import { loadGlobalConfig } from 'cyto-core/lib/configs';
+
+import log from '../../utils/log';
 
 export default function gen(program: Object) {
   program

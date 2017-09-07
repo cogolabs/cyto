@@ -4,7 +4,7 @@ import isRuntimeArg from './isRuntimeArg';
 import mergeArgs from './mergeArgs';
 import promptForArg from './promptForArg';
 import parseListArg from './parseListArg';
-import validateTemplateArgs from './getArgsForTemplate';
+import validateTemplateArgs from './validateTemplateArgs';
 
 export default {
   getArgsForTemplate,
@@ -14,4 +14,4 @@ export default {
   promptForArg,
   parseListArg,
   validateTemplateArgs,
-}
+};

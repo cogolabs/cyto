@@ -16,13 +16,13 @@ module.exports = {
     rules: [
       {
         test: /\.js$/,
-        exclude: [/node_modules/],
+        exclude: [/(node_modules)/],
         enforce: 'pre',
         loader: 'eslint-loader'
       },
       {
         test: /\.(js|jsx)$/,
-        exclude: /node_modules/,
+        exclude: /(node_modules)/,
         use: [
           'babel-loader'
         ],

@@ -21,6 +21,7 @@ export default function init(program) {
     .description('Set required information for cyto')
     .action(() => {
       const cytoDir = path.join(file.getUserHomeDir(), '.cyto');
+      mkdirp.sync(cytoDir);
 
       inquirer.prompt([
         {

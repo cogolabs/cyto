@@ -5,5 +5,5 @@ import args from './args';
 export default {
   ...template,
   ...configs,
-  ...args
+  ...args,
 };

@@ -32,11 +32,6 @@ module.exports = {
     ]
   },
   plugins: [
-    new webpack.BannerPlugin({
-      banner: '#!/usr/bin/env node',
-      raw: true,
-      entryOnly: true
-    }),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
     }),
