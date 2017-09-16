@@ -38,8 +38,8 @@ import synchReduce from '../../utils/func/synchReduce';
  */
 export default async function generateTemplate(options) {
   const { templateId, args } = options;
-  validateTemplateId(templateId); // 1
-  const cytoConfig = loadCytoConfig(templateId); // 2
+  const templatePackage = validateTemplateId(options.templateId); // 1
+  const cytoConfig = loadCytoConfig(templatePackage); // 2
 
   const outputRoot = cytoConfig.options.createDirectory
     ? path.join(options.outputRoot, args.id)

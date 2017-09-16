@@ -22,18 +22,13 @@ export default function loadTemplate(templateId) {
   const { libraryPath } = loadGlobalConfig();
   const cytoConfig = loadCytoConfig(templateId);
 
-  return cytoConfig.dependencies.reduce((accum, dep) => {
-    if (types.isArray(dep)) {
-      const [name, depTemplateId] = dep;
-
-      return {
-        ...accum,
-        [name]: file.loadUTF8FileSafe(
-          path.join(libraryPath, depTemplateId, name),
-        ),
-      };
-    }
-
-    return accum;
-  }, {});
+  return cytoConfig
+    .dependencies
+    .filter((dep) => types.isArray(dep))
+    .reduce((accum, [name, depTemplateId]) => ({
+      ...accum,
+      [name]: file.loadUTF8FileSafe(
+        path.join(libraryPath, depTemplateId, name),
+      ),
+    }), {});
 }

@@ -30,7 +30,7 @@ module.exports = {
     ]
   },
   externals: {
-    'cyto-core': "require('cyto-core')",
+    'cyto-core': "require('cyto-core').default",
   },
   plugins: [
     new webpack.BannerPlugin({

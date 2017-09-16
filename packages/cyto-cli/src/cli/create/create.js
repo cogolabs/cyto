@@ -20,16 +20,16 @@ export default function create(program) {
     .command('create <id>')
     .description('Create a new cyto template')
     .action(async (id) => {
-      const { libraryPath: outputRoot, author } = loadGlobalConfig();
+      const { author } = loadGlobalConfig();
 
       try {
         const generatedTemplate = await generateTemplate({
-          templateId: 'cyto/template',
+          templateId: 'cyto-template',
           args: { id, author, isPartial: false },
           outputRoot: '',
         });
 
-        writeTemplate(generatedTemplate, outputRoot);
+        writeTemplate(generatedTemplate, './');
       } catch (e) {
         log.info(e.stack);
       }

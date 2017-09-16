@@ -5,10 +5,8 @@
  */
 import validateTemplateId from './validateTemplateId';
 
-const VALID_ID = 'foo/bar';
+const VALID_ID = 'foo-bar';
 const INVALID_IDS = [
-  'foo',
-  'foo/bar/baz',
   1,
 ];
 
@@ -21,6 +19,6 @@ describe('validateTemplateId', () => {
   it('fails for each invalid id', () => {
     INVALID_IDS.forEach((id) => {
       expect(() => validateTemplateId(id)).toThrow();
-    })
+    });
   })
 });

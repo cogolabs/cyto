@@ -1,5 +1,5 @@
 {
-  "name": "cyto-template-{{dashed-name}}",
+  "name": "cyto-template-{{id}}",
   "version": "1.0.0",
   "description": "{{description}}",
   "main": "cyto.config.js",

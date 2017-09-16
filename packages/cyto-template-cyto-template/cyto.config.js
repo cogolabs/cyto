@@ -34,12 +34,6 @@ module.exports = {
     },
     {
       id: 'description',
-    },
-    {
-      id: 'dashed-name':
-      type: 'string',
-      default: (args) => args.id.replace('/', '-'),
-      dontPrompt: true
     }
   ],
   options: {

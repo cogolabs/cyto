@@ -12,8 +12,8 @@ import validateDependencies from '../../dependencies/validateDependencies';
  * following checks:
  *
  *  1. Validates the cyto config as a whole
- *  2. Validates the cyto config's dependencies
- *  3. Validates the cyto config's arguments
+ *  2. Validates the cyto config's dependencies section
+ *  3. Validates the cyto config's arguments section
  *
  * Any problems encountered will cause Cyto to exit. This function should be
  * called after the cyto.config.js file has been loaded but BEFORE its
@@ -22,8 +22,8 @@ import validateDependencies from '../../dependencies/validateDependencies';
  * @param { Object } config - The config to validate
  * @param { string } providedId - The templateId given by the user on the CLI
  */
-export default function validateTemplate(config, providedId) {
-  validCytoConfig(config, providedId);
+export default function validateTemplate(config, pkgString) {
+  validCytoConfig(config, pkgString);
   validateDependencies(config.dependencies);
   validateTemplateArgs(config.args);
 }

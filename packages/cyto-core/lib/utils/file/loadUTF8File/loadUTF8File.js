@@ -1,4 +1,3 @@
-/* @flow */
 /**
  * loadUTF8File.js
  * Written by: Connor Taylor
