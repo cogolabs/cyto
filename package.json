@@ -1,9 +1,9 @@
 {
   "name": "cyto",
-  "version": "0.6.2",
+  "version": "0.7.0",
   "description": "A better boilerplate generator",
   "scripts": {
-    "build": "cross-env NODE_ENV=production webpack",
+    "build": "lerna bootstrap",
     "flow": "flow; test $? -eq 0 -o $? -eq 2",
     "test": "jest --coverage",
     "test-watch": "jest --watch",
@@ -49,6 +49,6 @@
     "lerna": "^2.1.2",
     "mock-fs": "^4.4.1",
     "string-replace-loader": "^1.0.5",
-    "webpack": "^2.2.0"
+    "webpack": "^3.6.0"
   }
 }

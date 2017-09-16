@@ -1,11 +1,11 @@
 {
   "name": "cyto-template-cyto-template",
-  "version": "1.0.0",
+  "version": "0.7.0",
   "description": "The template for creating new cyto templates",
   "main": "cyto.config.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Connor Taylor",
-  "license": "ISC"
+  "license": "Apache-2.0"
 }
