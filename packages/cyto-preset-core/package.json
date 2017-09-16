@@ -1,0 +1,14 @@
+{
+  "name": "cyto-preset-core",
+  "version": "0.7.0",
+  "description": "The core templates needed by cyto",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Connor Taylor",
+  "license": "ISC",
+  "dependencies": {
+    "cyto-template-cyto-template": "^1.0.0"
+  }
+}

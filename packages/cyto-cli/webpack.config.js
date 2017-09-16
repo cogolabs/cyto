@@ -16,18 +16,21 @@ module.exports = {
     rules: [
       {
         test: /\.js$/,
-        exclude: [/(node_modules)/],
+        exclude: [/(node_modules|cyto-core)/],
         enforce: 'pre',
         loader: 'eslint-loader'
       },
       {
         test: /\.(js|jsx)$/,
-        exclude: /(node_modules)/,
+        exclude: /(node_module|cyto-core)/,
         use: [
           'babel-loader'
         ],
       },
     ]
+  },
+  externals: {
+    'cyto-core': "require('cyto-core')",
   },
   plugins: [
     new webpack.BannerPlugin({

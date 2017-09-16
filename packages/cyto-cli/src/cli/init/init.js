@@ -1,13 +1,13 @@
-/* @flow */
 /**
  * init.js
  * Written by: Connor Taylor
  */
 import fs from 'fs';
 import path from 'path';
-
 import inquirer from 'inquirer';
 import mkdirp from 'mkdirp';
+
+import { file } from 'cyto-core';
 
 /**
  * `cyto init` prompts the user for their full name and the location to create

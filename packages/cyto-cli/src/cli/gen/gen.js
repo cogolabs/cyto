@@ -1,22 +1,16 @@
-/* @flow */
 /**
  * gen.js
  * Written by: Connor Taylor
  */
 
-/**
- * `gen`. Does x when envoked. The arguments listed below are meant to be
- * passed via the command line.
- *
- */
 import path from 'path';
+
 import {
   generateTemplate,
   writeTemplate,
-} from 'cyto-core/lib/template';
-import { loadGlobalConfig } from 'cyto-core/lib/configs';
-
-import log from '../../utils/log';
+  loadGlobalConfig,
+  log,
+} from 'cyto-core';
 
 export default function gen(program: Object) {
   program

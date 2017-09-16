@@ -2,6 +2,10 @@ node_modules
 *.log
 bin
 
+build
+
+*.tgz
+
 coverage
 
 .DS_Store
