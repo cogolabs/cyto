@@ -2,12 +2,15 @@
   "name": "cyto-cli",
   "version": "0.7.0",
   "description": "The CLI for cyto",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
-    "build": "NODE_ENV=production webpack",
-    "prepublish": "npm run build",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "watch": "webpack --watch"
+    "watch": "webpack --watch",
+    "transpile": "babel src -d build --copy-files",
+    "build": "./build.sh"
+  },
+  "bin": {
+    "cyto": "dist/index.js"
   },
   "author": "Connor Taylor",
   "license": "Apache-2.0",
@@ -16,16 +19,14 @@
     "cyto-core": "^0.7.0"
   },
   "devDependencies": {
+    "babel-cli": "^6.26.0",
     "babel-core": "^6.22.1",
     "babel-eslint": "^7.1.1",
-    "babel-loader": "^6.2.10",
     "babel-plugin-transform-async-to-generator": "^6.22.0",
     "babel-plugin-transform-flow-strip-types": "^6.22.0",
     "babel-plugin-transform-object-rest-spread": "^6.23.0",
     "babel-plugin-transform-runtime": "^6.22.0",
-    "babel-preset-env": "^1.1.8",
-    "babel-preset-latest": "^6.22.0",
-    "babili-webpack-plugin": "^0.0.8",
+    "babel-preset-env": "^1.6.0",
     "coveralls": "^2.13.1",
     "cross-env": "^3.1.4",
     "eslint": "^3.14.0",
@@ -37,8 +38,6 @@
     "eslint-plugin-jsx-a11y": "^3.0.2",
     "eslint-plugin-react": "^6.9.0",
     "jest": "^18.1.0",
-    "mock-fs": "^4.4.1",
-    "string-replace-loader": "^1.0.5",
-    "webpack": "^3.6.0"
+    "mock-fs": "^4.4.1"
   }
 }

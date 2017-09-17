@@ -26,9 +26,10 @@ const renderDependency = async ({
   dependency,
   outputRoot,
   args,
-  options,
+  cytoConfig,
   generateTemplate,
 }) => {
+  const { options } = cytoConfig;
   const [name, templateId, isRuntimeDep] = dependency;
 
   const partialHandler = renderPartial(generateTemplate);

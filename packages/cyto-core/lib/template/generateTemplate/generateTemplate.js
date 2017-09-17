@@ -71,7 +71,7 @@ export default async function generateTemplate(options) {
       outputRoot,
       // we have to pass generateTemplate here to avoid a circular dependency
       generateTemplate,
-      options: cytoConfig.options,
+      cytoConfig,
       args: templateArgs,
     });
 
