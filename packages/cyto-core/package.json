@@ -12,7 +12,6 @@
   "author": "Connor Taylor",
   "license": "Apache-2.0",
   "dependencies": {
-    "commander": "^2.11.0",
     "cyto-preset-core": "^0.7.0",
     "fu-manchu": "^1.0.1",
     "inquirer": "^3.2.3",
