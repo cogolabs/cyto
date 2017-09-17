@@ -8,7 +8,6 @@ import {
   generateTemplate,
   writeTemplate,
   loadGlobalConfig,
-  log,
 } from 'cyto-core';
 
 /**
@@ -31,7 +30,7 @@ export default function create(program) {
 
         writeTemplate(generatedTemplate, './');
       } catch (e) {
-        log.info(e.stack);
+        console.log(e.stack);
       }
     });
 }

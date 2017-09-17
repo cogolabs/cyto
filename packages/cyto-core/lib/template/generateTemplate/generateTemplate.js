@@ -4,7 +4,6 @@
  * Written by: Connor Taylor
  */
 import path from 'path';
-import chalk from 'chalk';
 
 import validateTemplateId from '../validateTemplateId';
 
@@ -46,7 +45,7 @@ export default async function generateTemplate(options) {
     : options.outputRoot;
 
   log.info(
-    `Generating ${chalk.green(templateId)} with id ${chalk.green(args.id)}`,
+    `Generating ${templateId} with id ${args.id}`,
   );
 
   const templateArgs = await getArgsForTemplate(cytoConfig, args); // 3
