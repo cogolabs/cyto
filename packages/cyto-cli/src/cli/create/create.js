@@ -7,8 +7,8 @@
 import {
   generateTemplate,
   writeTemplate,
+  getAuthorArg,
   log,
-  file,
 } from 'cyto-core';
 
 /**
@@ -20,7 +20,7 @@ export default function create(program) {
     .command('create <id>')
     .description('Create a new cyto template')
     .action(async (id) => {
-      const author = 'Connor Taylor';
+      const author = getAuthorArg();
 
       try {
         const generatedTemplate = await generateTemplate({
@@ -29,7 +29,7 @@ export default function create(program) {
           outputRoot: '',
         });
 
-        writeTemplate(generatedTemplate, '~/');
+        writeTemplate(generatedTemplate, '');
       } catch (e) {
         log.info(e.stack);
       }

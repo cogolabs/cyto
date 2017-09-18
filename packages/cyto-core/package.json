@@ -14,6 +14,7 @@
   "dependencies": {
     "cyto-preset-core": "^0.7.1",
     "fu-manchu": "^1.0.1",
+    "git-user-name": "^1.2.0",
     "inquirer": "^3.2.3",
     "lodash": "^4.17.4",
     "mkdirp": "^0.5.1"

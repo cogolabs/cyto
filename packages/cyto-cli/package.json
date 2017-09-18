@@ -8,7 +8,8 @@
     "watch": "nodemon --exec 'npm run build' src/index.js",
     "transpile": "babel src -d build --copy-files",
     "build": "./build.sh",
-    "prepublishOnly": "npm run build"
+    "prepublishOnly": "npm run build",
+    "foo": "echo $PWD"
   },
   "bin": {
     "cyto": "build/index.js"
@@ -19,7 +20,8 @@
     "babel-runtime": "^6.26.0",
     "commander": "^2.11.0",
     "cyto-core": "^0.7.1",
-    "cyto-template-cyto-template": "^0.7.1"
+    "cyto-template-cyto-template": "^0.7.1",
+    "open": "0.0.5"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",

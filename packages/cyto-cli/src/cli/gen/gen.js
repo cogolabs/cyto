@@ -8,7 +8,7 @@ import path from 'path';
 import {
   generateTemplate,
   writeTemplate,
-  loadGlobalConfig,
+  getAuthorArg,
   log,
 } from 'cyto-core';
 
@@ -19,7 +19,7 @@ export default function gen(program: Object) {
     .description('Generate a cyto template')
     .option('-o, --output [val]', 'Where to output the template')
     .action(async (templateId, id, options) => {
-      const { author } = loadGlobalConfig();
+      const author = getAuthorArg();
 
       try {
         // Returns an object where the keys are filepaths and the values are
