@@ -1,6 +1,6 @@
 {
   "name": "cyto-cli",
-  "version": "0.7.0",
+  "version": "0.7.1",
   "description": "The CLI for cyto",
   "main": "dist/index.js",
   "scripts": {
@@ -17,8 +17,8 @@
   "license": "Apache-2.0",
   "dependencies": {
     "commander": "^2.11.0",
-    "cyto-core": "^0.7.0",
-    "cyto-template-cyto-template": "^0.7.0"
+    "cyto-core": "^0.7.1",
+    "cyto-template-cyto-template": "^0.7.1"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",

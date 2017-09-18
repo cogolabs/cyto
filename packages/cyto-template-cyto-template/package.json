@@ -1,6 +1,6 @@
 {
   "name": "cyto-template-cyto-template",
-  "version": "0.7.0",
+  "version": "0.7.1",
   "description": "The template for creating new cyto templates",
   "main": "cyto.config.js",
   "scripts": {
