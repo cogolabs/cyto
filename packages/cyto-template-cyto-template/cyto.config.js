@@ -1,6 +1,7 @@
 module.exports = {
   templateId: 'cyto-template',
   dependencies: [
+    '.gitignore',
     '{{config}}.js',
     '{{package}}.json',
     (args) => args.files.map((f) => f.id)
