@@ -8,8 +8,6 @@
  * webpack from trying to process the require statement. This is necessary for
  * template loading. Open to other ideas for how to get around this.
  */
-const evalRequire = (pkg) => {
-  return eval('require')(pkg); // eslint-disable-line
-};
+const evalRequire = eval('require'); // eslint-disable-line
 
 export default evalRequire;

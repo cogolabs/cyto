@@ -5,7 +5,7 @@
  */
 import path from 'path';
 
-import validateTemplateId from '../validateTemplateId';
+import getTemplatePackage from '../getTemplatePackage';
 
 import getArgsForTemplate from '../../args/getArgsForTemplate';
 
@@ -37,7 +37,7 @@ import synchReduce from '../../utils/func/synchReduce';
  */
 export default async function generateTemplate(options) {
   const { templateId, args } = options;
-  const templatePackage = validateTemplateId(options.templateId); // 1
+  const templatePackage = getTemplatePackage(options.templateId); // 1
   const cytoConfig = loadCytoConfig(templatePackage); // 2
 
   const outputRoot = cytoConfig.options.createDirectory

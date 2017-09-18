@@ -17,6 +17,10 @@ module.exports = {
   module: {
     rules: [
       {
+        test: /rx\.lite\.aggregates\.js/,
+        loader: 'imports-loader?define=>false',
+      },
+      {
         test: /\.js$/,
         exclude: [/node_modules/],
         enforce: 'pre',

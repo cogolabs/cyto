@@ -5,18 +5,20 @@
   "main": "dist/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "watch": "webpack --watch",
+    "watch": "nodemon --exec 'npm run build' src/index.js",
     "transpile": "babel src -d build --copy-files",
-    "build": "./build.sh"
+    "build": "./build.sh",
+    "prepublishOnly": "npm run build"
   },
   "bin": {
-    "cyto": "dist/index.js"
+    "cyto": "build/index.js"
   },
   "author": "Connor Taylor",
   "license": "Apache-2.0",
   "dependencies": {
     "commander": "^2.11.0",
-    "cyto-core": "^0.7.0"
+    "cyto-core": "^0.7.0",
+    "cyto-template-cyto-template": "^0.7.0"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
@@ -38,6 +40,7 @@
     "eslint-plugin-jsx-a11y": "^3.0.2",
     "eslint-plugin-react": "^6.9.0",
     "jest": "^18.1.0",
-    "mock-fs": "^4.4.1"
+    "mock-fs": "^4.4.1",
+    "nodemon": "^1.12.1"
   }
 }

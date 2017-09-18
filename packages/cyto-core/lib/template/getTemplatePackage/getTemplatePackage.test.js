@@ -1,9 +1,9 @@
 /* @flow */
 /**
- * validateTemplateId.test.js
+ * getTemplatePackage.test.js
  * Written by: Connor Taylor
  */
-import validateTemplateId from './validateTemplateId';
+import getTemplatePackage from './getTemplatePackage';
 
 const VALID_ID = 'foo-bar';
 const INVALID_IDS = [
@@ -11,14 +11,14 @@ const INVALID_IDS = [
 ];
 
 
-describe('validateTemplateId', () => {
+describe('getTemplatePackage', () => {
   it('succeeds if given a valid templateId', () => {
-    validateTemplateId(VALID_ID);
+    getTemplatePackage(VALID_ID);
   });
 
   it('fails for each invalid id', () => {
     INVALID_IDS.forEach((id) => {
-      expect(() => validateTemplateId(id)).toThrow();
+      expect(() => getTemplatePackage(id)).toThrow();
     });
   })
 });

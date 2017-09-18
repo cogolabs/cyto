@@ -5,9 +5,12 @@
  */
 import path from 'path';
 
+import loadCytoConfig from '../../configs/loadCytoConfig';
+import getTemplatePackage from '../getTemplatePackage';
+
 import file from '../../utils/file';
 import types from '../../utils/types';
-import loadCytoConfig from '../../configs/loadCytoConfig';
+import evalRequire from '../../utils/evalRequire';
 
 // Make sure we don't have to reload the template multiple times
 const CACHE = {};
@@ -25,7 +28,13 @@ export default function loadTemplate(templateId) {
     return CACHE[templateId];
   }
 
+  const libraryPath = '';
+
   const cytoConfig = loadCytoConfig(templateId);
+  const templatePackage = getTemplatePackage(templateId);
+  const templatePath = evalRequire.resolve(templatePackage);
+  console.log(templatePath);
+
   const loadedTemplate = cytoConfig
     .dependencies
     .filter((dep) => types.isArray(dep))
