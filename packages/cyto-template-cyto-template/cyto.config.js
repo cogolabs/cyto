@@ -1,7 +1,8 @@
 module.exports = {
-  templateId: 'cyto/template',
+  templateId: 'cyto-template',
   dependencies: [
-    '{{name}}.js',
+    '{{config}}.js',
+    '{{package}}.json',
     (args) => args.files.map((f) => f.id)
   ],
   args: [

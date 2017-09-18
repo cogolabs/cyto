@@ -9,6 +9,7 @@
   "author": "Connor Taylor",
   "license": "Apache-2.0",
   "dependencies": {
-    "cyto-template-cyto-template": "^0.7.1"
+    "cyto-template-cyto-template": "^0.7.1",
+    "cyto-template-cyto-preset": "^0.7.1"
   }
 }

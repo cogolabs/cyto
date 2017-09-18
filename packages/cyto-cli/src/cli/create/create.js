@@ -29,7 +29,7 @@ export default function create(program) {
           outputRoot: '',
         });
 
-        writeTemplate(generatedTemplate, './');
+        writeTemplate(generatedTemplate, '~/');
       } catch (e) {
         log.info(e.stack);
       }
