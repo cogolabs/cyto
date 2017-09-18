@@ -5,8 +5,6 @@
  */
 import path from 'path';
 
-import getTemplatePackage from '../getTemplatePackage';
-
 import getArgsForTemplate from '../../args/getArgsForTemplate';
 
 import getRuntimeDependencies from '../../dependencies/getRuntimeDependencies';
@@ -21,14 +19,13 @@ import synchReduce from '../../utils/func/synchReduce';
 /**
  * Driver for the entire template generation algorithm. The algorithm can be
  * broken down into these steps:
- *  1. Validate the given templateId
- *  2. Load the cyto.config.js file for the given template
- *  3. Get the args for the template, prompting if necessary
- *  4. Get the set of dependencies after applying any function dependencies
- *  5. For each dependency:
+ *  1. Load the cyto.config.js file for the given template
+ *  2. Get the args for the template, prompting if necessary
+ *  3. Get the set of dependencies after applying any function dependencies
+ *  4. For each dependency:
  *    a. Recursively call generateTemplate if it's an object (template).
  *    b. Render the dependency if it's an array
- *  6. Return the result of synchronously reducing all of a template's
+ *  5. Return the result of synchronously reducing all of a template's
  *     dependencies
  *
  * @param {object} options - Options to tweak the template generation
@@ -37,22 +34,18 @@ import synchReduce from '../../utils/func/synchReduce';
  */
 export default async function generateTemplate(options) {
   const { templateId, args } = options;
-  const templatePackage = getTemplatePackage(options.templateId); // 1
-  const cytoConfig = loadCytoConfig(templatePackage); // 2
-
+  const cytoConfig = loadCytoConfig(templateId); // 1
   const outputRoot = cytoConfig.options.createDirectory
     ? path.join(options.outputRoot, args.id)
     : options.outputRoot;
 
-  log.info(
-    `Generating ${templateId} with id ${args.id}`,
-  );
+  log.info(`Generating ${templateId} with id ${args.id}`);
 
-  const templateArgs = await getArgsForTemplate(cytoConfig, args); // 3
-  const dependencies = getRuntimeDependencies(cytoConfig, templateArgs); // 4
+  const templateArgs = await getArgsForTemplate(cytoConfig, args); // 2
+  const dependencies = getRuntimeDependencies(cytoConfig, templateArgs); // 3
 
-  const processDependency = async (accum, dependency) => { // 5
-    if (types.isObject(dependency)) { // 5a
+  const processDependency = async (accum, dependency) => { // 4
+    if (types.isObject(dependency)) { // a
       const generatedTemplate = await generateTemplate({
         templateId: dependency.templateId,
         args: {
@@ -66,7 +59,7 @@ export default async function generateTemplate(options) {
       return { ...accum, ...generatedTemplate };
     }
 
-    const renderedDep = await renderDependency({ // 5b
+    const renderedDep = await renderDependency({ // b
       dependency,
       outputRoot,
       // we have to pass generateTemplate here to avoid a circular dependency
@@ -78,5 +71,5 @@ export default async function generateTemplate(options) {
     return { ...accum, ...renderedDep };
   };
 
-  return synchReduce(dependencies, processDependency, {}); // 6
+  return synchReduce(dependencies, processDependency, {}); // 5
 }

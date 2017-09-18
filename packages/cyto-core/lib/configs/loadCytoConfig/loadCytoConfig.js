@@ -5,6 +5,7 @@
  */
 import mergeCytoConfigs from '../mergeCytoConfigs';
 import validateTemplate from '../../template/validateTemplate';
+import getTemplatePackage from '../../template/getTemplatePackage';
 
 import types from '../../utils/types';
 import evalRequire from '../../utils/evalRequire';
@@ -25,7 +26,8 @@ import evalRequire from '../../utils/evalRequire';
  * @param {string} templateId - The template to load
  * @returns {Object} The loaded cyto.config.js object
  */
-export default function loadCytoConfig(templatePackage) {
+export default function loadCytoConfig(templateId) {
+  const templatePackage = getTemplatePackage(templateId);
   const rawConfig = evalRequire(templatePackage);
 
   // Make sure the config is valid before processing further

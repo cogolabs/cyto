@@ -12,7 +12,7 @@ import file from '../../utils/file';
 import types from '../../utils/types';
 import evalRequire from '../../utils/evalRequire';
 
-// Make sure we don't have to reload the template multiple times
+// Make sure we don't have to reload a template multiple times
 const CACHE = {};
 
 /**
@@ -28,22 +28,21 @@ export default function loadTemplate(templateId) {
     return CACHE[templateId];
   }
 
-  const libraryPath = '';
-
   const cytoConfig = loadCytoConfig(templateId);
-  const templatePackage = getTemplatePackage(templateId);
-  const templatePath = evalRequire.resolve(templatePackage);
-  console.log(templatePath);
-
   const loadedTemplate = cytoConfig
     .dependencies
     .filter((dep) => types.isArray(dep))
-    .reduce((accum, [name, depTemplateId]) => ({
-      ...accum,
-      [name]: file.loadUTF8FileSafe(
-        path.join(libraryPath, depTemplateId, name),
-      ),
-    }), {});
+    .reduce((accum, [name, depTemplateId]) => {
+      const templatePackage = getTemplatePackage(depTemplateId);
+      // require.resolve gives us the path to the cyto.config.js file, not the
+      // template directory (which is one level up)
+      const templatePath = path.dirname(evalRequire.resolve(templatePackage));
+
+      return {
+        ...accum,
+        [name]: file.loadUTF8FileSafe(path.join(templatePath, name)),
+      };
+    }, {});
 
   CACHE[templateId] = loadedTemplate;
 
