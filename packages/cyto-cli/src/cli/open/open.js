@@ -2,7 +2,7 @@
  * open.js
  * Written by: Connor Taylor
  */
-import open from 'open';
+import nodeOpen from 'open';
 import {
   getTemplatePackage,
 } from 'cyto-core';
@@ -15,6 +15,6 @@ export default function open(program) {
       const templatePackage = getTemplatePackage(templateId);
       const templatePath = require.resolve(templatePackage);
 
-      open(templatePath);
+      nodeOpen(templatePath);
     });
 }
