@@ -13,6 +13,7 @@ import mergeArgs from './args/mergeArgs';
 import parseListArg from './args/parseListArg';
 import promptForArg from './args/promptForArg';
 import validateTemplateArgs from './args/validateTemplateArgs';
+import getAuthorArg from './args/getAuthorArg';
 
 import loadCytoConfig from './configs/loadCytoConfig';
 import mergeCytoConfigs from './configs/mergeCytoConfigs';
@@ -37,6 +38,7 @@ export {
   parseListArg,
   promptForArg,
   validateTemplateArgs,
+  getAuthorArg,
 
   loadCytoConfig,
   mergeCytoConfigs,
