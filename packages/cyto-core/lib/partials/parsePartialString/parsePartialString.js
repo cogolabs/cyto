@@ -12,6 +12,7 @@ import fumanchu from 'fu-manchu';
 const parsePartialString = async (partialString, context) => {
   const renderedString = await fumanchu.render(partialString, context);
   const tokens = renderedString.split(' ').filter((s) => s.trim());
+
   if (!tokens.length || tokens.length > 2) {
     throw new Error(`Invalid partial string ${partialString}`);
   } else if (tokens.length === 1) {

@@ -6,7 +6,7 @@ import path from 'path';
 import ini from 'ini';
 
 import getUserHomeDir from '../../utils/file/getUserHomeDir';
-import loadUTF8File from '../../utils/file/loadUTF8File';
+import loadUTF8FileSafe from '../../utils/file/loadUTF8FileSafe';
 
 /*
  * Gets the git user name for the current user to be supplied for the author
@@ -15,9 +15,12 @@ import loadUTF8File from '../../utils/file/loadUTF8File';
  */
 const getAuthorArg = () => {
   const configPath = path.resolve(getUserHomeDir(), '.gitconfig');
-  const config = ini.parse(loadUTF8File(configPath));
+  const fileContents = loadUTF8FileSafe(configPath);
 
-  return config.user.name;
+
+  return fileContents
+    ? ini.parse(fileContents).user.name
+    : fileContents;
 };
 
 export default getAuthorArg;

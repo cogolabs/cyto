@@ -33,7 +33,7 @@ const loadCytoConfig = (templateId) => {
   const rawConfig = evalRequire(templatePackage);
 
   // Make sure the config is valid before processing further
-  validateTemplate(rawConfig, templatePackage);
+  validateTemplate(rawConfig, templateId);
 
   const formattedConfig = {
     ...rawConfig,

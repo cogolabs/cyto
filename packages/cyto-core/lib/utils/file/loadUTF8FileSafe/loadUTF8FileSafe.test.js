@@ -13,7 +13,6 @@ describe('loadUTF8FileSafe', () => {
     mock({});
 
     const contents = loadUTF8FileSafe('/fake/path');
-
     expect(contents).toBe('');
 
     mock.restore();
@@ -21,13 +20,12 @@ describe('loadUTF8FileSafe', () => {
 
   it('loads a file if it exists', () => {
     mock({
-      '/fake/path': 'foobar'
+      '/good/path': 'foobar'
     });
 
-    const contents = loadUTF8FileSafe('/fake/path');
-
+    const contents = loadUTF8FileSafe('/good/path');
     expect(contents).toBe('foobar');
 
     mock.restore();
-  })
+  });
 });

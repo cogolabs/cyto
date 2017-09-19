@@ -5,14 +5,20 @@
  */
 import getTemplatePackage from './getTemplatePackage';
 
+import * as evalRequire from '../../utils/evalRequire';
+
 const VALID_ID = 'foo-bar';
 const INVALID_IDS = [
   1,
+  {},
+  true,
+  () => {},
 ];
 
 
 describe('getTemplatePackage', () => {
   it('succeeds if given a valid templateId', () => {
+    evalRequire.default = jest.fn();
     getTemplatePackage(VALID_ID);
   });
 

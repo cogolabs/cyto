@@ -5,8 +5,9 @@
   "main": "build/index.js",
   "scripts": {
     "build": "NODE_ENV=production webpack",
-    "prepublish": "npm run build",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepublishOnly": "npm run build",
+    "test": "jest --coverage --no-cache",
+    "test:watch": "jest --watch --no-cache",
     "watch": "webpack --watch"
   },
   "author": "Connor Taylor",
@@ -24,6 +25,7 @@
   "devDependencies": {
     "babel-core": "^6.22.1",
     "babel-eslint": "^7.1.1",
+    "babel-jest": "^21.0.2",
     "babel-loader": "^6.2.10",
     "babel-plugin-transform-async-to-generator": "^6.22.0",
     "babel-plugin-transform-flow-strip-types": "^6.22.0",
@@ -42,7 +44,7 @@
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-jsx-a11y": "^3.0.2",
     "eslint-plugin-react": "^6.9.0",
-    "jest": "^18.1.0",
+    "jest-cli": "^21.1.0",
     "mock-fs": "^4.4.1",
     "string-replace-loader": "^1.0.5",
     "webpack": "^3.6.0"
