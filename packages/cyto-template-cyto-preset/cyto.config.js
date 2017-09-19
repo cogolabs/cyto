@@ -3,8 +3,7 @@ module.exports = {
   dependencies: [
     '.gitignore',
     'index.js',
-    '{{package}}.json',
-    (args) => args.files.map((f) => f.id)
+    '{{package}}.json'
   ],
   args: [
     {
