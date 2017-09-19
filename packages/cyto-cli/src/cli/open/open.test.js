@@ -5,4 +5,7 @@
  */
 
 describe('open', () => {
+  it('opens a template for the user', () => {
+
+  });
 });

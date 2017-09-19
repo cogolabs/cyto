@@ -4,7 +4,7 @@
   "description": "The cyto template for cyto presets",
   "main": "cyto.config.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\""
   },
   "author": "Connor Taylor",
   "license": "ISC"

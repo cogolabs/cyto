@@ -4,7 +4,7 @@
   "description": "The CLI for cyto",
   "main": "dist/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "echo \"Error: no test specified\"",
     "watch": "nodemon --exec 'npm run build' src/index.js",
     "transpile": "babel src -d build --copy-files",
     "build": "./build.sh",
