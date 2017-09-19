@@ -7,5 +7,5 @@
     "test": "echo \"Error: no test specified\""
   },
   "author": "Connor Taylor",
-  "license": "ISC"
+  "license": "Apache-2.0"
 }

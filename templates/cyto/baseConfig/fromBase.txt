@@ -1,4 +1,0 @@
-I came from a base template!
-
-My id is the same as the child template: {{id}}
-Value of argument foo: {{foo}}

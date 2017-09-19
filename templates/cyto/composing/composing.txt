@@ -1,1 +1,0 @@
-This template was given a userArg value of: {{userArg}}
