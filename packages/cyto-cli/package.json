@@ -9,7 +9,7 @@
     "transpile": "babel src -d build --copy-files",
     "build": "./build.sh",
     "prepublishOnly": "npm run build",
-    "foo": "echo $PWD"
+    "cyto-local": "node build/index.js"
   },
   "bin": {
     "cyto": "build/index.js"

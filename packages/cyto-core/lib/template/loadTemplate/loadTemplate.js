@@ -4,6 +4,7 @@
  * Written by: Connor Taylor
  */
 import path from 'path';
+import memoize from 'mem';
 
 import loadCytoConfig from '../../configs/loadCytoConfig';
 import getTemplatePackage from '../getTemplatePackage';
@@ -12,8 +13,6 @@ import file from '../../utils/file';
 import types from '../../utils/types';
 import evalRequire from '../../utils/evalRequire';
 
-// Make sure we don't have to reload a template multiple times
-const CACHE = {};
 
 /**
  * Reads the contents of a template. Returns an object that maps file names
@@ -23,11 +22,7 @@ const CACHE = {};
  * @param {string} templateId - The template to load
  * @returns {object} The mapping of names to contents
  */
-export default function loadTemplate(templateId) {
-  if (CACHE[templateId]) {
-    return CACHE[templateId];
-  }
-
+const loadTemplate = (templateId) => {
   const cytoConfig = loadCytoConfig(templateId);
   const loadedTemplate = cytoConfig
     .dependencies
@@ -44,7 +39,7 @@ export default function loadTemplate(templateId) {
       };
     }, {});
 
-  CACHE[templateId] = loadedTemplate;
-
   return loadedTemplate;
-}
+};
+
+export default memoize(loadTemplate);
