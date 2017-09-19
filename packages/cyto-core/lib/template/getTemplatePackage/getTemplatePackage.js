@@ -3,6 +3,7 @@
  * getTemplatePackage.js
  * Written by: Connor Taylor
  */
+import memoize from 'mem';
 import types from '../../utils/types';
 import evalRequire from '../../utils/evalRequire';
 
@@ -20,7 +21,7 @@ const SCOPE_TAG = '@';
  *
  * @param {string} templateId - The string to format
  */
-export default function getTemplatePackage(templateId) {
+const getTemplatePackage = (templateId) => {
   if (!types.isString(templateId)) {
     throw new Error(`${templateId} is not a string`);
   }
@@ -36,4 +37,6 @@ export default function getTemplatePackage(templateId) {
   } catch (e) {
     throw new Error(`Could not find package ${packageName} for ${templateId} in node_modules`);
   }
-}
+};
+
+export default memoize(getTemplatePackage);

@@ -3,6 +3,8 @@
  * loadCytoConfig.js
  * Written by: Connor Taylor
  */
+import memoize from 'mem';
+
 import mergeCytoConfigs from '../mergeCytoConfigs';
 import validateTemplate from '../../template/validateTemplate';
 import getTemplatePackage from '../../template/getTemplatePackage';
@@ -26,7 +28,7 @@ import evalRequire from '../../utils/evalRequire';
  * @param {string} templateId - The template to load
  * @returns {Object} The loaded cyto.config.js object
  */
-export default function loadCytoConfig(templateId) {
+const loadCytoConfig = (templateId) => {
   const templatePackage = getTemplatePackage(templateId);
   const rawConfig = evalRequire(templatePackage);
 
@@ -49,4 +51,6 @@ export default function loadCytoConfig(templateId) {
         loadCytoConfig(formattedConfig.base.templateId),
       )
     : formattedConfig;
-}
+};
+
+export default memoize(loadCytoConfig);

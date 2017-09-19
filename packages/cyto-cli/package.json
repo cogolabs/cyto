@@ -8,8 +8,7 @@
     "watch": "nodemon --exec 'npm run build' src/index.js",
     "transpile": "babel src -d build --copy-files",
     "build": "./build.sh",
-    "prepublishOnly": "npm run build",
-    "cyto-local": "node build/index.js"
+    "prepublishOnly": "npm run build"
   },
   "bin": {
     "cyto": "build/index.js"

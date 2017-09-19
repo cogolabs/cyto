@@ -2,14 +2,13 @@
  * renderPartial.js
  * Written by: Connor Taylor
  */
-import loadGlobalConfig from '../../configs/loadGlobalConfig';
+import getAuthorArg from '../../args/getAuthorArg';
 import loadCytoConfig from '../../configs/loadCytoConfig';
 import isValidPartialTemplate from '../isValidPartialTemplate';
 import parsePartialString from '../parsePartialString';
 
 /* Handles rendering a partial inside of a dependency file. Checks to make sure
  * it's valid, then calls generateTemplate to get the generated contents.
- *
  */
 const renderPartial = (generateTemplate) => {
   return async (partialString, context) => {
@@ -24,7 +23,7 @@ const renderPartial = (generateTemplate) => {
       templateId,
       args: {
         ...context,
-        author: loadGlobalConfig().author,
+        author: getAuthorArg(),
         isPartial: true,
         id,
       },
