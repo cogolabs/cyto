@@ -1,6 +1,6 @@
 {
   "name": "cyto-core",
-  "version": "0.7.3",
+  "version": "0.7.4",
   "description": "The core library that powers cyto's template generation",
   "main": "build/index.js",
   "scripts": {
