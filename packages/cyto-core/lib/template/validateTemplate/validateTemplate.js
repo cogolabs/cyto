@@ -19,11 +19,11 @@ import validateDependencies from '../../dependencies/validateDependencies';
  * called after the cyto.config.js file has been loaded but BEFORE its
  * string dependencies have been converted to arrays.
  *
- * @param { Object } config - The config to validate
- * @param { string } providedId - The templateId given by the user on the CLI
+ * @param {Object} config - The config to validate
+ * @param {string} providedId - The templateId given by the user on the CLI
  */
-export default function validateTemplate(config, pkgString) {
-  validCytoConfig(config, pkgString);
+export default function validateTemplate(config, providedId) {
+  validCytoConfig(config, providedId);
   validateDependencies(config.dependencies);
   validateTemplateArgs(config.args);
 }

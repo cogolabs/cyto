@@ -2,6 +2,7 @@
  * open.js
  * Written by: Connor Taylor
  */
+import path from 'path';
 import nodeOpen from 'open';
 import {
   getTemplatePackage,
@@ -13,7 +14,7 @@ export default function open(program) {
     .command('open <templateId>')
     .action((templateId, options) => {
       const templatePackage = getTemplatePackage(templateId);
-      const templatePath = require.resolve(templatePackage);
+      const templatePath = path.dirname(require.resolve(templatePackage));
 
       nodeOpen(templatePath);
     });
