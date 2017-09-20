@@ -1,0 +1,12 @@
+{
+  "name": "cyto-template-cyto-arguments",
+  "version": "0.7.6",
+  "description": "A template demonstrating the different types of arguments in Cyto",
+  "repository": "cogolabs/cyto",
+  "main": "cyto.config.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\""
+  },
+  "author": "Connor Taylor",
+  "license": "Apache-2.0"
+}

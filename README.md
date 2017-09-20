@@ -14,7 +14,7 @@ A declarative boilerplate generator designed to help you write less meaningless 
 > alias cyto='npx cyto'
 ```
 
-Npx isn't technically required, but it makes running cyto much simpler. More discussion on this can be found [here](docs/npx.md)
+Npx isn't technically required, but it makes running Cyto much simpler. More discussion on this can be found [here](docs/npx.md)
 
 #### Library
 The `cyto-core` package can be used in a node.js app as a standalone library, but this feature is currently untested and the API is still not entirely stable. This will be updated when the functionality is fully supported.
@@ -23,12 +23,12 @@ The `cyto-core` package can be used in a node.js app as a standalone library, bu
 
 1. [Getting Started](docs/gettingStarted.md)
 2. [Argument Types](docs/arguments.md)
-3. [Creating Your Own Template](docs/creatingTemplates.md)
-4. [Composing Templates](docs/composing.md)
-5. [Runtime Dependencies](docs/runtimeDependencies.md)
-6. [Partial Templates](docs/partialTemplates.md)
-7. [Base Templates](docs/baseTemplates.md)
-8. [Template Options](docs/options.md)
+3. [Composing Templates](docs/composing.md)
+4. [Runtime Dependencies](docs/runtimeDependencies.md)
+5. [Partial Templates](docs/partialTemplates.md)
+6. [Base Templates](docs/baseTemplates.md)
+7. [Template Options](docs/options.md)
+8. [Creating Your Own Template](docs/creatingTemplates.md)
 9. [Best Practices](docs/bestPractices.md)
 10. [API Reference](docs/reference.md)
 

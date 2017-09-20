@@ -2,7 +2,6 @@
   "name": "cyto",
   "version": "0.7.4",
   "description": "A better boilerplate generator",
-  "repository": "cogolabs/cyto",
   "scripts": {
     "build": "lerna run build --stream",
     "postinstall": "lerna bootstrap --stream",
