@@ -59,6 +59,6 @@ module.exports = {
   ],
   options: {
     createDirectory: false,
-    skipRuntimeRendering: false,
+    skipRuntimeRendering: false
   }
 };

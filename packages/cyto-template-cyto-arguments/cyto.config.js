@@ -1,7 +1,7 @@
 module.exports = {
   templateId: "cyto-arguments",
   dependencies: [
-    'demo.txt',
+    'demo.txt'
   ],
   args: [
     {

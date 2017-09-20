@@ -1,0 +1,12 @@
+{
+  "name": "cyto-template-cyto-baseconfig",
+  "version": "0.7.6",
+  "description": "A template that can be used to demonstrate how base templates work",
+  "main": "cyto.config.js",
+  "repository": "cogolabs/cyto",
+  "scripts": {
+    "test": "echo \"Error: no test specified\""
+  },
+  "author": "Connor Taylor",
+  "license": "Apache-2.0"
+}
