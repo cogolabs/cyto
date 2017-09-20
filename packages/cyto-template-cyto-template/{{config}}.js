@@ -1,5 +1,5 @@
 module.exports = {
-  templateId: "{{id}}",
+  templateId: "{{#scope}}{{.}}/{{/scope}}{{id}}",
   dependencies: [
   {{#files}}
     '{{id}}',

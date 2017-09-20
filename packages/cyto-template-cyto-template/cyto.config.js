@@ -36,6 +36,9 @@ module.exports = {
     },
     {
       id: 'description'
+    },
+    {
+      id: 'scope'
     }
   ],
   options: {

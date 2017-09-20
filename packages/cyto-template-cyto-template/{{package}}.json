@@ -1,5 +1,5 @@
 {
-  "name": "cyto-template-{{id}}",
+  "name": "{{#scope}}{{.}}/{{/scope}}cyto-template-{{id}}",
   "version": "1.0.0",
   "description": "{{description}}",
   "main": "cyto.config.js",
