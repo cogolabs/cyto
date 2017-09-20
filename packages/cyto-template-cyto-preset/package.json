@@ -1,6 +1,6 @@
 {
   "name": "cyto-template-cyto-preset",
-  "version": "0.7.2",
+  "version": "0.7.5",
   "description": "The cyto template for cyto presets",
   "main": "cyto.config.js",
   "scripts": {

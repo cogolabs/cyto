@@ -1,6 +1,6 @@
 {
   "name": "cyto-core",
-  "version": "0.7.4",
+  "version": "0.7.5",
   "description": "The core library that powers cyto's template generation",
   "main": "build/index.js",
   "scripts": {
@@ -13,7 +13,7 @@
   "author": "Connor Taylor",
   "license": "Apache-2.0",
   "dependencies": {
-    "cyto-preset-core": "^0.7.2",
+    "cyto-preset-core": "^0.7.5",
     "fu-manchu": "^1.0.1",
     "ini": "^1.3.4",
     "inquirer": "^3.2.3",
