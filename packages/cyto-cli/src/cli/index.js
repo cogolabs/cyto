@@ -1,5 +1,6 @@
 import cli from 'commander';
 
+import cat from './cat';
 import create from './create';
 import gen from './gen';
 import open from './open';
@@ -11,6 +12,7 @@ cli
   .version(packageJson.version);
 
 const commands = [
+  cat,
   create,
   gen,
   open,

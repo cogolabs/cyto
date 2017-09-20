@@ -1,0 +1,14 @@
+{
+  "name": "cyto-preset-tutorials",
+  "version": "0.7.5",
+  "description": "The core templates needed by cyto",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\""
+  },
+  "author": "Connor Taylor",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "cyto-template-cyto-helloWorld": "^0.7.5"
+  }
+}
