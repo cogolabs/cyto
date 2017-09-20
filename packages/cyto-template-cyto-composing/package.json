@@ -1,6 +1,6 @@
 {
   "name": "cyto-template-cyto-composing",
-  "version": "0.7.6",
+  "version": "0.7.7",
   "description": "A Cyto template demonstrating how to compose templates",
   "repository": "cogolabs/cyto",
   "main": "cyto.config.js",
@@ -10,6 +10,6 @@
   "author": "Connor Taylor",
   "license": "Apache-2.0",
   "dependencies": {
-    "cyto-template-cyto-composed": "^0.7.6"
+    "cyto-template-cyto-composed": "^0.7.7"
   }
 }

@@ -1,7 +1,7 @@
 {
   "name": "cyto-template-cyto-arg",
-  "version": "1.0.0",
-  "description": "",
+  "version": "0.7.7",
+  "description": "The partial template for generating a cyto.config.js arg",
   "main": "cyto.config.js",
   "scripts": {
     "test": "echo \"Error: no test specified\""

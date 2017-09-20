@@ -1,6 +1,6 @@
 {
   "name": "cyto-template-cyto-baseconfig",
-  "version": "0.7.6",
+  "version": "0.7.7",
   "description": "A template that can be used to demonstrate how base templates work",
   "main": "cyto.config.js",
   "repository": "cogolabs/cyto",

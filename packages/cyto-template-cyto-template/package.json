@@ -1,6 +1,6 @@
 {
   "name": "cyto-template-cyto-template",
-  "version": "0.7.6",
+  "version": "0.7.7",
   "description": "The template for creating new cyto templates",
   "repository": "cogolabs/cyto",
   "main": "cyto.config.js",
@@ -10,6 +10,6 @@
   "author": "Connor Taylor",
   "license": "Apache-2.0",
   "dependencies": {
-    "cyto-template-cyto-arg": "^0.7.6"
+    "cyto-template-cyto-arg": "^0.7.7"
   }
 }

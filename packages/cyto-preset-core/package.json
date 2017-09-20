@@ -1,6 +1,6 @@
 {
   "name": "cyto-preset-core",
-  "version": "0.7.6",
+  "version": "0.7.7",
   "description": "The core templates needed by cyto",
   "repository": "cogolabs/cyto",
   "main": "index.js",
@@ -11,6 +11,6 @@
   "license": "Apache-2.0",
   "dependencies": {
     "cyto-template-cyto-preset": "^0.7.6",
-    "cyto-template-cyto-template": "^0.7.6"
+    "cyto-template-cyto-template": "^0.7.7"
   }
 }
