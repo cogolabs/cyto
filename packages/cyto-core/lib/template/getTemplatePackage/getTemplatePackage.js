@@ -27,7 +27,7 @@ const getTemplatePackage = (templateId) => {
   }
 
   const packageName = templateId[0] === SCOPE_TAG
-    ? `${templateId.split('/')[0]}/cyto-template-${templateId}`
+    ? `${templateId.split('/')[0]}/cyto-template-${templateId.split('/')[1]}`
     : `cyto-template-${templateId}`;
 
   try {
