@@ -12,6 +12,8 @@
   "dependencies": {
     "cyto-template-cyto-helloworld": "^0.7.6",
     "cyto-template-cyto-arguments": "^0.7.6",
-    "cyto-template-cyto-composing": "^0.7.6"
+    "cyto-template-cyto-composing": "^0.7.6",
+    "cyto-template-cyto-childconfig": "^0.7.6",
+    "cyto-template-cyto-runtimedeps": "^0.7.6"
   }
 }
