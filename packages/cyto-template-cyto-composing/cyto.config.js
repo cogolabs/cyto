@@ -5,15 +5,15 @@ module.exports = {
     {
       templateId: 'cyto-composed',
       args: {
-        id: 'composedTemplate',
+        id: 'composed',
         templateArg: 'I was passed via another template'
       }
-    },
+    }
   ],
   args: [
-    { id: 'userArg' },
+    { id: 'userArg' }
   ],
   options: {
-    createDirectory: false,
+    createDirectory: false
   }
 };

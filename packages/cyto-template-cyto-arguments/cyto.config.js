@@ -39,6 +39,6 @@ module.exports = {
     }
   ],
   options: {
-    createDirectory: false,
+    createDirectory: false
   }
 };

@@ -7,7 +7,7 @@ module.exports = {
   ],
   args: [
   {{#args}}
-    {{> cyto/arg}},
+    {{> cyto-arg}},
   {{/args}}
   ],
   options: {

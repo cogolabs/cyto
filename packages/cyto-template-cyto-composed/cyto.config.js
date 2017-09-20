@@ -1,7 +1,7 @@
 module.exports = {
   templateId: "cyto-composed",
   dependencies: [
-    '{{id}}.txt',
+    '{{id}}.txt'
   ],
   args: [
     { id: 'templateArg' },
@@ -9,10 +9,10 @@ module.exports = {
     {
       id: 'listArg',
       default: [],
-      type: 'list',
+      type: 'list'
     }
   ],
   options: {
-    createDirectory: false,
+    createDirectory: false
   }
 };

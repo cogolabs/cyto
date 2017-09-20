@@ -1,15 +1,15 @@
 module.exports = {
   templateId: "cyto-helloworld",
   dependencies: [
-    '{{id}}.txt',
+    '{{id}}.txt'
   ],
   args: [
     {
       id: 'thingToGreet',
       default: 'world'
-    },
+    }
   ],
   options: {
-    createDirectory: false,
+    createDirectory: false
   }
 };

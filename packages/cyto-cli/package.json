@@ -21,6 +21,7 @@
     "commander": "^2.11.0",
     "cyto-core": "^0.7.6",
     "cyto-template-cyto-template": "^0.7.6",
+    "mkdirp": "0.5.1",
     "open": "0.0.5"
   },
   "devDependencies": {

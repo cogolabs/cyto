@@ -1,0 +1,11 @@
+{
+  "name": "cyto-template-cyto-arg",
+  "version": "1.0.0",
+  "description": "",
+  "main": "cyto.config.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\""
+  },
+  "author": "Connor Taylor",
+  "license": "Apache-2.0"
+}

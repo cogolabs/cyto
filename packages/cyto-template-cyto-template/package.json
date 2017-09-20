@@ -8,5 +8,8 @@
     "test": "echo \"Error: no test specified\""
   },
   "author": "Connor Taylor",
-  "license": "Apache-2.0"
+  "license": "Apache-2.0",
+  "dependencies": {
+    "cyto-template-cyto-arg": "^0.7.6"
+  }
 }

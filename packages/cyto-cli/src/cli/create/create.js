@@ -1,9 +1,8 @@
-/* @flow */
 /**
  * create.js
  * Written by: Connor Taylor
  */
-
+import mkdirp from 'mkdirp';
 import {
   generateTemplate,
   writeTemplate,
@@ -21,6 +20,9 @@ export default function create(program) {
     .description('Create a new cyto template')
     .action(async (id) => {
       const author = getAuthorArg();
+      const [name, group] = id.split('-');
+
+      mkdirp.sync(path.resolve(process.cwd(), name, group));
 
       try {
         const generatedTemplate = await generateTemplate({
