@@ -1,7 +1,8 @@
 {
   "name": "cyto-preset-tutorials",
   "version": "0.7.5",
-  "description": "The core templates needed by cyto",
+  "description": "A collection of tutorial templates",
+  "repository": "cogolabs/cyto",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\""

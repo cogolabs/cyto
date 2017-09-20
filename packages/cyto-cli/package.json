@@ -2,6 +2,7 @@
   "name": "cyto-cli",
   "version": "0.7.5",
   "description": "The CLI for cyto",
+  "repository": "cogolabs/cyto",
   "main": "build/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\"",

@@ -2,6 +2,7 @@
   "name": "cyto-preset-core",
   "version": "0.7.5",
   "description": "The core templates needed by cyto",
+  "repository": "cogolabs/cyto",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\""

@@ -1,7 +1,8 @@
 {
   "name": "cyto-template-cyto-preset",
   "version": "0.7.5",
-  "description": "The cyto template for cyto presets",
+  "description": "The cyto template for making new cyto presets",
+  "repository": "cogolabs/cyto",
   "main": "cyto.config.js",
   "scripts": {
     "test": "echo \"Error: no test specified\""

@@ -2,6 +2,7 @@
   "name": "cyto-template-cyto-template",
   "version": "0.7.5",
   "description": "The template for creating new cyto templates",
+  "repository": "cogolabs/cyto",
   "main": "cyto.config.js",
   "scripts": {
     "test": "echo \"Error: no test specified\""

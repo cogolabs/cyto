@@ -35,7 +35,7 @@ module.exports = {
       dontPrompt: true
     },
     {
-      id: 'description',
+      id: 'description'
     }
   ],
   options: {

@@ -1,7 +1,8 @@
 {
-  "name": "cyto-template-cyto-helloWorld",
+  "name": "cyto-template-cyto-helloworld",
   "version": "0.7.5",
-  "description": "",
+  "description": "The most basic Cyto template possible",
+  "repository": "cogolabs/cyto",
   "main": "cyto.config.js",
   "scripts": {
     "test": "echo \"Error: no test specified\""
