@@ -20,7 +20,7 @@
     "babel-runtime": "^6.26.0",
     "commander": "^2.11.0",
     "cyto-core": "^0.8.0",
-    "cyto-template-cyto-template": "^0.8.0",
+    "cyto-preset-core": "^0.8.0",
     "mkdirp": "0.5.1",
     "open": "0.0.5"
   },
