@@ -1,0 +1,15 @@
+{
+  "name": "cyto-template-cyto-template",
+  "version": "0.8.0",
+  "description": "The template for creating new cyto templates",
+  "repository": "cogolabs/cyto",
+  "main": "cyto.config.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\""
+  },
+  "author": "Connor Taylor",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "cyto-template-cyto-arg": "^0.8.0"
+  }
+}

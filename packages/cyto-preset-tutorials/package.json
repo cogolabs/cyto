@@ -1,0 +1,20 @@
+{
+  "name": "cyto-preset-tutorials",
+  "version": "0.8.0",
+  "description": "A collection of tutorial templates",
+  "repository": "cogolabs/cyto",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\""
+  },
+  "author": "Connor Taylor",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "cyto-template-cyto-arguments": "^0.8.0",
+    "cyto-template-cyto-childconfig": "^0.8.0",
+    "cyto-template-cyto-composing": "^0.8.0",
+    "cyto-template-cyto-helloworld": "^0.8.0",
+    "cyto-template-cyto-partials": "^0.8.0",
+    "cyto-template-cyto-runtimedeps": "^0.8.0"
+  }
+}

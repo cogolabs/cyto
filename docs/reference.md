@@ -5,14 +5,18 @@
 ```js
 module.exports = {
   // The name of the template. This is a unique identifier in the template
-  // ecosystem. The format is <namespace>/<name>. For individuals, a
-  // recommended namespace is your github username.
-  templateId: "taylorc93/project",
+  // ecosystem. The format is <group>-<name>.
+  templateId: "cyto-reference",
 
-  // Templates can also specify a different template as their base template. These
-  // are conceptually similar to docker base images. Anything that is in a base template
-  // will get generated along with the template using it as a base.
-  base: 'taylorc93/base-demo',
+  // Templates can also specify a different template as their base template.
+  // These are conceptually similar to docker base images. Anything that is in a
+  // base template will get generated with the child template's dependencies
+  base: {
+    templateId: 'cyto-baseconfig',
+
+    // You must include the args key, even if you aren't providing any args
+    args: {}
+  }
 
   // dependencies contains all of the required files and templates to create a
   // template.
@@ -23,17 +27,11 @@ module.exports = {
     '.gitignore',
 
     // Templates are objects with at least 2 keys, `templateId` and `id`.
-    // `templateId` is the global template id and `id` is a unique identifier for
-    // that template instance. Templates are pulled from the user's local library
-    { templateId: 'taylorc93/node-module', id: 'src' },
-
-    // Templates can also take an `args` object that will act the same as arguments
-    // passed via the CLI (ie. the user won't be prompted to provide a value
+    // This is the same format as the input to `base`
     {
-      templateId: 'webpack/config',
-      id: 'webpack.config.js',
+      templateId: 'cyto-helloworld',
       args: {
-        foo: 'bar'
+        id: 'reference'
       }
     },
 
@@ -43,7 +41,12 @@ module.exports = {
     (args) => {
       return args
         .units
-        .map((u) => { id: u.id, templateId: 'taylorc93/node-unit'  });
+        .map((u) => ({
+          templateId: 'cyto-helloworld',
+          args: {
+            id: u.id
+          }
+        }));
     }
   ],
 
@@ -51,14 +54,18 @@ module.exports = {
   // template needs to render itself.
   args: [
     {
-      // Every arg must have an id and can be supplied on the command line
-      // via <id>=<val>
+      // Every arg must have an id. This must be unique among all other args in
+      // the template
       id: 'foo',
-      // If an argument is a list, it's type should be set to `list` in order
-      // to be parsed properly when passed via the CLI
+
+      // The type of the arg. Valid types are `string`, `boolean`, `list`, and
+      // `function`. The default is `string`, you can omit the type if your
+      // arg is a string
       type: 'list',
+
       // default is used as the default value if not provided by the user.
       default: [],
+
       // If you want to always use the default value, you can set dontPrompt to
       // true so that Cyto will not prompt the user for the value. Default is
       // false
@@ -66,9 +73,17 @@ module.exports = {
     }
   ],
 
-  // Set to true if you want to create a new directory to hold a generated template's
-  // contents
-  createDirectory: true
+  // Any special options to set while generating this template
+  options: {
+    // Set to true if you want to create a new directory to hold a generated template's
+    // contents
+    createDirectory: true,
+
+    // Set to true if you want any string dependencies generated at runtime to
+    // not be rendered (ie. '{{id}}.txt' will be written to the filesystem as
+    // '{{id}}.txt')
+    skipRuntimeRendering: false
+  }
 };
 ```
 
@@ -77,7 +92,7 @@ Template files are language independent. They are each rendered via [mustache](h
 
 ## Commands
 
-1. `config` - Sets some required information for Cyto. Must be run at least once after installation
+1. `cat <templateId>`
 1. `create <templateId>` - Creates a new template with the given template id.
 1. `gen <templateId> <id>` - Generates the given template with the given id.
 

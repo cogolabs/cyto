@@ -1,0 +1,12 @@
+{
+  "name": "cyto-template-cyto-composed",
+  "version": "0.8.0",
+  "description": "A Cyto template that helps explain how to compose templates",
+  "repository": "cogolabs/cyto",
+  "main": "cyto.config.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\""
+  },
+  "author": "Connor Taylor",
+  "license": "Apache-2.0"
+}

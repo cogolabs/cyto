@@ -1,0 +1,16 @@
+{
+  "name": "cyto-preset-core",
+  "version": "0.8.0",
+  "description": "The core templates needed by cyto",
+  "repository": "cogolabs/cyto",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\""
+  },
+  "author": "Connor Taylor",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "cyto-template-cyto-preset": "^0.8.0",
+    "cyto-template-cyto-template": "^0.8.0"
+  }
+}
