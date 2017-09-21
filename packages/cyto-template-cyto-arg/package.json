@@ -1,6 +1,6 @@
 {
   "name": "cyto-template-cyto-arg",
-  "version": "0.7.7",
+  "version": "0.8.0",
   "description": "The partial template for generating a cyto.config.js arg",
   "main": "cyto.config.js",
   "scripts": {

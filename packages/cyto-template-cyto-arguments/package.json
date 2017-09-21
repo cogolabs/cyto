@@ -1,6 +1,6 @@
 {
   "name": "cyto-template-cyto-arguments",
-  "version": "0.7.7",
+  "version": "0.8.0",
   "description": "A template demonstrating the different types of arguments in Cyto",
   "repository": "cogolabs/cyto",
   "main": "cyto.config.js",

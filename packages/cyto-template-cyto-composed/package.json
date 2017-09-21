@@ -1,6 +1,6 @@
 {
   "name": "cyto-template-cyto-composed",
-  "version": "0.7.7",
+  "version": "0.8.0",
   "description": "A Cyto template that helps explain how to compose templates",
   "repository": "cogolabs/cyto",
   "main": "cyto.config.js",

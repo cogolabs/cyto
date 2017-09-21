@@ -1,6 +1,6 @@
 {
   "name": "cyto-template-cyto-childconfig",
-  "version": "0.7.8",
+  "version": "0.8.0",
   "description": "A template demonstrating how to use the base key in a cyto.config.js",
   "repository": "cogolabs/cyto",
   "main": "cyto.config.js",
@@ -10,6 +10,6 @@
   "author": "Connor Taylor",
   "license": "Apache-2.0",
   "dependencies": {
-    "cyto-template-cyto-baseconfig": "^0.7.7"
+    "cyto-template-cyto-baseconfig": "^0.8.0"
   }
 }
