@@ -2,6 +2,7 @@
  * create.js
  * Written by: Connor Taylor
  */
+import path from 'path';
 import mkdirp from 'mkdirp';
 import {
   generateTemplate,
