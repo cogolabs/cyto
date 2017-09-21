@@ -11,6 +11,7 @@ import {
 export default function verify(program) {
   program
     .command('verify <templateId>')
+    .description('Verify that there a cyto template is valid')
     .action((templateId) => {
       const templatePackage = getTemplatePackage(templateId);
       const config = require(templatePackage);

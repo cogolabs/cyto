@@ -60,10 +60,10 @@ The parent template supplied this value: {{templateArg}}
 
 ## Object dependency structure
 
-Object dependencies must have 2 keys: 
+Object dependencies must have 2 keys:
 
-1. `templateId`: specifies the template we need to generate 
-2.  `args`: An object that maps argument ids to values. Cyto will not prompt the user for any arguments supplied this way. 
+1. `templateId`: specifies the template we need to generate
+2.  `args`: An object that maps argument ids to values. Cyto will not prompt the user for any arguments supplied this way.
 
 Remember that the `id` arg is required for all templates, so it must be supplied by the parent template. Let's see what the generation flow for `cyto-composing` looks like:
 

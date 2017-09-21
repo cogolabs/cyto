@@ -12,6 +12,7 @@ import {
 export default function cat(program) {
   program
     .command('cat <templateId>')
+    .description('Prints the cyto.config.js file for the specified template')
     .action((templateId) => {
       const templatePackage = getTemplatePackage(templateId);
       const configPath = require.resolve(templatePackage);
