@@ -1,0 +1,14 @@
+{
+  "name": "cyto-template-cyto-partials",
+  "version": "0.8.0",
+  "description": "A template demonstrating how partials work",
+  "main": "cyto.config.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\""
+  },
+  "author": "Connor Taylor",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "cyto-template-cyto-helloworld": "^0.8.0"
+  }
+}

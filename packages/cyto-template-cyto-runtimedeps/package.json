@@ -1,0 +1,15 @@
+{
+  "name": "cyto-template-cyto-runtimedeps",
+  "version": "0.8.0",
+  "description": "A template that demonstrates how runtime dependencies work",
+  "main": "cyto.config.js",
+  "repository": "cogolabs/cyto",
+  "scripts": {
+    "test": "echo \"Error: no test specified\""
+  },
+  "author": "Connor Taylor",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "cyto-template-cyto-composed": "^0.8.0"
+  }
+}

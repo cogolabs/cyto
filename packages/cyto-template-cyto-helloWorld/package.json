@@ -1,0 +1,12 @@
+{
+  "name": "cyto-template-cyto-helloworld",
+  "version": "0.8.0",
+  "description": "The most basic Cyto template possible",
+  "repository": "cogolabs/cyto",
+  "main": "cyto.config.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\""
+  },
+  "author": "Connor Taylor",
+  "license": "Apache-2.0"
+}
