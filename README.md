@@ -44,7 +44,7 @@ Cyto is written and maintained by Connor Taylor [@taylorc93](https://github.com/
     - For all of the documentation edits and user testing
 1. Alicia Payette [apayette](https://github.com/apayette)
     - For designing the awesome logo
-1. Alex Kasemir [annarichardson](https://github.com/annarichardson)
+1. Alex Kasemir [alexkasemir](https://github.com/alexkasemir)
     - For documentation edits and user testing
-1. Anna Richardson [alexkasemir](https://github.com/alexkasemir)
+1. Anna Richardson [annarichardson](https://github.com/annarichardson)
     - For user testing
