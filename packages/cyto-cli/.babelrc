@@ -2,12 +2,11 @@
   "presets": [
     ["env", {
       "targets": {
-        "node": 4
+        "node": 6
       }
     }]
   ],
   "plugins": [
-    "transform-flow-strip-types",
     "transform-runtime",
     "transform-async-to-generator",
     "transform-object-rest-spread"

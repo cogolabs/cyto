@@ -12,7 +12,7 @@ import {
   log,
 } from 'cyto-core';
 
-export default function gen(program: Object) {
+export default function gen(program) {
   program
     .command('gen <templateId> <id>')
     .alias('generate')
