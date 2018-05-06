@@ -1,12 +1,14 @@
 {
   "name": "cyto-core",
-  "version": "0.8.0",
+  "version": "0.9.0-0",
   "description": "The core library that powers cyto's template generation",
   "repository": "cogolabs/cyto",
-  "main": "build/index.js",
+  "main": "build/cyto.js",
   "scripts": {
+    "analyze": "NODE_ENV=production ANALYZE=true webpack",
     "build": "NODE_ENV=production webpack",
-    "prepublishOnly": "npm run build",
+    "build:dev": "NODE_ENV=development webpack",
+    "prepack": "npm run build",
     "test": "jest --coverage --no-cache",
     "test:watch": "jest --watch",
     "watch": "webpack --watch"
@@ -14,7 +16,7 @@
   "author": "Connor Taylor",
   "license": "Apache-2.0",
   "dependencies": {
-    "cyto-preset-core": "^0.8.0",
+    "cyto-preset-core": "^0.9.0-0",
     "fu-manchu": "^1.0.1",
     "ini": "^1.3.5",
     "inquirer": "^5.2.0",
@@ -32,12 +34,10 @@
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-plugin-transform-runtime": "^6.23.0",
     "babel-preset-env": "^1.6.1",
-    "babili-webpack-plugin": "^0.1.2",
     "eslint": "^4.19.1",
     "eslint-config-airbnb": "^16.1.0",
     "eslint-config-airbnb-base": "^12.1.0",
     "eslint-loader": "^2.0.0",
-    "eslint-plugin-flowtype": "^2.46.3",
     "eslint-plugin-import": "^2.11.0",
     "eslint-plugin-jsx-a11y": "^6.0.3",
     "eslint-plugin-react": "^7.7.0",
@@ -45,6 +45,8 @@
     "jest-cli": "^22.4.3",
     "mock-fs": "^4.4.2",
     "string-replace-loader": "^2.1.1",
-    "webpack": "^4.7.0"
+    "webpack": "^4.7.0",
+    "webpack-bundle-analyzer": "^2.11.1",
+    "webpack-cli": "^2.1.3"
   }
 }

@@ -1,6 +1,6 @@
 {
   "name": "cyto-template-cyto-template",
-  "version": "0.8.0",
+  "version": "0.9.0-0",
   "description": "The template for creating new cyto templates",
   "repository": "cogolabs/cyto",
   "main": "cyto.config.js",

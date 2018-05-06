@@ -1,6 +1,6 @@
 {
   "name": "cyto-cli",
-  "version": "0.8.1",
+  "version": "0.9.0-0",
   "description": "The CLI for cyto",
   "repository": "cogolabs/cyto",
   "main": "build/index.js",
@@ -9,7 +9,7 @@
     "watch": "nodemon --exec 'npm run build' src/index.js",
     "transpile": "babel src -d build --copy-files",
     "build": "./build.sh",
-    "prepublishOnly": "npm run build"
+    "prepack": "npm run build"
   },
   "bin": {
     "cyto": "build/index.js"
@@ -19,8 +19,8 @@
   "dependencies": {
     "babel-runtime": "^6.26.0",
     "commander": "^2.15.1",
-    "cyto-core": "^0.8.0",
-    "cyto-preset-core": "^0.8.0",
+    "cyto-core": "^0.9.0-0",
+    "cyto-preset-core": "^0.9.0-0",
     "mkdirp": "0.5.1",
     "open": "0.0.5"
   },
